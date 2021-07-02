@@ -11,10 +11,11 @@ class EditDayState extends WeekDaysEvent {
 
 class EditDayVisible extends WeekDaysEvent {
   final bool visible;
-  final String dayName;
   final int position;
 
-  EditDayVisible(this.visible, this.dayName, this.position);
+  EditDayVisible(this.visible, this.position);
 }
 
 class CurrentDay extends WeekDaysEvent {}
+
+class LoadDays extends WeekDaysEvent {}

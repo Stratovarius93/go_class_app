@@ -5,6 +5,7 @@ import 'package:go_class_app/data/roomClasses.dart';
 import 'package:go_class_app/data/signatures.dart';
 import 'package:go_class_app/data/signaturesName.dart';
 import 'package:go_class_app/data/teachers.dart';
+import 'package:go_class_app/models/daySchedule_model.dart';
 import 'package:go_class_app/models/itemSchedule_model.dart';
 import 'package:go_class_app/models/room_model.dart';
 import 'package:go_class_app/models/signature_model.dart';
@@ -26,7 +27,8 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     } else if (event is AddSchedule) {
       yield* _addSchedule(event.currentDay!, event.schedule);
     } else if (event is EditSchedule) {
-      yield* _editSchedule(event.currentDay!, event.position!, event.newSchedule);
+      yield* _editSchedule(
+          event.currentDay!, event.position!, event.newSchedule);
     } else if (event is RemoveSchedule) {
       yield* _removeSchedule(event.currentDay, event.position);
     } else if (event is RemoveScheduleTeacher) {
@@ -43,109 +45,144 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       yield* _editScheduleClassroom(event.lastClassroom, event.newClassroom);
     } else if (event is SortScheduleList) {
       yield* _sortList();
+    } else if (event is EditScheduleVisible) {
+      yield* _editScheduleVisible(event.visible, event.position);
     }
   }
 }
 
 Stream<ScheduleState> _loadSchedule() async* {
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _addSchedule(
     int currentDay, ItemScheduleModel schedule) async* {
-  scheduleListGeneral[currentDay].add(schedule);
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  _scheduleListGeneral[currentDay].scheduleList.add(schedule);
+  _updateList(_scheduleListGeneral);
+  _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _editSchedule(
     int currentDay, int position, ItemScheduleModel schedule) async* {
-  scheduleListGeneral[currentDay][position] = schedule;
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  _scheduleListGeneral[currentDay].scheduleList[position] = schedule;
+  _updateList(_scheduleListGeneral);
+  _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _removeSchedule(int currentDay, int position) async* {
-  scheduleListGeneral[currentDay].removeAt(position);
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  _scheduleListGeneral[currentDay].scheduleList.removeAt(position);
+  _updateList(_scheduleListGeneral);
+  _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _removeScheduleTeacher(int position) async* {
   TeacherModel _teacher = _teacherByPosition(position);
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].teacher == _teacher) {
-        scheduleListGeneral[i][j].teacher = null;
+    for (var j = 0, len = scheduleListGeneral[i].scheduleList.length;
+        j < len;
+        ++j) {
+      if (scheduleListGeneral[i].scheduleList[j].teacher == _teacher) {
+        scheduleListGeneral[i].scheduleList[j].teacher = null;
       }
     }
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _editScheduleTeacher(
     TeacherModel? lastTeacher, TeacherModel newTeacher) async* {
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].teacher == lastTeacher) {
-        scheduleListGeneral[i][j].teacher = newTeacher;
+    for (var j = 0, len = scheduleListGeneral[i].scheduleList.length;
+        j < len;
+        ++j) {
+      if (scheduleListGeneral[i].scheduleList[j].teacher == lastTeacher) {
+        scheduleListGeneral[i].scheduleList[j].teacher = newTeacher;
       }
     }
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _removeScheduleSignature(int position) async* {
   SignatureModel _signature = _signatureByPosition(position);
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].name == _signature) {
-        scheduleListGeneral[i].removeAt(j);
-      }
-    }
+    scheduleListGeneral[i]
+        .scheduleList
+        .removeWhere((element) => element.name == _signature);
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _editScheduleSignature(
     SignatureModel lastSignature, SignatureModel newSignature) async* {
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].name == lastSignature) {
-        scheduleListGeneral[i][j].name = newSignature;
+    for (var j = 0, len = scheduleListGeneral[i].scheduleList.length;
+        j < len;
+        ++j) {
+      if (scheduleListGeneral[i].scheduleList[j].name == lastSignature) {
+        scheduleListGeneral[i].scheduleList[j].name = newSignature;
       }
     }
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _removeScheduleClassroom(int position) async* {
   ClassroomModel _classroom = _classroomByPosition(position);
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].classroom == _classroom) {
-        scheduleListGeneral[i][j].classroom = null;
+    for (var j = 0, len = scheduleListGeneral[i].scheduleList.length;
+        j < len;
+        ++j) {
+      if (scheduleListGeneral[i].scheduleList[j].classroom == _classroom) {
+        scheduleListGeneral[i].scheduleList[j].classroom = null;
       }
     }
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _editScheduleClassroom(
     ClassroomModel lastClassroom, ClassroomModel newClassroom) async* {
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
-    for (var j = 0, len = scheduleListGeneral[i].length; j < len; ++j) {
-      if (scheduleListGeneral[i][j].classroom == lastClassroom) {
-        scheduleListGeneral[i][j].classroom = newClassroom;
+    for (var j = 0, len = scheduleListGeneral[i].scheduleList.length;
+        j < len;
+        ++j) {
+      if (scheduleListGeneral[i].scheduleList[j].classroom == lastClassroom) {
+        scheduleListGeneral[i].scheduleList[j].classroom = newClassroom;
       }
     }
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 Stream<ScheduleState> _sortList() async* {
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
     scheduleListGeneral[i]
+        .scheduleList
         .sort((a, b) => a.timeIn.hour.compareTo(b.timeIn.hour));
   }
-  yield ScheduleState(scheduleList: scheduleListGeneral);
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
+}
+
+Stream<ScheduleState> _editScheduleVisible(bool visible, int position) async* {
+  scheduleListGeneral[position].visible = visible;
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
 TeacherModel _teacherByPosition(int position) => teachersList[position];
@@ -154,3 +191,23 @@ SignatureModel _signatureByPosition(int position) =>
     signaturesNameList[position];
 
 ClassroomModel _classroomByPosition(int position) => classroomList[position];
+
+List<DayScheduleModel> _listVisible() {
+  List<DayScheduleModel> _newList = [];
+  for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
+    if (scheduleListGeneral[i].visible) {
+      _newList.add(scheduleListGeneral[i]);
+    }
+  }
+  return _newList;
+}
+
+_updateList(List<DayScheduleModel> newList) {
+  for (var i = 0, len = newList.length; i < len; ++i) {
+    for (var j = 0, len = scheduleListGeneral.length; j < len; ++j) {
+      if (newList[i].day == scheduleListGeneral[j].day) {
+        scheduleListGeneral[j] = newList[i];
+      }
+    }
+  }
+}

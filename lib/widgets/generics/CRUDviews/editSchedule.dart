@@ -63,8 +63,11 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                       )),
                   title: GenericBodyText(
                     title: 'Editar asignatura',
-                    color:
-                        Theme.of(context).appBarTheme.textTheme!.headline1!.color,
+                    color: Theme.of(context)
+                        .appBarTheme
+                        .textTheme!
+                        .headline1!
+                        .color,
                   ),
                   backgroundColor:
                       Theme.of(context).appBarTheme.backgroundColor,
@@ -98,9 +101,7 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                         GenericBottomButton(
                             title: 'Guardar cambios',
                             onTap: () async {
-                              if (stateSignature.signatureName != null &&
-                                  stateSignature.timeIn != null &&
-                                  stateSignature.timeOut != null) {
+                              if (stateSignature.signatureName != null) {
                                 ItemScheduleModel _itemSchedule =
                                     ItemScheduleModel(
                                         name: stateSignature.signatureName,

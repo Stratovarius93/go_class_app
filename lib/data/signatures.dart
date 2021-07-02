@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_class_app/data/daysWeek_data.dart';
 import 'package:go_class_app/data/roomClasses.dart';
 import 'package:go_class_app/data/teachers.dart';
+import 'package:go_class_app/models/daySchedule_model.dart';
 import 'package:go_class_app/models/itemSchedule_model.dart';
 import 'package:go_class_app/models/signature_model.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
@@ -117,12 +119,19 @@ List<ItemScheduleModel> scheduleList6 = [
       color: AppColorLight.listSchedule[1])
 ];
 
-List<List<ItemScheduleModel>> scheduleListGeneral = [
-  scheduleList0,
-  scheduleList1,
-  scheduleList2,
-  scheduleList3,
-  scheduleList4,
-  scheduleList5,
-  scheduleList6
+List<DayScheduleModel> scheduleListGeneral = [
+  DayScheduleModel(
+      scheduleList: scheduleList0, visible: true, day: weekList[0].name),
+  DayScheduleModel(
+      scheduleList: scheduleList1, visible: true, day: weekList[1].name),
+  DayScheduleModel(
+      scheduleList: scheduleList2, visible: true, day: weekList[2].name),
+  DayScheduleModel(
+      scheduleList: scheduleList3, visible: false, day: weekList[3].name),
+  DayScheduleModel(
+      scheduleList: scheduleList4, visible: true, day: weekList[4].name),
+  DayScheduleModel(
+      scheduleList: scheduleList5, visible: false, day: weekList[5].name),
+  DayScheduleModel(
+      scheduleList: scheduleList6, visible: false, day: weekList[6].name),
 ];

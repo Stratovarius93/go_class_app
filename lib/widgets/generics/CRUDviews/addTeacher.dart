@@ -84,8 +84,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                           ),
                           Expanded(
                             child: GenericInput(
-                              validator: (value) {
-                                return value.isNotEmpty ? null : 'Campo vacío';
+                              validator: (String? value) {
+                                return value!.isNotEmpty ? null : 'Campo vacío';
                               },
                               onChanged: (value) {
                                 _name = value;

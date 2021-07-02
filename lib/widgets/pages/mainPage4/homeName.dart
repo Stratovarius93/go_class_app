@@ -19,7 +19,7 @@ class __NameHomeState extends State<_NameHome> {
             title: 'Nombre',
           ),
         ),
-        subtitle: (state.name != null)
+        subtitle: (state.name.length > 0)
             ? GenericCardSubtitle(
                 title: '${state.name}',
               )
@@ -56,8 +56,8 @@ Future<void> showAlertNameEdit(BuildContext context, String name) async {
             GenericInput(
               controller: TextEditingController(text: name),
               autofocus: true,
-              validator: (value) {
-                return value.isNotEmpty ? null : 'Campo vacío';
+              validator: (String? value) {
+                return value!.isNotEmpty ? null : 'Campo vacío';
               },
               onChanged: (value) {
                 _newValueAdd = value;

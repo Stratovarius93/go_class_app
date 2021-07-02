@@ -1,7 +1,7 @@
 class SignatureModel {
-  String? name;
+  String name;
 
   SignatureModel({
-    this.name,
+    required this.name,
   });
 }

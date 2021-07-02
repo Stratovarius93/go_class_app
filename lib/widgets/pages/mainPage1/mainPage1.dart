@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
-import 'package:go_class_app/data/daysWeek_data.dart';
 import 'package:go_class_app/models/itemSchedule_model.dart';
 import 'package:go_class_app/models/room_model.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
+import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/constants/shadows.dart';
+import 'package:go_class_app/widgets/generics/CRUDviews/editRoomClass.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/editSchedule.dart';
+import 'package:go_class_app/widgets/generics/addNewItem.dart';
 import 'package:go_class_app/widgets/generics/background.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
+import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItem.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItemModel.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
@@ -21,6 +26,7 @@ import 'package:go_class_app/widgets/generics/title.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:math' as math;
 
 part 'listSignatures.dart';
 part 'daysWeek.dart';
@@ -43,6 +49,7 @@ class _MainPage1State extends State<MainPage1> {
   void initState() {
     super.initState();
     _context = widget.contextRoute;
+    BlocProvider.of<NameBloc>(context).add(LoadName());
     BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay());
   }
 

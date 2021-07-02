@@ -8,12 +8,15 @@ import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 
-Future<void> showAlertSignatureEdit(BuildContext context, SignatureModel signature,
-    int position, GlobalKey<FormState> formKey) async {
+Future<void> showAlertSignatureEdit(
+    BuildContext context,
+    SignatureModel signature,
+    int position,
+    GlobalKey<FormState> formKey) async {
   return await showDialog(
     context: context,
     builder: (context) {
-      String? _newValueAdd = signature.name;
+      String _newValueAdd = signature.name;
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -35,8 +38,8 @@ Future<void> showAlertSignatureEdit(BuildContext context, SignatureModel signatu
             GenericInput(
               controller: TextEditingController(text: signature.name),
               autofocus: true,
-              validator: (value) {
-                return value.isNotEmpty ? null : 'Campo vacío';
+              validator: (String? value) {
+                return value!.isNotEmpty ? null : 'Campo vacío';
               },
               onChanged: (value) {
                 _newValueAdd = value;
@@ -63,8 +66,8 @@ Future<void> showAlertSignatureEdit(BuildContext context, SignatureModel signatu
               if (formKey.currentState!.validate()) {
                 SignatureModel _newSignature =
                     SignatureModel(name: _newValueAdd);
-                BlocProvider.of<ScheduleBloc>(context).add(
-                    EditScheduleSignatureName(signature, _newSignature));
+                BlocProvider.of<ScheduleBloc>(context)
+                    .add(EditScheduleSignatureName(signature, _newSignature));
                 BlocProvider.of<SignaturesBloc>(context)
                     .add(EditSignature(position, _newSignature));
                 _newValueAdd = '';
@@ -211,8 +214,8 @@ Future<void> showAlertSignatureAdd(
                 height: 16,
               ),
               GenericInput(
-                validator: (value) {
-                  return value.isNotEmpty ? null : 'Campo vacío';
+                validator: (String? value) {
+                  return value!.isNotEmpty ? null : 'Campo vacío';
                 },
                 onChanged: (value) {
                   _valueAdd = value;

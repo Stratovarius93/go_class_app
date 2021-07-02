@@ -8,6 +8,7 @@ import 'package:go_class_app/models/teacher_model.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/editTeacher.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/removeTeachers.dart';
 import 'package:go_class_app/widgets/generics/actionTextRight.dart';
+import 'package:go_class_app/widgets/generics/addNewItem.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItem.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItemModel.dart';
@@ -77,7 +78,7 @@ class _MainPage3State extends State<MainPage3> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _Teachers(),
+                  child: _Teachers(buildContext: widget.contextRoute!),
                 ),
                 SizedBox(
                   height: 50,
@@ -92,6 +93,9 @@ class _MainPage3State extends State<MainPage3> {
 }
 
 class _Teachers extends StatefulWidget {
+  final BuildContext buildContext;
+
+  const _Teachers({Key? key, required this.buildContext}) : super(key: key);
   @override
   __TeachersState createState() => __TeachersState();
 }
@@ -106,67 +110,78 @@ class __TeachersState extends State<_Teachers> {
   @override
   Widget build(BuildContext context) {
     final double _degrees = 15;
-    return BlocBuilder<TeacherBloc, TeacherState>(
-      builder: (context, state) => GenericCard(
-        child: ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: state.listTeachers.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) => ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 16),
-            leading: CircleAvatar(
-              backgroundColor:
-                  Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
-              child: Center(
-                child: Transform.rotate(
-                  angle: _degrees * -math.pi / 180,
-                  child: Text(
-                    '${state.listTeachers[index].name[0]}',
-                    style: AppFont.font(TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 26,
-                        fontWeight: FontWeight.w400)),
+    return BlocBuilder<TeacherBloc, TeacherState>(builder: (context, state) {
+      if (state.listTeachers.isNotEmpty) {
+        return GenericCard(
+          child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: state.listTeachers.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) => ListTile(
+              contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 16),
+              leading: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
+                child: Center(
+                  child: Transform.rotate(
+                    angle: _degrees * -math.pi / 180,
+                    child: Text(
+                      '${state.listTeachers[index].name[0]}',
+                      style: AppFont.font(TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w400)),
+                    ),
                   ),
                 ),
               ),
+              title: Text(
+                '${state.listTeachers[index].name} ${state.listTeachers[index].lastName}',
+                style: AppFont.font(TextStyle(
+                    color: Theme.of(context).textTheme.headline3!.color)),
+              ),
+              subtitle: Text(
+                '${state.listTeachers[index].phoneNumber}',
+                style: AppFont.font(TextStyle(
+                    color: Theme.of(context).textTheme.headline2!.color)),
+              ),
+              trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                (state.listTeachers[index].phoneNumber!.length != 0)
+                    ? IconButton(
+                        onPressed: () {
+                          _callNumber(state.listTeachers[index].phoneNumber!);
+                        },
+                        icon: Icon(
+                          Ionicons.call_outline,
+                          color: Theme.of(context).primaryColor,
+                        ))
+                    : Container(),
+                GenericPopMenuItem(
+                    popupMenuItemModelList:
+                        _listOptions(context, state.listTeachers[index], index))
+              ]),
             ),
-            title: Text(
-              '${state.listTeachers[index].name} ${state.listTeachers[index].lastName}',
-              style: AppFont.font(TextStyle(
-                  color: Theme.of(context).textTheme.headline3!.color)),
-            ),
-            subtitle: Text(
-              '${state.listTeachers[index].phoneNumber}',
-              style: AppFont.font(TextStyle(
-                  color: Theme.of(context).textTheme.headline2!.color)),
-            ),
-            trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-              (state.listTeachers[index].phoneNumber!.length != 0)
-                  ? IconButton(
-                      onPressed: () {
-                        _callNumber(state.listTeachers[index].phoneNumber!);
-                      },
-                      icon: Icon(
-                        Ionicons.call_outline,
-                        color: Theme.of(context).primaryColor,
-                      ))
-                  : Container(),
-              GenericPopMenuItem(
-                  popupMenuItemModelList:
-                      _listOptions(context, state.listTeachers[index], index))
-            ]),
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                indent: 16,
+                endIndent: 16,
+                height: 1,
+                color: Colors.grey.withOpacity(0.5),
+              );
+            },
           ),
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              indent: 16,
-              endIndent: 16,
-              height: 1,
-              color: Colors.grey.withOpacity(0.5),
-            );
-          },
-        ),
-      ),
-    );
+        );
+      } else {
+        return GenericAddNewItem(
+            onTap: () {
+              Navigator.pushNamed(
+                widget.buildContext,
+                'mainPage3CreateTeacher',
+              );
+            },
+            iconData: Ionicons.person_outline);
+      }
+    });
   }
 }
 

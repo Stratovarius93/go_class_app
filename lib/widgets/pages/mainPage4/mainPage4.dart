@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
+import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
 import 'package:go_class_app/data/daysWeek_data.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
@@ -95,7 +96,7 @@ class _MainPage4State extends State<MainPage4> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: _paddingCardLR),
-                                child: GenericCard(
+                                child: GenericCard2(
                                   child: _categoriesWidget[index],
                                 ),
                               ),
@@ -189,8 +190,6 @@ Widget _notifications(BuildContext context, Function(bool) onChanged) {
 Widget _weekDays(BuildContext context) {
   return BlocBuilder<WeekDaysBloc, WeekDaysState>(
     builder: (BuildContext context, state) {
-      //List<String>? _list =[ state.daysList[0].name];
-
       List<String>? _list;
       _list = state.daysList.map((e) {
         if (e.visible) {
@@ -202,22 +201,15 @@ Widget _weekDays(BuildContext context) {
         onChange: (visible, dayName, position) {
           print('$visible , $dayName, $position');
           BlocProvider.of<WeekDaysBloc>(context)
-              .add(EditDayVisible(visible, dayName, position));
+              .add(EditDayVisible(visible, position));
+          BlocProvider.of<ScheduleBloc>(context)
+              .add(EditScheduleVisible(visible, position));
         },
         checked: _list,
-        //weekList.map((e) {
-        //if (e.visible) {
-        //return e.name;
-        //}
-        //}).toList(),
-
         activeColor: Theme.of(context).primaryColor,
         labelStyle: AppFont.font(
             TextStyle(color: Theme.of(context).textTheme.headline3!.color)),
         labels: weekList.map((e) => e.name).toList(),
-        //onSelected: (List<String> checked) {
-        //print(checked.toString());
-        //}
       );
     },
   );

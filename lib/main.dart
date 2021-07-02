@@ -10,6 +10,8 @@ import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
+import 'package:go_class_app/data/db.dart';
+import 'package:go_class_app/data/mainState_store.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addRoomClass.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/addSchedule.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addTeacher.dart';
@@ -24,16 +26,30 @@ import 'package:go_class_app/widgets/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DB.instance.init();
+  await MainStateStore.instance.init();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   runApp(AppState(
     savedThemeMode: savedThemeMode,
   ));
 }
 
-class AppState extends StatelessWidget {
+class AppState extends StatefulWidget {
   final AdaptiveThemeMode? savedThemeMode;
 
   const AppState({Key? key, this.savedThemeMode}) : super(key: key);
+
+  @override
+  _AppStateState createState() => _AppStateState();
+}
+
+class _AppStateState extends State<AppState> {
+  @override
+  void dispose() {
+    DB.instance.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -51,7 +67,7 @@ class AppState extends StatelessWidget {
         BlocProvider<CRUDsignatureBloc>(create: (_) => CRUDsignatureBloc()),
       ],
       child: ThemeController(
-        savedThemeMode: savedThemeMode,
+        savedThemeMode: widget.savedThemeMode,
       ),
     );
   }
@@ -87,7 +103,9 @@ class _ThemeControllerState extends State<ThemeController> {
               theme: theme,
               darkTheme: darkTheme,
               title: 'MyApp',
-              initialRoute: 'homePage2',
+              initialRoute: (MainStateStore.instance.mainState)
+                  ? 'mainIndex'
+                  : 'homePage2',
               routes: {
                 'mainIndex': (BuildContext context) => MainIndex(),
                 'mainPage1': (BuildContext context) => MainPage1(),

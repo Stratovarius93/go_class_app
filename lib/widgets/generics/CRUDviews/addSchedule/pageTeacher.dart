@@ -112,7 +112,7 @@ class __ListViewState extends State<_ListView> {
       builder: (context, stateCRUDsignature) {
         return BlocBuilder<TeacherBloc, TeacherState>(
           builder: (context, state) {
-            if (state.listTeachers != null) {
+            if (state.listTeachers.length > 0) {
               return Container(
                 height: screenWidth(context) * 0.8,
                 width: screenHeight(context) * 0.8,

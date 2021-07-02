@@ -49,8 +49,11 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                       IconThemeData(color: Theme.of(context).primaryColor),
                   title: GenericBodyText(
                     title: 'Crear asignatura',
-                    color:
-                        Theme.of(context).appBarTheme.textTheme!.headline1!.color,
+                    color: Theme.of(context)
+                        .appBarTheme
+                        .textTheme!
+                        .headline1!
+                        .color,
                   ),
                   backgroundColor:
                       Theme.of(context).appBarTheme.backgroundColor,
@@ -84,9 +87,7 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                         GenericBottomButton(
                             title: 'Guardar asignatura',
                             onTap: () async {
-                              if (stateSignature.signatureName != null &&
-                                  stateSignature.timeIn != null &&
-                                  stateSignature.timeOut != null) {
+                              if (stateSignature.signatureName != null) {
                                 ItemScheduleModel _itemSchedule =
                                     ItemScheduleModel(
                                         name: stateSignature.signatureName,

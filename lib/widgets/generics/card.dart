@@ -16,3 +16,18 @@ class GenericCard extends StatelessWidget {
     );
   }
 }
+
+class GenericCard2 extends StatelessWidget {
+  final Widget? child;
+
+  const GenericCard2({Key? key, this.child}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Theme.of(context).cardTheme.color,
+      child: child,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16))),
+    );
+  }
+}

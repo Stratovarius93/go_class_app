@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.go_class_app">
- <queries>
+   <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
@@ -14,6 +14,8 @@
             <data android:mimeType="*/*" />
         </intent>
     </queries>
+    <!--<uses-permission android:name="android.permission.VIBRATE"/>-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
    <application
         android:label="go_class_app"
         android:icon="@mipmap/ic_launcher">

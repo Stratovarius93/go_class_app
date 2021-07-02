@@ -20,28 +20,41 @@ class WeekDaysBloc extends Bloc<WeekDaysEvent, WeekDaysState> {
     if (event is EditDayState) {
       yield* _editDayState(event.position);
     } else if (event is EditDayVisible) {
-      yield* _editDayVisible(event.visible, event.dayName, event.position);
+      yield* _editDayVisible(event.visible, event.position);
     } else if (event is CurrentDay) {
       yield* _currentDay();
+    } else if (event is LoadDays) {
+      yield* _loadWeekDays(state);
     }
   }
+}
+
+Stream<WeekDaysState> _loadWeekDays(WeekDaysState state) async* {
+  List<DayModel> _weekList = _listVisible();
+  yield WeekDaysState(currentDay: state.currentDay, daysList: _weekList);
 }
 
 Stream<WeekDaysState> _editDayState(int position) async* {
-  for (var i = 0, len = weekList.length; i < len; ++i) {
+  List<DayModel> _weekList = _listVisible();
+  for (var i = 0, len = _weekList.length; i < len; ++i) {
     if (i == position) {
-      weekList[i].enable = true;
+      _weekList[i].enable = true;
     } else {
-      weekList[i].enable = false;
+      _weekList[i].enable = false;
     }
   }
-  yield WeekDaysState(daysList: weekList, currentDay: position);
+  _updateList(_weekList);
+  _weekList = _listVisible();
+  yield WeekDaysState(daysList: _weekList, currentDay: position);
 }
 
-Stream<WeekDaysState> _editDayVisible(
-    bool visible, String dayName, int position) async* {
+Stream<WeekDaysState> _editDayVisible(bool visible, int position) async* {
   weekList[position].visible = visible;
-  yield WeekDaysState(daysList: weekList, currentDay: position);
+  weekList.forEach((element) {
+    element.enable = false;
+  });
+  List<DayModel> _weekList = _listVisible();
+  yield WeekDaysState(daysList: _weekList, currentDay: null);
 }
 
 Stream<WeekDaysState> _currentDay() async* {
@@ -50,13 +63,42 @@ Stream<WeekDaysState> _currentDay() async* {
   var _date = DateTime.now();
   initializeDateFormatting();
   _currentDay = DateFormat.EEEE('es_ES').format(_date);
+  List<DayModel> _weekList = _listVisible();
   for (var i = 0, len = weekList.length; i < len; ++i) {
     if (weekList[i].name.toUpperCase() == _currentDay.toUpperCase()) {
-      weekList[i].enable = true;
-      _positionDay = i;
+      if (weekList[i].visible) {
+        weekList[i].enable = true;
+        _positionDay = i;
+      } else {
+        if (_weekList.length > 0) {
+          weekList[0].enable = true;
+          _positionDay = 0;
+        }
+      }
     } else {
       weekList[i].enable = false;
     }
   }
-  yield WeekDaysState(daysList: weekList, currentDay: _positionDay);
+  _weekList = _listVisible();
+  yield WeekDaysState(daysList: _weekList, currentDay: _positionDay);
+}
+
+List<DayModel> _listVisible() {
+  List<DayModel> _newList = [];
+  for (var i = 0, len = weekList.length; i < len; ++i) {
+    if (weekList[i].visible) {
+      _newList.add(weekList[i]);
+    }
+  }
+  return _newList;
+}
+
+_updateList(List<DayModel> newList) {
+  for (var i = 0, len = newList.length; i < len; ++i) {
+    for (var j = 0, len = weekList.length; j < len; ++j) {
+      if (newList[i].name == weekList[j].name) {
+        newList[i] = weekList[j];
+      }
+    }
+  }
 }

@@ -24,73 +24,85 @@ class __SignaturesState extends State<_Signatures> {
       builder: (context, stateSchedule) =>
           BlocBuilder<SignaturesBloc, SignaturesState>(
               builder: (context, state) {
-        return GenericCard(
-          child: ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: state.listSignatures.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) => ListTile(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 1, horizontal: 16),
-                leading: CircleAvatar(
-                  backgroundColor:
-                      Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
-                  child: Center(
-                    child: Transform.rotate(
-                      angle: _degrees * -math.pi / 180,
-                      child: Text(
-                        '${state.listSignatures[index].name![0]}',
-                        style: AppFont.font(TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 26,
-                            fontWeight: FontWeight.w400)),
+        if (state.listSignatures.isNotEmpty) {
+          return GenericCard(
+            child: ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: state.listSignatures.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 1, horizontal: 16),
+                  leading: CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
+                    child: Center(
+                      child: Transform.rotate(
+                        angle: _degrees * -math.pi / 180,
+                        child: Text(
+                          '${state.listSignatures[index].name[0]}',
+                          style: AppFont.font(TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontSize: 26,
+                              fontWeight: FontWeight.w400)),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                title: Text(
-                  '${state.listSignatures[index].name}',
-                  style: AppFont.font(TextStyle(
-                      color: Theme.of(context).textTheme.headline3!.color)),
-                ),
-                //subtitle: Text('Hola'),
-                trailing: GenericPopMenuItem(
-                    popupMenuItemModelList: _listOptionsSignature(
-                        context,
-                        index,
-                        state.listSignatures[index],
-                        _formKeyEdit, () async {
-                  int _count = 0;
-                  for (var i = 0, len = stateSchedule.scheduleList.length;
-                      i < len;
-                      ++i) {
-                    for (var j = 0, len = stateSchedule.scheduleList[i].length;
-                        j < len;
-                        ++j) {
-                      if (stateSchedule.scheduleList[i][j].name ==
-                          state.listSignatures[index]) {
-                        _count++;
+                  title: Text(
+                    '${state.listSignatures[index].name}',
+                    style: AppFont.font(TextStyle(
+                        color: Theme.of(context).textTheme.headline3!.color)),
+                  ),
+                  //subtitle: Text('Hola'),
+                  trailing: GenericPopMenuItem(
+                      popupMenuItemModelList: _listOptionsSignature(
+                          context,
+                          index,
+                          state.listSignatures[index],
+                          _formKeyEdit, () async {
+                    int _count = 0;
+                    for (var i = 0, len = stateSchedule.scheduleList.length;
+                        i < len;
+                        ++i) {
+                      for (var j = 0,
+                              len = stateSchedule
+                                  .scheduleList[i].scheduleList.length;
+                          j < len;
+                          ++j) {
+                        if (stateSchedule
+                                .scheduleList[i].scheduleList[j].name ==
+                            state.listSignatures[index]) {
+                          _count++;
+                        }
                       }
                     }
-                  }
-                  if (_count > 0) {
-                    await showAlertSignatureRemove2(
-                        context, state.listSignatures[index].name, index);
-                  } else {
-                    await showAlertSignatureRemove(
-                        context, state.listSignatures[index].name, index);
-                  }
-                }))),
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                indent: 16,
-                endIndent: 16,
-                height: 1,
-                color: Colors.grey.withOpacity(0.5),
-              );
+                    if (_count > 0) {
+                      await showAlertSignatureRemove2(
+                          context, state.listSignatures[index].name, index);
+                    } else {
+                      await showAlertSignatureRemove(
+                          context, state.listSignatures[index].name, index);
+                    }
+                  }))),
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  indent: 16,
+                  endIndent: 16,
+                  height: 1,
+                  color: Colors.grey.withOpacity(0.5),
+                );
+              },
+            ),
+          );
+        } else {
+          return GenericAddNewItem(
+            onTap: () async {
+              await showAlertSignatureAdd(context, _formKeyEdit);
             },
-          ),
-        );
+            iconData: Ionicons.journal_outline,
+          );
+        }
       }),
     );
   }

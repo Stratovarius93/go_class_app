@@ -11,6 +11,7 @@ import 'package:go_class_app/widgets/generics/CRUDviews/alertDialogSignatures.da
 import 'package:go_class_app/widgets/generics/CRUDviews/editRoomClass.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/removeRoomClass.dart';
 import 'package:go_class_app/widgets/generics/actionTextRight.dart';
+import 'package:go_class_app/widgets/generics/addNewItem.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItem.dart';
 import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItemModel.dart';

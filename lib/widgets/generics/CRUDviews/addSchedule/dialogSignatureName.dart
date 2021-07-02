@@ -118,7 +118,7 @@ class __ListViewState extends State<_ListView> {
       builder: (context, stateCRUDsignature) {
         return BlocBuilder<SignaturesBloc, SignaturesState>(
           builder: (context, state) {
-            if (state.listSignatures != null) {
+            if (state.listSignatures.length > 0) {
               return Container(
                 height: screenWidth(context) * 0.8,
                 width: screenHeight(context) * 0.8,
@@ -133,7 +133,7 @@ class __ListViewState extends State<_ListView> {
                             .add(CRUDAddSignature(state.listSignatures[index]));
                       },
                       title: Text(
-                        state.listSignatures[index].name!,
+                        state.listSignatures[index].name,
                         style: AppFont.font(TextStyle(
                             color:
                                 Theme.of(context).textTheme.headline1!.color)),

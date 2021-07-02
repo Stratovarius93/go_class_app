@@ -67,3 +67,10 @@ class EditScheduleSignatureName extends ScheduleEvent {
 }
 
 class SortScheduleList extends ScheduleEvent {}
+
+class EditScheduleVisible extends ScheduleEvent {
+  final bool visible;
+  final int position;
+
+  EditScheduleVisible(this.visible, this.position);
+}

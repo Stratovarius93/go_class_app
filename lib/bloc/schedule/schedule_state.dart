@@ -1,7 +1,7 @@
 part of 'schedule_bloc.dart';
 
 class ScheduleState {
-  final List<List<ItemScheduleModel>> scheduleList;
+  final List<DayScheduleModel> scheduleList;
 
   ScheduleState({
     this.scheduleList = const [],

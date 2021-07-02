@@ -114,8 +114,8 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
                               controller: _controller,
                               //controller: TextEditingController(
                               //text: widget.classroom.name),
-                              validator: (value) {
-                                return value.isNotEmpty ? null : 'Campo vacío';
+                              validator: (String? value) {
+                                return value!.isNotEmpty ? null : 'Campo vacío';
                               },
                               onChanged: (value) {
                                 _name = value;
@@ -208,9 +208,9 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
                                 Expanded(
                                   child: GenericInput(
                                     controller: _controllerURL,
-                                    validator: (value) {
+                                    validator: (String? value) {
                                       if (_selectedRadioTile == 'Online') {
-                                        return value.isNotEmpty
+                                        return value!.isNotEmpty
                                             ? null
                                             : 'Campo vacío';
                                       }

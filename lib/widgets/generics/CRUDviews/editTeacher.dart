@@ -33,7 +33,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
     super.initState();
     _controllerName = TextEditingController(text: widget.teacher!.name);
     _controllerLastName = TextEditingController(
-        text: (widget.teacher!.lastName != null) ? widget.teacher!.lastName : '');
+        text:
+            (widget.teacher!.lastName != null) ? widget.teacher!.lastName : '');
     _controllerPhoneNumber = TextEditingController(
         text: (widget.teacher!.phoneNumber != null)
             ? widget.teacher!.phoneNumber
@@ -41,8 +42,9 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
     _name = widget.teacher!.name;
     _lastName =
         (widget.teacher!.lastName != null) ? widget.teacher!.lastName : '';
-    _phoneNumber =
-        (widget.teacher!.phoneNumber != null) ? widget.teacher!.phoneNumber : '';
+    _phoneNumber = (widget.teacher!.phoneNumber != null)
+        ? widget.teacher!.phoneNumber
+        : '';
   }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -104,8 +106,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                           Expanded(
                             child: GenericInput(
                               controller: _controllerName,
-                              validator: (value) {
-                                return value.isNotEmpty ? null : 'Campo vacío';
+                              validator: (String? value) {
+                                return value!.isNotEmpty ? null : 'Campo vacío';
                               },
                               onChanged: (value) {
                                 _name = value;

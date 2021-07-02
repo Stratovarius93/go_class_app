@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
+import 'package:go_class_app/data/mainState_store.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/background.dart';
@@ -97,7 +98,7 @@ class _HomePage2State extends State<HomePage2> {
                         GenericInput(
                           textAlign: TextAlign.center,
                           validator: (String? value) {
-                            return (value != null) ? null : 'Campo vacío';
+                            return (value!.isNotEmpty) ? null : 'Campo vacío';
                           },
                           onChanged: (value) {
                             _name = value;
@@ -116,10 +117,11 @@ class _HomePage2State extends State<HomePage2> {
                                 Theme.of(context).primaryColor.withOpacity(0.2),
                             overlayColor:
                                 MaterialStateProperty.resolveWith(getColor),
-                            onTap: () {
+                            onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 BlocProvider.of<NameBloc>(context)
                                     .add(AddName(_name));
+                                await MainStateStore.instance.change(true);
                                 Navigator.pushReplacementNamed(
                                     context, 'mainIndex');
                               }
