@@ -34,7 +34,7 @@ class CRUDAddRoom extends CRUDsignatureEvent {
 }
 
 class CRUDAddColor extends CRUDsignatureEvent {
-  final Color? color;
+  final int? color;
 
   CRUDAddColor(this.color);
 }

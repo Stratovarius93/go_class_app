@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/roomClasses.dart';
+import 'package:go_class_app/data/store/classroom_store.dart';
 import 'package:go_class_app/models/room_model.dart';
 import 'package:meta/meta.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/daysWeek_data.dart';
+import 'package:go_class_app/data/store/daysWeek_store.dart';
 import 'package:go_class_app/models/day_model.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -25,11 +25,31 @@ class WeekDaysBloc extends Bloc<WeekDaysEvent, WeekDaysState> {
       yield* _currentDay();
     } else if (event is LoadDays) {
       yield* _loadWeekDays(state);
+    } else if (event is UpdateWeekDaysStore) {
+      yield* _updateWeekDaysStore(state);
     }
   }
 }
 
 Stream<WeekDaysState> _loadWeekDays(WeekDaysState state) async* {
+  List<DayModel> _weekListWithData = [
+    DayModel(id: '0', name: 'Lunes', enable: false, visible: true),
+    DayModel(id: '1', name: 'Martes', enable: false, visible: true),
+    DayModel(id: '2', name: 'Miércoles', enable: false, visible: true),
+    DayModel(id: '3', name: 'Jueves', enable: false, visible: true),
+    DayModel(id: '4', name: 'Viernes', enable: false, visible: true),
+    DayModel(id: '5', name: 'Sábado', enable: false, visible: true),
+    DayModel(id: '6', name: 'Domingo', enable: false, visible: true),
+  ];
+
+  weekList = await WeekDaysStore.instance.find();
+  if (weekList.isEmpty) {
+    weekList = _weekListWithData;
+    for (var i = 0, len = _weekListWithData.length; i < len; ++i) {
+      await WeekDaysStore.instance.add(_weekListWithData[i]);
+    }
+  }
+
   List<DayModel> _weekList = _listVisible();
   yield WeekDaysState(currentDay: state.currentDay, daysList: _weekList);
 }
@@ -81,6 +101,14 @@ Stream<WeekDaysState> _currentDay() async* {
   }
   _weekList = _listVisible();
   yield WeekDaysState(daysList: _weekList, currentDay: _positionDay);
+}
+
+Stream<WeekDaysState> _updateWeekDaysStore(WeekDaysState state) async* {
+  for (var i = 0, len = weekList.length; i < len; ++i) {
+    await WeekDaysStore.instance.update(weekList[i]);
+  }
+  List<DayModel> _weekList = _listVisible();
+  yield WeekDaysState(currentDay: state.currentDay, daysList: _weekList);
 }
 
 List<DayModel> _listVisible() {

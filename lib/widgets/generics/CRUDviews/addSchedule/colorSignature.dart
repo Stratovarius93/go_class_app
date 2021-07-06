@@ -51,12 +51,11 @@ class _AddColorSignatureState extends State<AddColorSignature> {
                     itemCount: AppColorLight.listSchedule.length,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
-                        BlocProvider.of<CRUDsignatureBloc>(context).add(
-                            CRUDAddColor(AppColorLight.listSchedule[index]));
+                        BlocProvider.of<CRUDsignatureBloc>(context)
+                            .add(CRUDAddColor(index));
                       },
                       child: CircleAvatar(
-                        backgroundColor: (state.color ==
-                                AppColorLight.listSchedule[index])
+                        backgroundColor: (state.color == index)
                             ? Theme.of(context).primaryColor.withOpacity(0.6)
                             : Colors.transparent,
                         child: CircleAvatar(

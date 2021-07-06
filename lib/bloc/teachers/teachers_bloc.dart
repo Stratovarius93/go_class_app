@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/teachers.dart';
+import 'package:go_class_app/data/store/teachers_store.dart';
 import 'package:go_class_app/models/teacher_model.dart';
 import 'package:meta/meta.dart';
 

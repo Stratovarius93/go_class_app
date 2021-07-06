@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/userName_store.dart';
+import 'package:go_class_app/data/store/userName_store.dart';
 import 'package:meta/meta.dart';
 
 part 'name_event.dart';

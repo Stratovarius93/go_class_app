@@ -6,7 +6,6 @@ import 'package:go_class_app/models/itemSchedule_model.dart';
 import 'package:go_class_app/models/room_model.dart';
 import 'package:go_class_app/models/signature_model.dart';
 import 'package:go_class_app/models/teacher_model.dart';
-import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:meta/meta.dart';
 
 part 'CRUDsignature_event.dart';
@@ -95,7 +94,7 @@ Stream<CRUDsignatureState> _addRoom(
 }
 
 Stream<CRUDsignatureState> _addColor(
-    Color? color, CRUDsignatureState state) async* {
+    int? color, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
       classroom: state.classroom,
       teacher: state.teacher,
@@ -110,7 +109,7 @@ Stream<CRUDsignatureState> _clean() async* {
       signatureName: null,
       teacher: null,
       classroom: null,
-      color: AppColorLight.second,
+      color: 1,
       timeIn: TimeOfDay(hour: 0, minute: 0),
       timeOut: TimeOfDay(hour: 0, minute: 0));
 }

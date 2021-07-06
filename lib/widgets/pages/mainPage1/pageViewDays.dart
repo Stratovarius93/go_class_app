@@ -23,7 +23,8 @@ class __PageViewDaysState extends State<_PageViewDays> {
         builder: (context, stateSchedule) {
       return BlocBuilder<WeekDaysBloc, WeekDaysState>(
         builder: (context, state) {
-          if (state.daysList.length > 0) {
+          //if (state.daysList.length > 0) {
+          if (stateSchedule.scheduleList.length > 0) {
             if (state.currentDay != null) {
               _pageController = PageController(initialPage: state.currentDay!);
               return Expanded(

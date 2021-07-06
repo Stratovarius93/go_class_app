@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/signaturesName.dart';
+import 'package:go_class_app/data/store/signaturesName_store.dart';
 import 'package:go_class_app/models/signature_model.dart';
 import 'package:meta/meta.dart';
 

@@ -6,7 +6,7 @@ class CRUDsignatureState {
   final TimeOfDay timeIn;
   final TimeOfDay timeOut;
   final ClassroomModel? classroom;
-  final Color? color;
+  final int? color;
 
   CRUDsignatureState(
       {this.signatureName,
@@ -14,5 +14,5 @@ class CRUDsignatureState {
       this.timeIn = const TimeOfDay(hour: 0, minute: 0),
       this.timeOut = const TimeOfDay(hour: 0, minute: 0),
       this.classroom,
-      this.color = AppColorLight.second});
+      this.color = 1});
 }

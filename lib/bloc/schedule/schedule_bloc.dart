@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:go_class_app/data/roomClasses.dart';
-import 'package:go_class_app/data/signatures.dart';
-import 'package:go_class_app/data/signaturesName.dart';
-import 'package:go_class_app/data/teachers.dart';
+import 'package:go_class_app/data/store/classroom_store.dart';
+import 'package:go_class_app/data/store/signaturesName_store.dart';
+import 'package:go_class_app/data/store/signatures_store.dart';
+import 'package:go_class_app/data/store/teachers_store.dart';
 import 'package:go_class_app/models/daySchedule_model.dart';
 import 'package:go_class_app/models/itemSchedule_model.dart';
 import 'package:go_class_app/models/room_model.dart';
@@ -47,11 +47,51 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       yield* _sortList();
     } else if (event is EditScheduleVisible) {
       yield* _editScheduleVisible(event.visible, event.position);
+    } else if (event is UpdateScheduleStore) {
+      yield* _updateScheduleStore();
     }
   }
 }
 
 Stream<ScheduleState> _loadSchedule() async* {
+  List<ItemScheduleModel> scheduleList0 = [];
+
+  List<ItemScheduleModel> scheduleList1 = [];
+
+  List<ItemScheduleModel> scheduleList2 = [];
+
+  List<ItemScheduleModel> scheduleList3 = [];
+
+  List<ItemScheduleModel> scheduleList4 = [];
+
+  List<ItemScheduleModel> scheduleList5 = [];
+
+  List<ItemScheduleModel> scheduleList6 = [];
+
+  List<DayScheduleModel> _scheduleListGeneralData = [
+    DayScheduleModel(
+        id: '0', scheduleList: scheduleList0, visible: true, day: 'Lunes'),
+    DayScheduleModel(
+        id: '1', scheduleList: scheduleList1, visible: true, day: 'Martes'),
+    DayScheduleModel(
+        id: '2', scheduleList: scheduleList2, visible: true, day: 'Miércoles'),
+    DayScheduleModel(
+        id: '3', scheduleList: scheduleList3, visible: true, day: 'Jueves'),
+    DayScheduleModel(
+        id: '4', scheduleList: scheduleList4, visible: true, day: 'Viernes'),
+    DayScheduleModel(
+        id: '5', scheduleList: scheduleList5, visible: true, day: 'Sábado'),
+    DayScheduleModel(
+        id: '6', scheduleList: scheduleList6, visible: true, day: 'Domingo'),
+  ];
+  scheduleListGeneral = await ScheduleStore.instance.find();
+  if (scheduleListGeneral.isEmpty) {
+    scheduleListGeneral = _scheduleListGeneralData;
+    for (var i = 0, len = _scheduleListGeneralData.length; i < len; ++i) {
+      await ScheduleStore.instance.add(_scheduleListGeneralData[i]);
+    }
+  }
+
   List<DayScheduleModel> _scheduleListGeneral = _listVisible();
   yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
@@ -181,6 +221,14 @@ Stream<ScheduleState> _sortList() async* {
 
 Stream<ScheduleState> _editScheduleVisible(bool visible, int position) async* {
   scheduleListGeneral[position].visible = visible;
+  List<DayScheduleModel> _scheduleListGeneral = _listVisible();
+  yield ScheduleState(scheduleList: _scheduleListGeneral);
+}
+
+Stream<ScheduleState> _updateScheduleStore() async* {
+  for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
+    await ScheduleStore.instance.update(scheduleListGeneral[i]);
+  }
   List<DayScheduleModel> _scheduleListGeneral = _listVisible();
   yield ScheduleState(scheduleList: _scheduleListGeneral);
 }

@@ -128,7 +128,7 @@ class _ItemSchedule extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: itemScheduleModel.color),
+                  color: AppColorLight.listSchedule[itemScheduleModel.color]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

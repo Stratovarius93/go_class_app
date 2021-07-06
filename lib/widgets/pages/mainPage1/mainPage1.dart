@@ -50,7 +50,14 @@ class _MainPage1State extends State<MainPage1> {
     super.initState();
     _context = widget.contextRoute;
     BlocProvider.of<NameBloc>(context).add(LoadName());
+    BlocProvider.of<ScheduleBloc>(context).add(LoadSchedule());
     BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay());
+  }
+
+  @override
+  void dispose() {
+    //BlocProvider.of<WeekDaysBloc>(context).add(UpdateWeekDaysStore());
+    super.dispose();
   }
 
   @override

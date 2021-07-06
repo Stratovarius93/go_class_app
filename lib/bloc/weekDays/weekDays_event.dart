@@ -19,3 +19,5 @@ class EditDayVisible extends WeekDaysEvent {
 class CurrentDay extends WeekDaysEvent {}
 
 class LoadDays extends WeekDaysEvent {}
+
+class UpdateWeekDaysStore extends WeekDaysEvent {}

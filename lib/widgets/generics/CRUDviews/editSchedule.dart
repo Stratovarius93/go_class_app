@@ -107,7 +107,7 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                                         name: stateSignature.signatureName,
                                         timeIn: stateSignature.timeIn,
                                         timeOut: stateSignature.timeOut,
-                                        color: stateSignature.color,
+                                        color: stateSignature.color!,
                                         teacher: stateSignature.teacher,
                                         classroom: stateSignature.classroom);
                                 BlocProvider.of<ScheduleBloc>(context).add(
@@ -117,6 +117,8 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                                     .add(SortScheduleList());
                                 BlocProvider.of<CRUDsignatureBloc>(context)
                                     .add(CRUDclean());
+                                BlocProvider.of<ScheduleBloc>(context)
+                                    .add(UpdateScheduleStore());
                                 Navigator.pop(context);
                               } else {
                                 await _showAlert(

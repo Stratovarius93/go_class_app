@@ -11,7 +11,6 @@ import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
 import 'package:go_class_app/data/db.dart';
-import 'package:go_class_app/data/mainState_store.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addRoomClass.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/addSchedule.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/addTeacher.dart';
@@ -23,6 +22,8 @@ import 'package:go_class_app/widgets/pages/mainPage3/mainPage3.dart';
 import 'package:go_class_app/widgets/pages/mainPage4/appearance.dart';
 import 'package:go_class_app/widgets/pages/mainPage4/mainPage4.dart';
 import 'package:go_class_app/widgets/theme/theme.dart';
+
+import 'data/store/mainState_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

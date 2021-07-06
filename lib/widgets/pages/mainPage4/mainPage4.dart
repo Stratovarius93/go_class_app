@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
-import 'package:go_class_app/data/daysWeek_data.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
 import 'package:go_class_app/widgets/generics/cardSubtitle.dart';
 import 'package:go_class_app/widgets/generics/cardTitle.dart';
@@ -204,12 +203,15 @@ Widget _weekDays(BuildContext context) {
               .add(EditDayVisible(visible, position));
           BlocProvider.of<ScheduleBloc>(context)
               .add(EditScheduleVisible(visible, position));
+
+          BlocProvider.of<WeekDaysBloc>(context).add(UpdateWeekDaysStore());
+          BlocProvider.of<ScheduleBloc>(context).add(UpdateScheduleStore());
         },
         checked: _list,
         activeColor: Theme.of(context).primaryColor,
         labelStyle: AppFont.font(
             TextStyle(color: Theme.of(context).textTheme.headline3!.color)),
-        labels: weekList.map((e) => e.name).toList(),
+        labels: state.daysList.map((e) => e.name).toList(),
       );
     },
   );

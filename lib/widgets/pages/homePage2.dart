@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
-import 'package:go_class_app/data/mainState_store.dart';
+import 'package:go_class_app/data/store/mainState_store.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/background.dart';
