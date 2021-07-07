@@ -4,9 +4,11 @@ part 'signature_model.g.dart';
 
 @JsonSerializable()
 class SignatureModel {
+  String? id;
   String name;
 
   SignatureModel({
+    this.id,
     required this.name,
   });
 

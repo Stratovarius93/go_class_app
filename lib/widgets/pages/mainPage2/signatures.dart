@@ -57,34 +57,35 @@ class __SignaturesState extends State<_Signatures> {
                   //subtitle: Text('Hola'),
                   trailing: GenericPopMenuItem(
                       popupMenuItemModelList: _listOptionsSignature(
-                          context,
-                          index,
-                          state.listSignatures[index],
-                          _formKeyEdit, () async {
-                    int _count = 0;
-                    for (var i = 0, len = stateSchedule.scheduleList.length;
-                        i < len;
-                        ++i) {
-                      for (var j = 0,
-                              len = stateSchedule
-                                  .scheduleList[i].scheduleList.length;
-                          j < len;
-                          ++j) {
-                        if (stateSchedule
-                                .scheduleList[i].scheduleList[j].name ==
-                            state.listSignatures[index]) {
-                          _count++;
+                    context,
+                    state.listSignatures[index],
+                    _formKeyEdit,
+                    () async {
+                      int _count = 0;
+                      for (var i = 0, len = stateSchedule.scheduleList.length;
+                          i < len;
+                          ++i) {
+                        for (var j = 0,
+                                len = stateSchedule
+                                    .scheduleList[i].scheduleList.length;
+                            j < len;
+                            ++j) {
+                          if (stateSchedule
+                                  .scheduleList[i].scheduleList[j].name ==
+                              state.listSignatures[index]) {
+                            _count++;
+                          }
                         }
                       }
-                    }
-                    if (_count > 0) {
-                      await showAlertSignatureRemove2(
-                          context, state.listSignatures[index].name, index);
-                    } else {
-                      await showAlertSignatureRemove(
-                          context, state.listSignatures[index].name, index);
-                    }
-                  }))),
+                      if (_count > 0) {
+                        await showAlertSignatureRemove2(
+                            context, state.listSignatures[index]);
+                      } else {
+                        await showAlertSignatureRemove(
+                            context, state.listSignatures[index]);
+                      }
+                    },
+                  ))),
               separatorBuilder: (BuildContext context, int index) {
                 return Divider(
                   indent: 16,
@@ -109,11 +110,11 @@ class __SignaturesState extends State<_Signatures> {
 }
 
 List<PopupMenuItemModel> _listOptionsSignature(
-    BuildContext context,
-    int index,
-    SignatureModel signature,
-    GlobalKey<FormState> formKey,
-    VoidCallback onTap) {
+  BuildContext context,
+  SignatureModel signature,
+  GlobalKey<FormState> formKey,
+  VoidCallback onTap,
+) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
       title: 'Editar',
@@ -122,7 +123,7 @@ List<PopupMenuItemModel> _listOptionsSignature(
         color: Theme.of(context).textTheme.headline1!.color,
       ),
       onTap: () async {
-        await showAlertSignatureEdit(context, signature, index, formKey);
+        await showAlertSignatureEdit(context, signature, formKey);
       },
       visible: true,
     ),

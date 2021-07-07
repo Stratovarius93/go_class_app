@@ -12,14 +12,14 @@ class AddSignature extends SignaturesEvent {
 }
 
 class EditSignature extends SignaturesEvent {
-  final int position;
+  final SignatureModel oldSignature;
   final SignatureModel newSignature;
 
-  EditSignature(this.position, this.newSignature);
+  EditSignature(this.oldSignature, this.newSignature);
 }
 
 class RemoveSignature extends SignaturesEvent {
-  final int position;
+  final SignatureModel signature;
 
-  RemoveSignature(this.position);
+  RemoveSignature(this.signature);
 }

@@ -7,9 +7,9 @@ import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/models/room_model.dart';
 import 'package:go_class_app/models/signature_model.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/alertDialogSignatures.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/editRoomClass.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/removeRoomClass.dart';
+import 'package:go_class_app/widgets/generics/CRUDviews/classroom/editClassroom.dart';
+import 'package:go_class_app/widgets/generics/CRUDviews/classroom/removeClassroom.dart';
+import 'package:go_class_app/widgets/generics/CRUDviews/signature/alertDialogSignatures.dart';
 import 'package:go_class_app/widgets/generics/actionTextRight.dart';
 import 'package:go_class_app/widgets/generics/addNewItem.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
@@ -68,14 +68,17 @@ class _MainPage2State extends State<MainPage2> {
                         GenericSubtitle(
                           title: 'Lista de materias',
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: GestureDetector(
-                            onTap: () async {
-                              await showAlertSignatureAdd(context, _formKeyAdd);
-                            },
-                            child: GenericActionTextRight(
-                              title: 'Agregar',
+                        BlocBuilder<SignaturesBloc, SignaturesState>(
+                          builder: (context, state) => Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: GestureDetector(
+                              onTap: () async {
+                                await showAlertSignatureAdd(
+                                    context, _formKeyAdd);
+                              },
+                              child: GenericActionTextRight(
+                                title: 'Agregar',
+                              ),
                             ),
                           ),
                         ),

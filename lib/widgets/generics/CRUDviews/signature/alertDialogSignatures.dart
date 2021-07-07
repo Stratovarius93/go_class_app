@@ -8,11 +8,8 @@ import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 
-Future<void> showAlertSignatureEdit(
-    BuildContext context,
-    SignatureModel signature,
-    int position,
-    GlobalKey<FormState> formKey) async {
+Future<void> showAlertSignatureEdit(BuildContext context,
+    SignatureModel signature, GlobalKey<FormState> formKey) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -69,7 +66,7 @@ Future<void> showAlertSignatureEdit(
                 BlocProvider.of<ScheduleBloc>(context)
                     .add(EditScheduleSignatureName(signature, _newSignature));
                 BlocProvider.of<SignaturesBloc>(context)
-                    .add(EditSignature(position, _newSignature));
+                    .add(EditSignature(signature, _newSignature));
                 _newValueAdd = '';
                 Navigator.of(context).pop();
               }
@@ -82,7 +79,7 @@ Future<void> showAlertSignatureEdit(
 }
 
 Future<void> showAlertSignatureRemove2(
-    BuildContext context, String? name, int position) async {
+    BuildContext context, SignatureModel signature) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -101,7 +98,8 @@ Future<void> showAlertSignatureRemove2(
                   text: 'Existen asignaturas en el horario con el nombre ',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
-                  text: '$name', style: AppFont.fontHeadline2Bold(context)),
+                  text: '${signature.name}',
+                  style: AppFont.fontHeadline2Bold(context)),
               TextSpan(
                   text:
                       ', al eliminar borrarán las asignaturas del horario que contienen ese nombre.',
@@ -127,9 +125,9 @@ Future<void> showAlertSignatureRemove2(
             ),
             onPressed: () {
               BlocProvider.of<ScheduleBloc>(context)
-                  .add(RemoveScheduleSignature(position));
+                  .add(RemoveScheduleSignature(signature));
               BlocProvider.of<SignaturesBloc>(context)
-                  .add(RemoveSignature(position));
+                  .add(RemoveSignature(signature));
               Navigator.of(context).pop();
             },
           ),
@@ -140,7 +138,7 @@ Future<void> showAlertSignatureRemove2(
 }
 
 Future<void> showAlertSignatureRemove(
-    BuildContext context, String? name, int position) async {
+    BuildContext context, SignatureModel signature) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -159,7 +157,8 @@ Future<void> showAlertSignatureRemove(
                   text: '¿Está seguro que desea eliminar la asignatura de ',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
-                  text: '$name', style: AppFont.fontHeadline2Bold(context)),
+                  text: '${signature.name}',
+                  style: AppFont.fontHeadline2Bold(context)),
               TextSpan(text: '?', style: AppFont.fontHeadline2(context)),
             ]),
           )
@@ -179,7 +178,7 @@ Future<void> showAlertSignatureRemove(
             ),
             onPressed: () {
               BlocProvider.of<SignaturesBloc>(context)
-                  .add(RemoveSignature(position));
+                  .add(RemoveSignature(signature));
               Navigator.of(context).pop();
             },
           ),

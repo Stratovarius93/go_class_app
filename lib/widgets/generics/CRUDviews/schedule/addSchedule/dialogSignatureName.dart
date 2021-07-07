@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/widgets/constants/screenSize.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/alertDialogSignatures.dart';
+import 'package:go_class_app/widgets/generics/CRUDviews/signature/alertDialogSignatures.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
@@ -59,7 +59,10 @@ class _AddSignatureNameState extends State<AddSignatureName> {
                     title: 'Crear nuevo nombre',
                     iconData: Ionicons.add,
                     onTap: () {
-                      showAlertSignatureAdd(context, _formKey);
+                      showAlertSignatureAdd(
+                        context,
+                        _formKey,
+                      );
                     }),
               ],
             );

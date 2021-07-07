@@ -34,9 +34,9 @@ class RemoveScheduleTeacher extends ScheduleEvent {
 }
 
 class RemoveScheduleSignature extends ScheduleEvent {
-  final int position;
+  final SignatureModel signature;
 
-  RemoveScheduleSignature(this.position);
+  RemoveScheduleSignature(this.signature);
 }
 
 class RemoveScheduleClassroom extends ScheduleEvent {

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:go_class_app/data/store/classroom_store.dart';
-import 'package:go_class_app/data/store/signaturesName_store.dart';
 import 'package:go_class_app/data/store/signatures_store.dart';
 import 'package:go_class_app/data/store/teachers_store.dart';
 import 'package:go_class_app/models/daySchedule_model.dart';
@@ -34,7 +33,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     } else if (event is RemoveScheduleTeacher) {
       yield* _removeScheduleTeacher(event.position);
     } else if (event is RemoveScheduleSignature) {
-      yield* _removeScheduleSignature(event.position);
+      yield* _removeScheduleSignature(event.signature);
     } else if (event is RemoveScheduleClassroom) {
       yield* _removeScheduleClassroom(event.position);
     } else if (event is EditScheduleTeacher) {
@@ -152,12 +151,12 @@ Stream<ScheduleState> _editScheduleTeacher(
   yield ScheduleState(scheduleList: _scheduleListGeneral);
 }
 
-Stream<ScheduleState> _removeScheduleSignature(int position) async* {
-  SignatureModel _signature = _signatureByPosition(position);
+Stream<ScheduleState> _removeScheduleSignature(
+    SignatureModel signature) async* {
   for (var i = 0, len = scheduleListGeneral.length; i < len; ++i) {
     scheduleListGeneral[i]
         .scheduleList
-        .removeWhere((element) => element.name == _signature);
+        .removeWhere((element) => element.name == signature);
   }
 
   List<DayScheduleModel> _scheduleListGeneral = _listVisible();
@@ -234,9 +233,6 @@ Stream<ScheduleState> _updateScheduleStore() async* {
 }
 
 TeacherModel _teacherByPosition(int position) => teachersList[position];
-
-SignatureModel _signatureByPosition(int position) =>
-    signaturesNameList[position];
 
 ClassroomModel _classroomByPosition(int position) => classroomList[position];
 

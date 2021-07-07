@@ -8,11 +8,13 @@ part of 'signature_model.dart';
 
 SignatureModel _$SignatureModelFromJson(Map<String, dynamic> json) {
   return SignatureModel(
+    id: json['id'] as String?,
     name: json['name'] as String,
   );
 }
 
 Map<String, dynamic> _$SignatureModelToJson(SignatureModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
     };

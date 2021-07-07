@@ -4,22 +4,26 @@ import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
 import 'package:go_class_app/models/itemSchedule_model.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/dialogSignatureName.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/dialogSignatureTime.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/pageRoomClass.dart';
-import 'package:go_class_app/widgets/generics/CRUDviews/addSchedule/pageTeacher.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:ionicons/ionicons.dart';
 
-import 'colorSignature.dart';
+import 'addSchedule/colorSignature.dart';
+import 'addSchedule/dialogSignatureName.dart';
+import 'addSchedule/dialogSignatureTime.dart';
+import 'addSchedule/pageRoomClass.dart';
+import 'addSchedule/pageTeacher.dart';
 
-class AddSchedulePage extends StatefulWidget {
+class EditSchedulePage extends StatefulWidget {
+  final int? position;
+
+  const EditSchedulePage({Key? key, this.position}) : super(key: key);
   @override
-  _AddSchedulePageState createState() => _AddSchedulePageState();
+  _EditSchedulePageState createState() => _EditSchedulePageState();
 }
 
-class _AddSchedulePageState extends State<AddSchedulePage> {
+class _EditSchedulePageState extends State<EditSchedulePage> {
   @override
   void initState() {
     super.initState();
@@ -47,8 +51,18 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                 appBar: AppBar(
                   iconTheme:
                       IconThemeData(color: Theme.of(context).primaryColor),
+                  leading: IconButton(
+                      onPressed: () {
+                        BlocProvider.of<CRUDsignatureBloc>(context)
+                            .add(CRUDclean());
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Ionicons.arrow_back,
+                        color: Theme.of(context).primaryColor,
+                      )),
                   title: GenericBodyText(
-                    title: 'Crear asignatura',
+                    title: 'Editar asignatura',
                     color: Theme.of(context)
                         .appBarTheme
                         .textTheme!
@@ -85,7 +99,7 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                            title: 'Guardar asignatura',
+                            title: 'Guardar cambios',
                             onTap: () async {
                               if (stateSignature.signatureName != null) {
                                 ItemScheduleModel _itemSchedule =
@@ -97,8 +111,8 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                                         teacher: stateSignature.teacher,
                                         classroom: stateSignature.classroom);
                                 BlocProvider.of<ScheduleBloc>(context).add(
-                                    AddSchedule(
-                                        _itemSchedule, state.currentDay));
+                                    EditSchedule(widget.position, _itemSchedule,
+                                        state.currentDay));
                                 BlocProvider.of<ScheduleBloc>(context)
                                     .add(SortScheduleList());
                                 BlocProvider.of<CRUDsignatureBloc>(context)
