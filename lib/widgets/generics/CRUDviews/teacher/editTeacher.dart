@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
-import 'package:go_class_app/models/teacher_model.dart';
+import 'package:go_class_app/models/teacher/teacher_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
@@ -18,10 +17,10 @@ TextEditingController? _controllerLastName;
 TextEditingController? _controllerPhoneNumber;
 
 class EditTeacherPage extends StatefulWidget {
-  final TeacherModel? teacher;
+  final TeacherModel teacher;
   final int? position;
 
-  const EditTeacherPage({Key? key, this.teacher, this.position})
+  const EditTeacherPage({Key? key, required this.teacher, this.position})
       : super(key: key);
   @override
   _EditTeacherPageState createState() => _EditTeacherPageState();
@@ -31,20 +30,18 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
   @override
   void initState() {
     super.initState();
-    _controllerName = TextEditingController(text: widget.teacher!.name);
+    _controllerName = TextEditingController(text: widget.teacher.name);
     _controllerLastName = TextEditingController(
-        text:
-            (widget.teacher!.lastName != null) ? widget.teacher!.lastName : '');
+        text: (widget.teacher.lastName != null) ? widget.teacher.lastName : '');
     _controllerPhoneNumber = TextEditingController(
-        text: (widget.teacher!.phoneNumber != null)
-            ? widget.teacher!.phoneNumber
+        text: (widget.teacher.phoneNumber != null)
+            ? widget.teacher.phoneNumber
             : '');
-    _name = widget.teacher!.name;
+    _name = widget.teacher.name;
     _lastName =
-        (widget.teacher!.lastName != null) ? widget.teacher!.lastName : '';
-    _phoneNumber = (widget.teacher!.phoneNumber != null)
-        ? widget.teacher!.phoneNumber
-        : '';
+        (widget.teacher.lastName != null) ? widget.teacher.lastName : '';
+    _phoneNumber =
+        (widget.teacher.phoneNumber != null) ? widget.teacher.phoneNumber : '';
   }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -178,11 +175,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                                   lastName: _lastName,
                                   phoneNumber: _phoneNumber);
                               try {
-                                BlocProvider.of<ScheduleBloc>(context).add(
-                                    EditScheduleTeacher(
-                                        widget.teacher, _teacher));
                                 BlocProvider.of<TeacherBloc>(context).add(
-                                    EditTeacher(widget.position, _teacher));
+                                    EditTeacher(widget.teacher.id!, _teacher));
                                 _name = '';
                                 _lastName = '';
                                 _phoneNumber = '';

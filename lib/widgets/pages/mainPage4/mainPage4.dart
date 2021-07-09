@@ -206,7 +206,6 @@ Widget _weekDays(BuildContext context) {
               .add(EditScheduleVisible(visible, position));
 
           BlocProvider.of<WeekDaysBloc>(context).add(UpdateWeekDaysStore());
-          BlocProvider.of<ScheduleBloc>(context).add(UpdateScheduleStore());
         },
         checked: _list,
         activeColor: Theme.of(context).primaryColor,

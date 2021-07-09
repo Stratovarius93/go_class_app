@@ -3,11 +3,12 @@ part 'teacher_model.g.dart';
 
 @JsonSerializable()
 class TeacherModel {
+  String? id;
   String name;
   String? lastName;
   String? phoneNumber;
 
-  TeacherModel({required this.name, this.lastName, this.phoneNumber});
+  TeacherModel({this.id, required this.name, this.lastName, this.phoneNumber});
 
   Map<String, dynamic> toJson() => _$TeacherModelToJson(this);
 

@@ -2,10 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:go_class_app/models/itemSchedule_model.dart';
-import 'package:go_class_app/models/room_model.dart';
-import 'package:go_class_app/models/signature_model.dart';
-import 'package:go_class_app/models/teacher_model.dart';
+import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:meta/meta.dart';
 
 part 'CRUDsignature_event.dart';
@@ -19,15 +16,15 @@ class CRUDsignatureBloc extends Bloc<CRUDsignatureEvent, CRUDsignatureState> {
     CRUDsignatureEvent event,
   ) async* {
     if (event is CRUDAddSignature) {
-      yield* _addSignature(event.signatureName, state);
+      yield* _addSignature(event.signatureId, state);
     } else if (event is CRUDAddTeacher) {
-      yield* _addTeacher(event.teacher, state);
+      yield* _addTeacher(event.teacherId, state);
     } else if (event is CRUDAddTimeOfDayIn) {
       yield* _addTimeOfDayIn(event.timeIn, state);
     } else if (event is CRUDAddTimeOfDayOut) {
       yield* _addTimeOfDayOut(event.timeOut, state);
     } else if (event is CRUDAddRoom) {
-      yield* _addRoom(event.classroom, state);
+      yield* _addRoom(event.classroomId, state);
     } else if (event is CRUDAddColor) {
       yield* _addColor(event.color, state);
     } else if (event is CRUDclean) {
@@ -39,22 +36,22 @@ class CRUDsignatureBloc extends Bloc<CRUDsignatureEvent, CRUDsignatureState> {
 }
 
 Stream<CRUDsignatureState> _addSignature(
-    SignatureModel signatureName, CRUDsignatureState state) async* {
+    String signatureId, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      signatureName: signatureName,
-      teacher: state.teacher,
-      classroom: state.classroom,
+      signatureId: signatureId,
+      teacherId: state.teacherId,
+      classroomId: state.classroomId,
       color: state.color,
       timeIn: state.timeIn,
       timeOut: state.timeOut);
 }
 
 Stream<CRUDsignatureState> _addTeacher(
-    TeacherModel teacher, CRUDsignatureState state) async* {
+    String teacherId, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      teacher: teacher,
-      signatureName: state.signatureName,
-      classroom: state.classroom,
+      teacherId: teacherId,
+      signatureId: state.signatureId,
+      classroomId: state.classroomId,
       color: state.color,
       timeIn: state.timeIn,
       timeOut: state.timeOut);
@@ -63,9 +60,9 @@ Stream<CRUDsignatureState> _addTeacher(
 Stream<CRUDsignatureState> _addTimeOfDayIn(
     TimeOfDay timeIn, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      teacher: state.teacher,
-      signatureName: state.signatureName,
-      classroom: state.classroom,
+      teacherId: state.teacherId,
+      signatureId: state.signatureId,
+      classroomId: state.classroomId,
       color: state.color,
       timeIn: timeIn,
       timeOut: state.timeOut);
@@ -74,20 +71,20 @@ Stream<CRUDsignatureState> _addTimeOfDayIn(
 Stream<CRUDsignatureState> _addTimeOfDayOut(
     TimeOfDay timeOut, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      teacher: state.teacher,
-      signatureName: state.signatureName,
-      classroom: state.classroom,
+      teacherId: state.teacherId,
+      signatureId: state.signatureId,
+      classroomId: state.classroomId,
       color: state.color,
       timeIn: state.timeIn,
       timeOut: timeOut);
 }
 
 Stream<CRUDsignatureState> _addRoom(
-    ClassroomModel classroom, CRUDsignatureState state) async* {
+    String classroomId, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      classroom: classroom,
-      teacher: state.teacher,
-      signatureName: state.signatureName,
+      classroomId: classroomId,
+      teacherId: state.teacherId,
+      signatureId: state.signatureId,
       color: state.color,
       timeIn: state.timeIn,
       timeOut: state.timeOut);
@@ -96,9 +93,9 @@ Stream<CRUDsignatureState> _addRoom(
 Stream<CRUDsignatureState> _addColor(
     int? color, CRUDsignatureState state) async* {
   yield CRUDsignatureState(
-      classroom: state.classroom,
-      teacher: state.teacher,
-      signatureName: state.signatureName,
+      classroomId: state.classroomId,
+      teacherId: state.teacherId,
+      signatureId: state.signatureId,
       color: color,
       timeIn: state.timeIn,
       timeOut: state.timeOut);
@@ -106,9 +103,9 @@ Stream<CRUDsignatureState> _addColor(
 
 Stream<CRUDsignatureState> _clean() async* {
   yield CRUDsignatureState(
-      signatureName: null,
-      teacher: null,
-      classroom: null,
+      signatureId: null,
+      teacherId: null,
+      classroomId: null,
       color: 1,
       timeIn: TimeOfDay(hour: 0, minute: 0),
       timeOut: TimeOfDay(hour: 0, minute: 0));
@@ -117,9 +114,9 @@ Stream<CRUDsignatureState> _clean() async* {
 Stream<CRUDsignatureState> _addItemScheduleModel(
     ItemScheduleModel itemScheduleModel) async* {
   yield CRUDsignatureState(
-      signatureName: itemScheduleModel.name,
-      teacher: itemScheduleModel.teacher,
-      classroom: itemScheduleModel.classroom,
+      signatureId: itemScheduleModel.idSignature,
+      teacherId: itemScheduleModel.idTeacher,
+      classroomId: itemScheduleModel.idClassroom,
       color: itemScheduleModel.color,
       timeIn: itemScheduleModel.timeIn,
       timeOut: itemScheduleModel.timeOut);

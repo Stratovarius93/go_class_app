@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
-import 'package:go_class_app/models/teacher_model.dart';
+import 'package:go_class_app/models/teacher/teacher_model.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/teacher/editTeacher.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/teacher/removeTeachers.dart';
 import 'package:go_class_app/widgets/generics/actionTextRight.dart';
@@ -140,13 +140,17 @@ class __TeachersState extends State<_Teachers> {
                 style: AppFont.font(TextStyle(
                     color: Theme.of(context).textTheme.headline3!.color)),
               ),
-              subtitle: Text(
-                '${state.listTeachers[index].phoneNumber}',
-                style: AppFont.font(TextStyle(
-                    color: Theme.of(context).textTheme.headline2!.color)),
-              ),
+              subtitle: (state.listTeachers[index].phoneNumber != null &&
+                      state.listTeachers[index].phoneNumber!.length != 0)
+                  ? Text(
+                      '${state.listTeachers[index].phoneNumber}',
+                      style: AppFont.font(TextStyle(
+                          color: Theme.of(context).textTheme.headline2!.color)),
+                    )
+                  : Container(),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                (state.listTeachers[index].phoneNumber!.length != 0)
+                (state.listTeachers[index].phoneNumber != null &&
+                        state.listTeachers[index].phoneNumber!.length != 0)
                     ? IconButton(
                         onPressed: () {
                           _callNumber(state.listTeachers[index].phoneNumber!);
@@ -208,7 +212,7 @@ List<PopupMenuItemModel> _listOptions(
             print(e);
           }
         },
-        visible: (teacher.phoneNumber!.length != 0) ? true : false),
+        visible: (teacher.phoneNumber != null) ? true : false),
     PopupMenuItemModel(
       title: 'Editar',
       icon: Icon(
@@ -235,13 +239,49 @@ List<PopupMenuItemModel> _listOptions(
       ),
       onTap: () async {
         await showAlertTeacherRemove(
-            context, '${teacher.name} ${teacher.lastName}', position);
+            context, '${teacher.name} ${teacher.lastName}', teacher.id!);
+      },
+      visible: true,
+    ),
+  ];
+  List<PopupMenuItemModel> _list2 = [
+    PopupMenuItemModel(
+      title: 'Editar',
+      icon: Icon(
+        Ionicons.create_outline,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      onTap: () {
+        //print('Editar');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditTeacherPage(
+                      teacher: teacher,
+                      position: position,
+                    )));
+      },
+      visible: true,
+    ),
+    PopupMenuItemModel(
+      title: 'Eliminar',
+      icon: Icon(
+        Ionicons.trash_outline,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      onTap: () async {
+        await showAlertTeacherRemove(
+            context, '${teacher.name} ${teacher.lastName}', teacher.id!);
       },
       visible: true,
     ),
   ];
 
-  return _list;
+  if (teacher.phoneNumber != null && teacher.phoneNumber!.length != 0) {
+    return _list;
+  } else {
+    return _list2;
+  }
 }
 
 _callNumber(String number) async {

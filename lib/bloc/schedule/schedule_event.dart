@@ -27,43 +27,10 @@ class RemoveSchedule extends ScheduleEvent {
   RemoveSchedule(this.position, this.currentDay);
 }
 
-class RemoveScheduleTeacher extends ScheduleEvent {
-  final int position;
-
-  RemoveScheduleTeacher(this.position);
-}
-
 class RemoveScheduleSignature extends ScheduleEvent {
   final SignatureModel signature;
 
   RemoveScheduleSignature(this.signature);
-}
-
-class RemoveScheduleClassroom extends ScheduleEvent {
-  final int position;
-
-  RemoveScheduleClassroom(this.position);
-}
-
-class EditScheduleTeacher extends ScheduleEvent {
-  final TeacherModel? lastTeacher;
-  final TeacherModel newTeacher;
-
-  EditScheduleTeacher(this.lastTeacher, this.newTeacher);
-}
-
-class EditScheduleClassroom extends ScheduleEvent {
-  final ClassroomModel lastClassroom;
-  final ClassroomModel newClassroom;
-
-  EditScheduleClassroom(this.lastClassroom, this.newClassroom);
-}
-
-class EditScheduleSignatureName extends ScheduleEvent {
-  final SignatureModel lastSignature;
-  final SignatureModel newSignature;
-
-  EditScheduleSignatureName(this.lastSignature, this.newSignature);
 }
 
 class SortScheduleList extends ScheduleEvent {}
@@ -74,5 +41,3 @@ class EditScheduleVisible extends ScheduleEvent {
 
   EditScheduleVisible(this.visible, this.position);
 }
-
-class UpdateScheduleStore extends ScheduleEvent {}

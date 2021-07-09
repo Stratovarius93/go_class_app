@@ -6,6 +6,7 @@ import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:go_class_app/widgets/utils/teacherUtils.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddTeacherSignature extends StatefulWidget {
@@ -44,8 +45,9 @@ class _AddTeacherSignatureState extends State<AddTeacherSignature> {
                           onTap: () async {
                             await _showAlertTeacher(context);
                           },
-                          subtitle: (state.teacher != null)
-                              ? '${state.teacher!.name} ${state.teacher!.lastName}'
+                          subtitle: (state.teacherId != null &&
+                                  state.teacherId!.length != 0)
+                              ? '${teacherByID(id: state.teacherId, teacherList: stateTeacher.listTeachers).name} ${teacherByID(id: state.teacherId, teacherList: stateTeacher.listTeachers).lastName}'
                               : 'Ninguno',
                         )
                       : Container(),
@@ -124,7 +126,7 @@ class __ListViewState extends State<_ListView> {
                     title: ListTile(
                       onTap: () {
                         BlocProvider.of<CRUDsignatureBloc>(context)
-                            .add(CRUDAddTeacher(state.listTeachers[index]));
+                            .add(CRUDAddTeacher(state.listTeachers[index].id!));
                       },
                       title: Text(
                         '${state.listTeachers[index].name} ${state.listTeachers[index].lastName}',
@@ -143,8 +145,8 @@ class __ListViewState extends State<_ListView> {
                                           .color)),
                                 )
                               : null,
-                      trailing: (stateCRUDsignature.teacher ==
-                              state.listTeachers[index])
+                      trailing: (stateCRUDsignature.teacherId ==
+                              state.listTeachers[index].id)
                           ? CircleAvatar(
                               backgroundColor: Theme.of(context)
                                   .secondaryHeaderColor

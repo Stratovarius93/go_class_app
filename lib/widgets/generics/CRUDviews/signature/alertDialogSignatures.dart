@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
-import 'package:go_class_app/models/signature_model.dart';
+import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:min_id/min_id.dart';
 
 Future<void> showAlertSignatureEdit(BuildContext context,
     SignatureModel signature, GlobalKey<FormState> formKey) async {
@@ -63,8 +64,6 @@ Future<void> showAlertSignatureEdit(BuildContext context,
               if (formKey.currentState!.validate()) {
                 SignatureModel _newSignature =
                     SignatureModel(name: _newValueAdd);
-                BlocProvider.of<ScheduleBloc>(context)
-                    .add(EditScheduleSignatureName(signature, _newSignature));
                 BlocProvider.of<SignaturesBloc>(context)
                     .add(EditSignature(signature, _newSignature));
                 _newValueAdd = '';
@@ -240,11 +239,13 @@ Future<void> showAlertSignatureAdd(
                 ),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    SignatureModel _signature = SignatureModel(name: _valueAdd);
+                    final String id = MinId.getId();
+                    SignatureModel _signature =
+                        SignatureModel(id: id, name: _valueAdd);
                     BlocProvider.of<SignaturesBloc>(context)
                         .add(AddSignature(_signature));
                     BlocProvider.of<CRUDsignatureBloc>(context)
-                        .add(CRUDAddSignature(_signature));
+                        .add(CRUDAddSignature(_signature.id!));
                     SnackBar _snackBar = GenericSnackBar(
                             context: context,
                             content: 'Se agregó la materia de $_valueAdd')

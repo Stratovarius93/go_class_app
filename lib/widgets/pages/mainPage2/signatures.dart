@@ -70,9 +70,9 @@ class __SignaturesState extends State<_Signatures> {
                                     .scheduleList[i].scheduleList.length;
                             j < len;
                             ++j) {
-                          if (stateSchedule
-                                  .scheduleList[i].scheduleList[j].name ==
-                              state.listSignatures[index]) {
+                          if (stateSchedule.scheduleList[i].scheduleList[j]
+                                  .idSignature ==
+                              state.listSignatures[index].id) {
                             _count++;
                           }
                         }

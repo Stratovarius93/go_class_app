@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:go_class_app/models/room_model.dart';
-import 'package:go_class_app/models/signature_model.dart';
-import 'package:go_class_app/models/teacher_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'itemSchedule_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ItemScheduleModel {
-  SignatureModel? name;
-  TeacherModel? teacher;
+  String? idSignature;
+  String? idTeacher;
   @JsonKey(fromJson: _timeOfDayfromJson, toJson: _timeOfDayToJson)
   TimeOfDay timeIn;
   @JsonKey(fromJson: _timeOfDayfromJson, toJson: _timeOfDayToJson)
   TimeOfDay timeOut;
-  ClassroomModel? classroom;
+  String? idClassroom;
   int color;
 
   ItemScheduleModel(
-      {required this.name,
-      this.teacher,
+      {required this.idSignature,
+      this.idTeacher,
       required this.timeIn,
       required this.timeOut,
-      this.classroom,
+      this.idClassroom,
       required this.color});
 
   Map<String, dynamic> toJson() => _$ItemScheduleModelToJson(this);
@@ -35,11 +32,6 @@ class ItemScheduleModel {
 }
 
 String _timeOfDayToString(TimeOfDay timeOfDay) {
-  //final now = new DateTime.now();
-  //final dt =
-  //DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-  //final format = DateFormat.jm(); //"6:00 AM"
-  //return format.format(dt);
   int num1 = timeOfDay.hour;
   int num2 = timeOfDay.minute;
   String time = '$num1:$num2';

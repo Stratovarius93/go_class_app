@@ -14,45 +14,62 @@ class __PageViewDaysState extends State<_PageViewDays> {
   void initState() {
     BlocProvider.of<WeekDaysBloc>(context).add(LoadDays());
     BlocProvider.of<ScheduleBloc>(context).add(LoadSchedule());
+    BlocProvider.of<SignaturesBloc>(context).add(LoadSignature());
+    BlocProvider.of<TeacherBloc>(context).add(LoadTeacherList());
+    BlocProvider.of<ClassroomBloc>(context).add(Loadclassroom());
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScheduleBloc, ScheduleState>(
-        builder: (context, stateSchedule) {
-      return BlocBuilder<WeekDaysBloc, WeekDaysState>(
-        builder: (context, state) {
-          //if (state.daysList.length > 0) {
-          if (stateSchedule.scheduleList.length > 0) {
-            if (state.currentDay != null) {
-              _pageController = PageController(initialPage: state.currentDay!);
-              return Expanded(
-                child: PageView.builder(
-                  physics: BouncingScrollPhysics(),
-                  controller: _pageController,
-                  onPageChanged: (int value) {
-                    BlocProvider.of<WeekDaysBloc>(context)
-                        .add(EditDayState(value));
-                  },
-                  itemCount: state.daysList.length,
-                  itemBuilder: (context, index) {
-                    return ListSignaturesView(
-                        pos: index,
-                        listItemScheduleModel:
-                            stateSchedule.scheduleList[index].scheduleList);
-                  },
-                ),
-              );
-            } else {
-              return _NoClassWidget();
-            }
-          } else {
-            return _NoDayWidget();
-          }
-        },
-      );
-    });
+    return BlocBuilder<SignaturesBloc, SignaturesState>(
+      builder: (context, stateSignature) =>
+          BlocBuilder<TeacherBloc, TeacherState>(
+        builder: (context, stateTeacher) =>
+            BlocBuilder<ClassroomBloc, ClassroomState>(
+          builder: (context, stateClassroom) => BlocBuilder<ScheduleBloc,
+                  ScheduleState>(
+              builder: (context, stateSchedule) =>
+                  BlocBuilder<WeekDaysBloc, WeekDaysState>(
+                    builder: (context, state) {
+                      //if (state.daysList.length > 0) {
+                      if (stateSchedule.scheduleList.length > 0) {
+                        if (state.currentDay != null) {
+                          _pageController =
+                              PageController(initialPage: state.currentDay!);
+                          return Expanded(
+                            child: PageView.builder(
+                              physics: BouncingScrollPhysics(),
+                              controller: _pageController,
+                              onPageChanged: (int value) {
+                                BlocProvider.of<WeekDaysBloc>(context)
+                                    .add(EditDayState(value));
+                              },
+                              itemCount: state.daysList.length,
+                              itemBuilder: (context, index) {
+                                return ListSignaturesView(
+                                  pos: index,
+                                  listItemScheduleModel: stateSchedule
+                                      .scheduleList[index].scheduleList,
+                                  listTeacher: stateTeacher.listTeachers,
+                                  listClassroom: stateClassroom.listclassroom,
+                                  listSignatures: stateSignature.listSignatures,
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return _NoClassWidget();
+                        }
+                      } else {
+                        return _NoDayWidget();
+                      }
+                    },
+                  )),
+        ),
+      ),
+    );
   }
 }
 

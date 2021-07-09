@@ -1,4 +1,4 @@
-import 'package:go_class_app/models/daySchedule_model.dart';
+import 'package:go_class_app/models/daySchedule/daySchedule_model.dart';
 import 'package:sembast/sembast.dart';
 
 import '../db.dart';

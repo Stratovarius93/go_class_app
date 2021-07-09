@@ -1,5 +1,5 @@
 import 'package:go_class_app/data/db.dart';
-import 'package:go_class_app/models/day_model.dart';
+import 'package:go_class_app/models/day/day_model.dart';
 import 'package:sembast/sembast.dart';
 
 List<DayModel> weekList = [];

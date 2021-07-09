@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 
 Future<void> showAlertTeacherRemove(
-    BuildContext context, String name, int position) async {
+    BuildContext context, String name, String id) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -43,10 +42,7 @@ Future<void> showAlertTeacherRemove(
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {
-              BlocProvider.of<ScheduleBloc>(context)
-                  .add(RemoveScheduleTeacher(position));
-              BlocProvider.of<TeacherBloc>(context)
-                  .add(RemoveTeacher(position));
+              BlocProvider.of<TeacherBloc>(context).add(RemoveTeacher(id));
               Navigator.of(context).pop();
             },
           ),

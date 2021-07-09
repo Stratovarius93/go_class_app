@@ -8,12 +8,10 @@ class GenericSnackBar {
   final String? action;
 
   const GenericSnackBar(
-      {required this.context,
-      this.onTap,
-      required this.content,
-      this.action});
+      {required this.context, this.onTap, required this.content, this.action});
   SnackBar snackBar() {
     return SnackBar(
+      duration: Duration(milliseconds: 2000),
       behavior: SnackBarBehavior.floating,
       backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
       content: Text(

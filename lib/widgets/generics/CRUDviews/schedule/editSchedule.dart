@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
-import 'package:go_class_app/models/itemSchedule_model.dart';
+import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
@@ -101,15 +101,16 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                         GenericBottomButton(
                             title: 'Guardar cambios',
                             onTap: () async {
-                              if (stateSignature.signatureName != null) {
+                              if (stateSignature.signatureId != null) {
                                 ItemScheduleModel _itemSchedule =
                                     ItemScheduleModel(
-                                        name: stateSignature.signatureName,
+                                        idSignature: stateSignature.signatureId,
                                         timeIn: stateSignature.timeIn,
                                         timeOut: stateSignature.timeOut,
                                         color: stateSignature.color!,
-                                        teacher: stateSignature.teacher,
-                                        classroom: stateSignature.classroom);
+                                        idTeacher: stateSignature.teacherId,
+                                        idClassroom:
+                                            stateSignature.classroomId);
                                 BlocProvider.of<ScheduleBloc>(context).add(
                                     EditSchedule(widget.position, _itemSchedule,
                                         state.currentDay));
@@ -117,8 +118,6 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                                     .add(SortScheduleList());
                                 BlocProvider.of<CRUDsignatureBloc>(context)
                                     .add(CRUDclean());
-                                BlocProvider.of<ScheduleBloc>(context)
-                                    .add(UpdateScheduleStore());
                                 Navigator.pop(context);
                               } else {
                                 await _showAlert(

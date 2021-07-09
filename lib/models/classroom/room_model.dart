@@ -4,12 +4,16 @@ part 'room_model.g.dart';
 
 @JsonSerializable()
 class ClassroomModel {
+  String? id;
   String name;
   String? description;
   TypeDescription type;
 
   ClassroomModel(
-      {required this.name, required this.description, required this.type});
+      {this.id,
+      required this.name,
+      required this.description,
+      required this.type});
 
   Map<String, dynamic> toJson() => _$ClassroomModelToJson(this);
 

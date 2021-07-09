@@ -7,6 +7,7 @@ import 'package:go_class_app/widgets/generics/CRUDviews/signature/alertDialogSig
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:go_class_app/widgets/utils/signatureUtils.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddSignatureName extends StatefulWidget {
@@ -50,8 +51,12 @@ class _AddSignatureNameState extends State<AddSignatureName> {
                         onTap: () async {
                           await _showAlertSchedule(context);
                         },
-                        subtitle: (state.signatureName != null)
-                            ? state.signatureName!.name
+                        subtitle: (state.signatureId != null)
+                            ? signatureByID(
+                                    id: state.signatureId,
+                                    signatureList:
+                                        stateSignature.listSignatures)
+                                .name
                             : 'Ninguno',
                       )
                     : Container(),
@@ -132,8 +137,8 @@ class __ListViewState extends State<_ListView> {
                   itemBuilder: (context, index) => ListTile(
                     title: ListTile(
                       onTap: () {
-                        BlocProvider.of<CRUDsignatureBloc>(context)
-                            .add(CRUDAddSignature(state.listSignatures[index]));
+                        BlocProvider.of<CRUDsignatureBloc>(context).add(
+                            CRUDAddSignature(state.listSignatures[index].id!));
                       },
                       title: Text(
                         state.listSignatures[index].name,
@@ -141,9 +146,9 @@ class __ListViewState extends State<_ListView> {
                             color:
                                 Theme.of(context).textTheme.headline1!.color)),
                       ),
-                      trailing: (stateCRUDsignature.signatureName != null &&
-                              stateCRUDsignature.signatureName!.name ==
-                                  state.listSignatures[index].name)
+                      trailing: (stateCRUDsignature.signatureId != null &&
+                              stateCRUDsignature.signatureId ==
+                                  state.listSignatures[index].id)
                           ? CircleAvatar(
                               backgroundColor: Theme.of(context)
                                   .secondaryHeaderColor

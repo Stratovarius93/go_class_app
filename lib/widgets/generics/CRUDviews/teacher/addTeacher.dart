@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
-import 'package:go_class_app/models/teacher_model.dart';
+import 'package:go_class_app/models/teacher/teacher_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:min_id/min_id.dart';
 
 String _name = '';
 String _lastName = '';
@@ -149,15 +150,19 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                             title: 'Guardar profesor',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
+                                final String id = MinId.getId();
                                 _teacher = TeacherModel(
+                                    id: id,
                                     name: _name,
                                     lastName: _lastName,
                                     phoneNumber: _phoneNumber);
                                 try {
                                   BlocProvider.of<TeacherBloc>(context)
                                       .add(AddTeacher(_teacher));
+                                  //BlocProvider.of<TeacherBloc>(context)
+                                  //.add(LoadTeacherList());
                                   BlocProvider.of<CRUDsignatureBloc>(context)
-                                      .add(CRUDAddTeacher(_teacher));
+                                      .add(CRUDAddTeacher(_teacher.id!));
                                   SnackBar _snackBar = GenericSnackBar(
                                           context: context,
                                           content:

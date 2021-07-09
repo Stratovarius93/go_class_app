@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:go_class_app/data/store/daysWeek_store.dart';
-import 'package:go_class_app/models/day_model.dart';
+import 'package:go_class_app/models/day/day_model.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';

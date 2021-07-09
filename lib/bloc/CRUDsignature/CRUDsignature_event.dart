@@ -4,15 +4,15 @@ part of 'CRUDsignature_bloc.dart';
 abstract class CRUDsignatureEvent {}
 
 class CRUDAddSignature extends CRUDsignatureEvent {
-  final SignatureModel signatureName;
+  final String signatureId;
 
-  CRUDAddSignature(this.signatureName);
+  CRUDAddSignature(this.signatureId);
 }
 
 class CRUDAddTeacher extends CRUDsignatureEvent {
-  final TeacherModel teacher;
+  final String teacherId;
 
-  CRUDAddTeacher(this.teacher);
+  CRUDAddTeacher(this.teacherId);
 }
 
 class CRUDAddTimeOfDayIn extends CRUDsignatureEvent {
@@ -28,9 +28,9 @@ class CRUDAddTimeOfDayOut extends CRUDsignatureEvent {
 }
 
 class CRUDAddRoom extends CRUDsignatureEvent {
-  final ClassroomModel classroom;
+  final String classroomId;
 
-  CRUDAddRoom(this.classroom);
+  CRUDAddRoom(this.classroomId);
 }
 
 class CRUDAddColor extends CRUDsignatureEvent {

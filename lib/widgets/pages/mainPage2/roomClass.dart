@@ -68,8 +68,7 @@ class __ClassroomState extends State<_Classroom> {
                       ? IconButton(
                           onPressed: () {
                             //launch(_url);
-                            _launchURL(
-                                state.listclassroom[index], index, context);
+                            _launchURL(state.listclassroom[index], context);
                           },
                           icon: Icon(
                             Ionicons.open_outline,
@@ -77,8 +76,8 @@ class __ClassroomState extends State<_Classroom> {
                           ))
                       : Container(),
                   GenericPopMenuItem(
-                      popupMenuItemModelList: _listOptions(
-                          context, state.listclassroom[index], index))
+                      popupMenuItemModelList:
+                          _listOptions(context, state.listclassroom[index]))
                 ]),
               ),
               separatorBuilder: (BuildContext context, int index) {
@@ -108,7 +107,7 @@ class __ClassroomState extends State<_Classroom> {
 }
 
 List<PopupMenuItemModel> _listOptions(
-    BuildContext context, ClassroomModel classroom, int position) {
+    BuildContext context, ClassroomModel classroom) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
       title: 'Compartir URL',
@@ -132,7 +131,6 @@ List<PopupMenuItemModel> _listOptions(
             context,
             MaterialPageRoute(
                 builder: (context) => EditclassroomPage(
-                      position: position,
                       classroom: classroom,
                     )));
       },
@@ -145,17 +143,49 @@ List<PopupMenuItemModel> _listOptions(
         color: Theme.of(context).textTheme.headline1!.color,
       ),
       onTap: () {
-        showAlertclassroomRemove(context, classroom.name, position);
+        showAlertclassroomRemove(context, classroom);
+      },
+      visible: true,
+    ),
+  ];
+  List<PopupMenuItemModel> _list2 = [
+    PopupMenuItemModel(
+      title: 'Editar',
+      icon: Icon(
+        Ionicons.create_outline,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditclassroomPage(
+                      classroom: classroom,
+                    )));
+      },
+      visible: true,
+    ),
+    PopupMenuItemModel(
+      title: 'Eliminar',
+      icon: Icon(
+        Ionicons.trash_outline,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      onTap: () {
+        showAlertclassroomRemove(context, classroom);
       },
       visible: true,
     ),
   ];
 
-  return _list;
+  if (classroom.type == TypeDescription.url) {
+    return _list;
+  } else {
+    return _list2;
+  }
 }
 
-void _launchURL(
-    ClassroomModel classroom, int position, BuildContext context) async {
+void _launchURL(ClassroomModel classroom, BuildContext context) async {
   String _url = classroom.description!;
   SnackBar _snackBar = GenericSnackBar(
       context: context,
@@ -166,7 +196,6 @@ void _launchURL(
             context,
             MaterialPageRoute(
                 builder: (context) => EditclassroomPage(
-                      position: position,
                       classroom: classroom,
                     )));
       }).snackBar();

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/roomClass/classroom_bloc.dart';
-import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
-import 'package:go_class_app/models/room_model.dart';
+import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
@@ -18,11 +17,9 @@ TextEditingController? _controller;
 TextEditingController? _controllerURL;
 
 class EditclassroomPage extends StatefulWidget {
-  final int position;
   final ClassroomModel classroom;
 
-  const EditclassroomPage(
-      {Key? key, required this.classroom, required this.position})
+  const EditclassroomPage({Key? key, required this.classroom})
       : super(key: key);
   @override
   _EditclassroomPageState createState() => _EditclassroomPageState();
@@ -236,12 +233,9 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
                                       name: _name,
                                       description: _url,
                                       type: _type);
-                                  BlocProvider.of<ScheduleBloc>(context).add(
-                                      EditScheduleClassroom(
-                                          widget.classroom, _classroom));
                                   BlocProvider.of<ClassroomBloc>(context).add(
                                       Editclassroom(
-                                          widget.position, _classroom));
+                                          widget.classroom.id!, _classroom));
                                   _type = TypeDescription.text;
                                   _url = '';
                                   _name = '';
@@ -251,12 +245,9 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
                                       name: _name,
                                       description: _url,
                                       type: _type);
-                                  BlocProvider.of<ScheduleBloc>(context).add(
-                                      EditScheduleClassroom(
-                                          widget.classroom, _classroom2));
                                   BlocProvider.of<ClassroomBloc>(context).add(
                                       Editclassroom(
-                                          widget.position, _classroom2));
+                                          widget.classroom.id!, _classroom2));
                                   _type = TypeDescription.text;
                                   _url = '';
                                   _name = '';

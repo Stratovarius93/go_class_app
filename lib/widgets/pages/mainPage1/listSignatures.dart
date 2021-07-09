@@ -1,12 +1,18 @@
 part of 'mainPage1.dart';
 
 class ListSignaturesView extends StatefulWidget {
+  final List<SignatureModel> listSignatures;
+  final List<TeacherModel> listTeacher;
+  final List<ClassroomModel> listClassroom;
   final List<ItemScheduleModel> listItemScheduleModel;
   final int pos;
   const ListSignaturesView({
     Key? key,
     required this.listItemScheduleModel,
     required this.pos,
+    required this.listSignatures,
+    required this.listTeacher,
+    required this.listClassroom,
   }) : super(key: key);
   @override
   _ListSignaturesViewState createState() => _ListSignaturesViewState();
@@ -27,6 +33,9 @@ class _ListSignaturesViewState extends State<ListSignaturesView> {
                 pos: widget.pos,
                 index: index,
                 itemScheduleModel: widget.listItemScheduleModel[index],
+                teacherList: widget.listTeacher,
+                signatureList: widget.listSignatures,
+                classroomList: widget.listClassroom,
               );
             }).toList(),
           ),
@@ -105,11 +114,17 @@ class _ItemSchedule extends StatelessWidget {
     required this.pos,
     required this.index,
     required this.itemScheduleModel,
+    required this.teacherList,
+    required this.signatureList,
+    required this.classroomList,
   }) : super(key: key);
 
   final int pos;
   final int index;
   final ItemScheduleModel itemScheduleModel;
+  final List<TeacherModel> teacherList;
+  final List<SignatureModel> signatureList;
+  final List<ClassroomModel> classroomList;
 
   @override
   Widget build(BuildContext context) {
@@ -119,10 +134,16 @@ class _ItemSchedule extends StatelessWidget {
         child: ListTile(
           onTap: () async {
             await _showScheduleSignatureSelected(
-                context,
-                //state.scheduleList[pos].scheduleList[index],
-                itemScheduleModel,
-                index);
+                context: context,
+                position: index,
+                teacher: teacherByID(
+                    id: itemScheduleModel.idTeacher, teacherList: teacherList),
+                classroom: classroomByID(
+                    id: itemScheduleModel.idClassroom,
+                    classroomList: classroomList),
+                signature: signatureByID(
+                    id: itemScheduleModel.idSignature,
+                    signatureList: signatureList));
           },
           leading: Container(
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
@@ -151,17 +172,27 @@ class _ItemSchedule extends StatelessWidget {
                   ),
                 ],
               )),
-          title: Text(
-            itemScheduleModel.name!.name,
-            style: AppFont.font(TextStyle(
-                color: Theme.of(context).secondaryHeaderColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16)),
-          ),
-          subtitle: (itemScheduleModel.teacher != null &&
-                  itemScheduleModel.teacher!.name.isNotEmpty)
+          title: (findSignature(
+                  id: itemScheduleModel.idSignature,
+                  signatureList: signatureList))
               ? Text(
-                  '${itemScheduleModel.teacher!.name} ${itemScheduleModel.teacher!.lastName}',
+                  '${signatureByID(id: itemScheduleModel.idSignature, signatureList: signatureList).name}',
+                  style: AppFont.font(TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16)),
+                )
+              : Text(
+                  'No name',
+                  style: AppFont.font(TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16)),
+                ),
+          subtitle: (findTeacher(
+                  id: itemScheduleModel.idTeacher, teacherList: teacherList))
+              ? Text(
+                  '${teacherByID(id: itemScheduleModel.idTeacher, teacherList: teacherList).name} ${teacherByID(id: itemScheduleModel.idTeacher, teacherList: teacherList).lastName}',
                   style: AppFont.font(TextStyle(
                     color: Theme.of(context).textTheme.headline2!.color,
                     fontWeight: FontWeight.w400,
@@ -175,12 +206,24 @@ class _ItemSchedule extends StatelessWidget {
                   )),
                 ),
           trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-            (itemScheduleModel.classroom != null &&
-                    itemScheduleModel.classroom!.type == TypeDescription.url)
+            (findClassroom(
+                        id: itemScheduleModel.idClassroom,
+                        classroomList: classroomList) &&
+                    //itemScheduleModel.classroom!.type == TypeDescription.url
+                    classroomByID(
+                                id: itemScheduleModel.idClassroom,
+                                classroomList: classroomList)
+                            .type ==
+                        TypeDescription.url)
                 ? IconButton(
                     onPressed: () {
                       //launch(_url);
-                      _launchURL(itemScheduleModel.classroom!, index, context);
+                      _launchURL(
+                          classroomByID(
+                              id: itemScheduleModel.idClassroom,
+                              classroomList: classroomList),
+                          index,
+                          context);
                     },
                     icon: Icon(
                       Ionicons.open_outline,
@@ -245,7 +288,6 @@ void _launchURL(
             context,
             MaterialPageRoute(
                 builder: (context) => EditclassroomPage(
-                      position: position,
                       classroom: classroom,
                     )));
       }).snackBar();
@@ -255,11 +297,18 @@ void _launchURL(
       : ScaffoldMessenger.of(context).showSnackBar(_snackBar);
 }
 
-Future<void> _showScheduleSignatureSelected(BuildContext context,
-    ItemScheduleModel itemScheduleModel, int position) async {
+Future<void> _showScheduleSignatureSelected(
+    {BuildContext? context,
+    int? position,
+    TeacherModel? teacher,
+    ClassroomModel? classroom,
+    SignatureModel? signature}) async {
   final double _degrees = 15;
+  print('Teacher: ${teacher!.id}');
+  print('Classroom: ${classroom!.id}');
+  print('Signature: ${signature!.id}');
   return await showDialog(
-    context: context,
+    context: context!,
     builder: (alertContext) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -291,7 +340,7 @@ Future<void> _showScheduleSignatureSelected(BuildContext context,
                 height: 16,
               ),
               Text(
-                '${itemScheduleModel.name!.name}',
+                '${signature.name}',
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -303,118 +352,128 @@ Future<void> _showScheduleSignatureSelected(BuildContext context,
               SizedBox(
                 height: 16,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: GenericCategory(
-                    title: 'Profesor',
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundColor:
-                      Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
-                  child: Center(
-                    child: Transform.rotate(
-                      angle: _degrees * -math.pi / 180,
-                      child: Text(
-                        '${itemScheduleModel.name!.name[0]}',
-                        style: AppFont.font(TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 26,
-                            fontWeight: FontWeight.w400)),
+              (teacher.id != null && teacher.id!.length != 0)
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: GenericCategory(
+                          title: 'Profesor',
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                title: Text(
-                  '${itemScheduleModel.teacher!.name} ${itemScheduleModel.teacher!.lastName}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppFont.font(TextStyle(
-                      color: Theme.of(context).textTheme.headline3!.color)),
-                ),
-                subtitle: Text(
-                  '${itemScheduleModel.teacher!.phoneNumber}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppFont.font(TextStyle(
-                      color: Theme.of(context).textTheme.headline2!.color)),
-                ),
-                trailing: (itemScheduleModel.teacher!.phoneNumber!.isNotEmpty)
-                    ? IconButton(
-                        onPressed: () {
-                          _callNumber(itemScheduleModel.teacher!.phoneNumber!);
-                        },
-                        icon: Icon(
-                          Ionicons.call_outline,
-                          color: Theme.of(context).primaryColor,
-                        ))
-                    : Container(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: GenericCategory(
-                    title: 'Sala',
-                  ),
-                ),
-              ),
-              ListTile(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 1, horizontal: 16),
-                leading: CircleAvatar(
-                  backgroundColor: (itemScheduleModel.classroom!.type ==
-                          TypeDescription.url)
-                      ? Theme.of(context).primaryColor.withOpacity(0.2)
-                      : Theme.of(context).secondaryHeaderColor.withOpacity(0.2),
-                  child: Center(
-                    child: (itemScheduleModel.classroom!.type ==
-                            TypeDescription.url)
-                        ? Icon(
-                            Ionicons.globe_outline,
-                            color: Theme.of(context).primaryColor,
-                          )
-                        : Icon(
-                            Ionicons.location_outline,
-                            color: Theme.of(context).secondaryHeaderColor,
+                    )
+                  : Container(),
+              (teacher.id != null && teacher.id!.length != 0)
+                  ? ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Theme.of(context)
+                            .secondaryHeaderColor
+                            .withOpacity(0.2),
+                        child: Center(
+                          child: Transform.rotate(
+                            angle: _degrees * -math.pi / 180,
+                            child: Text(
+                              '${teacher.name[0]}',
+                              style: AppFont.font(TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w400)),
+                            ),
                           ),
-                  ),
-                ),
-                title: Text(
-                  '${itemScheduleModel.classroom!.name}',
-                  style: AppFont.font(TextStyle(
-                      color: (itemScheduleModel.classroom!.type ==
-                              TypeDescription.url)
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).secondaryHeaderColor,
-                      fontWeight: FontWeight.w500)),
-                ),
-                subtitle: Text(
-                  '${itemScheduleModel.classroom!.description}',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: AppFont.font(TextStyle(
-                      color: Theme.of(context).textTheme.headline2!.color)),
-                ),
-                trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                  (itemScheduleModel.classroom!.type == TypeDescription.url)
-                      ? IconButton(
-                          onPressed: () {
-                            _launchURL(itemScheduleModel.classroom!, position,
-                                context);
-                            Navigator.pop(alertContext);
-                          },
-                          icon: Icon(
-                            Ionicons.open_outline,
-                            color: Theme.of(context).primaryColor,
-                          ))
-                      : Container(),
-                ]),
-              ),
+                        ),
+                      ),
+                      title: Text(
+                        '${teacher.name} ${teacher.lastName}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppFont.font(TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline3!.color)),
+                      ),
+                      subtitle: Text(
+                        '${teacher.phoneNumber}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppFont.font(TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline2!.color)),
+                      ),
+                      trailing: (teacher.phoneNumber!.isNotEmpty)
+                          ? IconButton(
+                              onPressed: () {
+                                _callNumber(teacher.phoneNumber!);
+                              },
+                              icon: Icon(
+                                Ionicons.call_outline,
+                                color: Theme.of(context).primaryColor,
+                              ))
+                          : Container(),
+                    )
+                  : Container(),
+              (classroom.id != null)
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: GenericCategory(
+                          title: 'Sala',
+                        ),
+                      ),
+                    )
+                  : Container(),
+              (classroom.id != null)
+                  ? ListTile(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 1, horizontal: 16),
+                      leading: CircleAvatar(
+                        backgroundColor: (classroom.type == TypeDescription.url)
+                            ? Theme.of(context).primaryColor.withOpacity(0.2)
+                            : Theme.of(context)
+                                .secondaryHeaderColor
+                                .withOpacity(0.2),
+                        child: Center(
+                          child: (classroom.type == TypeDescription.url)
+                              ? Icon(
+                                  Ionicons.globe_outline,
+                                  color: Theme.of(context).primaryColor,
+                                )
+                              : Icon(
+                                  Ionicons.location_outline,
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                ),
+                        ),
+                      ),
+                      title: Text(
+                        '${classroom.name}',
+                        style: AppFont.font(TextStyle(
+                            color: (classroom.type == TypeDescription.url)
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).secondaryHeaderColor,
+                            fontWeight: FontWeight.w500)),
+                      ),
+                      subtitle: Text(
+                        '${classroom.description}',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: AppFont.font(TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline2!.color)),
+                      ),
+                      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                        (classroom.type == TypeDescription.url)
+                            ? IconButton(
+                                onPressed: () {
+                                  _launchURL(classroom, position!, context);
+                                  Navigator.pop(alertContext);
+                                },
+                                icon: Icon(
+                                  Ionicons.open_outline,
+                                  color: Theme.of(context).primaryColor,
+                                ))
+                            : Container(),
+                      ]),
+                    )
+                  : Container(),
             ],
           ),
         ),
@@ -428,7 +487,7 @@ Future<void> _showScheduleSignatureSelected(BuildContext context,
               )),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(alertContext);
             },
           )
         ],

@@ -12,14 +12,14 @@ class AddTeacher extends TeacherEvent {
 }
 
 class EditTeacher extends TeacherEvent {
-  final int? position;
+  final String id;
   final TeacherModel newTeacher;
 
-  EditTeacher(this.position, this.newTeacher);
+  EditTeacher(this.id, this.newTeacher);
 }
 
 class RemoveTeacher extends TeacherEvent {
-  final int position;
+  final String id;
 
-  RemoveTeacher(this.position);
+  RemoveTeacher(this.id);
 }

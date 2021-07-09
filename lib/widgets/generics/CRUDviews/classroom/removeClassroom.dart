@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/roomClass/classroom_bloc.dart';
-import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
+import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 
 Future<void> showAlertclassroomRemove(
-    BuildContext context, String name, int position) async {
+    BuildContext context, ClassroomModel classroom) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -24,7 +24,8 @@ Future<void> showAlertclassroomRemove(
                   text: '¿Está seguro que desea eliminar ',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
-                  text: '$name', style: AppFont.fontHeadline2Bold(context)),
+                  text: '${classroom.name}',
+                  style: AppFont.fontHeadline2Bold(context)),
               TextSpan(text: '?', style: AppFont.fontHeadline2(context)),
             ]),
           )
@@ -43,10 +44,8 @@ Future<void> showAlertclassroomRemove(
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {
-              BlocProvider.of<ScheduleBloc>(context)
-                  .add(RemoveScheduleClassroom(position));
               BlocProvider.of<ClassroomBloc>(context)
-                  .add(Removeclassroom(position));
+                  .add(Removeclassroom(classroom.id!));
               Navigator.of(context).pop();
             },
           ),

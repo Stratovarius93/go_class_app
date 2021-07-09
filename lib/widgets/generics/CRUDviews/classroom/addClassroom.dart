@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/roomClass/classroom_bloc.dart';
-import 'package:go_class_app/models/room_model.dart';
+import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
@@ -10,6 +10,7 @@ import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:min_id/min_id.dart';
 
 String? _selectedRadioTile;
 TypeDescription _type = TypeDescription.text;
@@ -206,14 +207,16 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 if (_type == TypeDescription.text) {
+                                  final String id = MinId.getId();
                                   ClassroomModel _classroom = ClassroomModel(
+                                      id: id,
                                       name: _name,
                                       description: _selectedRadioTile,
                                       type: _type);
                                   BlocProvider.of<ClassroomBloc>(context)
                                       .add(Addclassroom(_classroom));
                                   BlocProvider.of<CRUDsignatureBloc>(context)
-                                      .add(CRUDAddRoom(_classroom));
+                                      .add(CRUDAddRoom(_classroom.id!));
                                   SnackBar _snackBar = GenericSnackBar(
                                           context: context,
                                           content: 'Se agregó la sala $_name')
@@ -225,14 +228,16 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                                   _name = '';
                                   Navigator.pop(context);
                                 } else if (_type == TypeDescription.url) {
+                                  final String id = MinId.getId();
                                   ClassroomModel _classroom2 = ClassroomModel(
+                                      id: id,
                                       name: _name,
                                       description: _url,
                                       type: _type);
                                   BlocProvider.of<ClassroomBloc>(context)
                                       .add(Addclassroom(_classroom2));
                                   BlocProvider.of<CRUDsignatureBloc>(context)
-                                      .add(CRUDAddRoom(_classroom2));
+                                      .add(CRUDAddRoom(_classroom2.id!));
                                   SnackBar _snackBar = GenericSnackBar(
                                           context: context,
                                           content: 'Se agregó la sala $_name')

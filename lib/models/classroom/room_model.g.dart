@@ -8,6 +8,7 @@ part of 'room_model.dart';
 
 ClassroomModel _$ClassroomModelFromJson(Map<String, dynamic> json) {
   return ClassroomModel(
+    id: json['id'] as String?,
     name: json['name'] as String,
     description: json['description'] as String?,
     type: _$enumDecode(_$TypeDescriptionEnumMap, json['type']),
@@ -16,6 +17,7 @@ ClassroomModel _$ClassroomModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ClassroomModelToJson(ClassroomModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'description': instance.description,
       'type': _$TypeDescriptionEnumMap[instance.type],

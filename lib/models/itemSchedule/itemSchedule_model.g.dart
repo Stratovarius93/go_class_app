@@ -8,27 +8,21 @@ part of 'itemSchedule_model.dart';
 
 ItemScheduleModel _$ItemScheduleModelFromJson(Map<String, dynamic> json) {
   return ItemScheduleModel(
-    name: json['name'] == null
-        ? null
-        : SignatureModel.fromJson(json['name'] as Map<String, dynamic>),
-    teacher: json['teacher'] == null
-        ? null
-        : TeacherModel.fromJson(json['teacher'] as Map<String, dynamic>),
+    idSignature: json['idSignature'] as String?,
+    idTeacher: json['idTeacher'] as String?,
     timeIn: ItemScheduleModel._timeOfDayfromJson(json['timeIn'] as String),
     timeOut: ItemScheduleModel._timeOfDayfromJson(json['timeOut'] as String),
-    classroom: json['classroom'] == null
-        ? null
-        : ClassroomModel.fromJson(json['classroom'] as Map<String, dynamic>),
+    idClassroom: json['idClassroom'] as String?,
     color: json['color'] as int,
   );
 }
 
 Map<String, dynamic> _$ItemScheduleModelToJson(ItemScheduleModel instance) =>
     <String, dynamic>{
-      'name': instance.name?.toJson(),
-      'teacher': instance.teacher?.toJson(),
+      'idSignature': instance.idSignature,
+      'idTeacher': instance.idTeacher,
       'timeIn': ItemScheduleModel._timeOfDayToJson(instance.timeIn),
       'timeOut': ItemScheduleModel._timeOfDayToJson(instance.timeOut),
-      'classroom': instance.classroom?.toJson(),
+      'idClassroom': instance.idClassroom,
       'color': instance.color,
     };

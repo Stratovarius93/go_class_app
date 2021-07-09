@@ -5,6 +5,7 @@ import 'package:go_class_app/bloc/roomClass/classroom_bloc.dart';
 import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
+import 'package:go_class_app/widgets/utils/classroomUtils.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -44,8 +45,12 @@ class _AddclassroomSignatureState extends State<AddclassroomSignature> {
                     onTap: () async {
                       await _showAlertRoom(context);
                     },
-                    subtitle: (state.classroom != null)
-                        ? state.classroom!.name
+                    subtitle: (state.classroomId != null &&
+                            state.classroomId!.length != 0)
+                        ? classroomByID(
+                                id: state.classroomId,
+                                classroomList: stateclassroom.listclassroom)
+                            .name
                         : 'Ninguno',
                   )
                 : Container(),
@@ -120,7 +125,7 @@ class __ListViewState extends State<_ListView> {
                     title: ListTile(
                       onTap: () {
                         BlocProvider.of<CRUDsignatureBloc>(context)
-                            .add(CRUDAddRoom(state.listclassroom[index]));
+                            .add(CRUDAddRoom(state.listclassroom[index].id!));
                       },
                       title: Text(
                         '${state.listclassroom[index].name}',
@@ -139,8 +144,8 @@ class __ListViewState extends State<_ListView> {
                                           .color)),
                                 )
                               : null,
-                      trailing: (stateCRUDsignature.classroom ==
-                              state.listclassroom[index])
+                      trailing: (stateCRUDsignature.classroomId ==
+                              state.listclassroom[index].id)
                           ? CircleAvatar(
                               backgroundColor: Theme.of(context)
                                   .secondaryHeaderColor

@@ -1,9 +1,7 @@
-import 'package:go_class_app/models/signature_model.dart';
+import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:sembast/sembast.dart';
 
 import '../db.dart';
-
-List<SignatureModel> signaturesNameList = [];
 
 class SignatureNameStore {
   SignatureNameStore._internal();

@@ -12,14 +12,14 @@ class Addclassroom extends ClassroomEvent {
 }
 
 class Editclassroom extends ClassroomEvent {
-  final int position;
+  final String id;
   final ClassroomModel newclassroom;
 
-  Editclassroom(this.position, this.newclassroom);
+  Editclassroom(this.id, this.newclassroom);
 }
 
 class Removeclassroom extends ClassroomEvent {
-  final int position;
+  final String id;
 
-  Removeclassroom(this.position);
+  Removeclassroom(this.id);
 }

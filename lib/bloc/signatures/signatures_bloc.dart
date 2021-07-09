@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:go_class_app/data/store/signaturesName_store.dart';
-import 'package:go_class_app/models/signature_model.dart';
+import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:meta/meta.dart';
-import 'package:min_id/min_id.dart';
 import 'package:sembast/sembast.dart';
 
 part 'signatures_event.dart';
@@ -30,27 +29,14 @@ class SignaturesBloc extends Bloc<SignaturesEvent, SignaturesState> {
 }
 
 Stream<SignaturesState> _loadSignature() async* {
-  Finder finder = Finder(sortOrders: [SortOrder('name')]);
-  signaturesNameList = await SignatureNameStore.instance.find(finder: finder);
-  print(signaturesNameList.length);
-  for (var i = 0, len = signaturesNameList.length; i < len; ++i) {
-    print('${signaturesNameList[i].id} - ${signaturesNameList[i].name}');
-  }
-  if (signaturesNameList.isEmpty) {
-    signaturesNameList = [];
-    for (var i = 0, len = signaturesNameList.length; i < len; ++i) {
-      await SignatureNameStore.instance.add(signaturesNameList[i]);
-    }
-  }
-  yield SignaturesState(listSignatures: signaturesNameList);
+  List<SignatureModel> _list = await _loadList();
+  yield SignaturesState(listSignatures: _list);
 }
 
 Stream<SignaturesState> _addSignature(SignatureModel signature) async* {
-  signaturesNameList.add(signature);
-  final String id = MinId.getId();
-  SignatureModel _newSignature = SignatureModel(id: id, name: signature.name);
-  SignatureNameStore.instance.add(_newSignature);
-  yield SignaturesState(listSignatures: signaturesNameList);
+  await SignatureNameStore.instance.add(signature);
+  List<SignatureModel> _list = await _loadList();
+  yield SignaturesState(listSignatures: _list);
 }
 
 Stream<SignaturesState> _editSignature(
@@ -58,19 +44,21 @@ Stream<SignaturesState> _editSignature(
   Finder finder = Finder(filter: Filter.byKey(oldSignature.id));
   SignatureModel _newSignature =
       SignatureModel(id: oldSignature.id, name: newSignature.name);
-
   await SignatureNameStore.instance.update(_newSignature, finder);
-  for (SignatureModel item in signaturesNameList) {
-    if (item.id == oldSignature.id) {
-      item = _newSignature;
-    }
-  }
-  yield SignaturesState(listSignatures: signaturesNameList);
+  List<SignatureModel> _list = await _loadList();
+  yield SignaturesState(listSignatures: _list);
 }
 
 Stream<SignaturesState> _removeSignature(SignatureModel signature) async* {
   Finder finder = Finder(filter: Filter.byKey(signature.id));
   await SignatureNameStore.instance.delete(finder);
-  signaturesNameList.remove(signature);
-  yield SignaturesState(listSignatures: signaturesNameList);
+  List<SignatureModel> _list = await _loadList();
+  yield SignaturesState(listSignatures: _list);
+}
+
+Future<List<SignatureModel>> _loadList() async {
+  List<SignatureModel> _list = [];
+  Finder finder = Finder(sortOrders: [SortOrder('name')]);
+  _list = await SignatureNameStore.instance.find(finder: finder);
+  return _list;
 }
