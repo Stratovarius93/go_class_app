@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/name/name_bloc.dart';
-import 'package:go_class_app/data/store/mainState_store.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/background.dart';
@@ -70,7 +69,7 @@ class _HomePage2State extends State<HomePage2> {
                 ),
                 Center(
                   child: GenericTitle(
-                    title: 'Empecemos',
+                    title: 'Continuar',
                   ),
                 ),
                 SizedBox(
@@ -121,9 +120,8 @@ class _HomePage2State extends State<HomePage2> {
                               if (_formKey.currentState!.validate()) {
                                 BlocProvider.of<NameBloc>(context)
                                     .add(AddName(_name));
-                                await MainStateStore.instance.change(true);
                                 Navigator.pushReplacementNamed(
-                                    context, 'mainIndex');
+                                    context, 'homePage3');
                               }
                             },
                             child: Container(

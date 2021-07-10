@@ -32,41 +32,13 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       yield* _sortList();
     } else if (event is EditScheduleVisible) {
       yield* _editScheduleVisible(event.visible, event.position);
+    } else if (event is RemoveScheduleList) {
+      yield* _removeScheduleList();
     }
   }
 }
 
 Stream<ScheduleState> _loadSchedule() async* {
-  List<ItemScheduleModel> scheduleList0 = [];
-
-  List<ItemScheduleModel> scheduleList1 = [];
-
-  List<ItemScheduleModel> scheduleList2 = [];
-
-  List<ItemScheduleModel> scheduleList3 = [];
-
-  List<ItemScheduleModel> scheduleList4 = [];
-
-  List<ItemScheduleModel> scheduleList5 = [];
-
-  List<ItemScheduleModel> scheduleList6 = [];
-
-  List<DayScheduleModel> _scheduleListGeneralData = [
-    DayScheduleModel(
-        id: '0', scheduleList: scheduleList0, visible: true, day: 'Lunes'),
-    DayScheduleModel(
-        id: '1', scheduleList: scheduleList1, visible: true, day: 'Martes'),
-    DayScheduleModel(
-        id: '2', scheduleList: scheduleList2, visible: true, day: 'Miércoles'),
-    DayScheduleModel(
-        id: '3', scheduleList: scheduleList3, visible: true, day: 'Jueves'),
-    DayScheduleModel(
-        id: '4', scheduleList: scheduleList4, visible: true, day: 'Viernes'),
-    DayScheduleModel(
-        id: '5', scheduleList: scheduleList5, visible: true, day: 'Sábado'),
-    DayScheduleModel(
-        id: '6', scheduleList: scheduleList6, visible: true, day: 'Domingo'),
-  ];
   List<DayScheduleModel> _preList = await ScheduleStore.instance.find();
   if (_preList.isEmpty) {
     for (var i = 0, len = _scheduleListGeneralData.length; i < len; ++i) {
@@ -149,6 +121,21 @@ Stream<ScheduleState> _editScheduleVisible(bool visible, int position) async* {
   yield ScheduleState(scheduleList: _finalList2);
 }
 
+Stream<ScheduleState> _removeScheduleList() async* {
+  await ScheduleStore.instance.delete();
+  List<DayScheduleModel> _preList = await ScheduleStore.instance.find();
+  if (_preList.isEmpty) {
+    for (var i = 0, len = _scheduleListGeneralData.length; i < len; ++i) {
+      await ScheduleStore.instance.add(_scheduleListGeneralData[i]);
+    }
+    _preList = await ScheduleStore.instance.find();
+  }
+
+  List<DayScheduleModel> _list = _listVisible(_preList);
+
+  yield ScheduleState(scheduleList: _list);
+}
+
 List<DayScheduleModel> _listVisible(List<DayScheduleModel> list) {
   List<DayScheduleModel> _newList = [];
   for (var i = 0, len = list.length; i < len; ++i) {
@@ -179,3 +166,34 @@ Future<List<DayScheduleModel>> _updateListStore(
   List<DayScheduleModel> _list = await ScheduleStore.instance.find();
   return _list;
 }
+
+List<ItemScheduleModel> scheduleList0 = [];
+
+List<ItemScheduleModel> scheduleList1 = [];
+
+List<ItemScheduleModel> scheduleList2 = [];
+
+List<ItemScheduleModel> scheduleList3 = [];
+
+List<ItemScheduleModel> scheduleList4 = [];
+
+List<ItemScheduleModel> scheduleList5 = [];
+
+List<ItemScheduleModel> scheduleList6 = [];
+
+List<DayScheduleModel> _scheduleListGeneralData = [
+  DayScheduleModel(
+      id: '0', scheduleList: scheduleList0, visible: true, day: 'Lunes'),
+  DayScheduleModel(
+      id: '1', scheduleList: scheduleList1, visible: true, day: 'Martes'),
+  DayScheduleModel(
+      id: '2', scheduleList: scheduleList2, visible: true, day: 'Miércoles'),
+  DayScheduleModel(
+      id: '3', scheduleList: scheduleList3, visible: true, day: 'Jueves'),
+  DayScheduleModel(
+      id: '4', scheduleList: scheduleList4, visible: true, day: 'Viernes'),
+  DayScheduleModel(
+      id: '5', scheduleList: scheduleList5, visible: true, day: 'Sábado'),
+  DayScheduleModel(
+      id: '6', scheduleList: scheduleList6, visible: true, day: 'Domingo'),
+];

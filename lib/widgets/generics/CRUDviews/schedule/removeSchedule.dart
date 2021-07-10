@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
+import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:go_class_app/widgets/utils/signatureUtils.dart';
 
-Future<void> showAlertRemoveSchedule(BuildContext context, int position,
-    int currentDay, ItemScheduleModel itemScheduleModel) async {
+Future<void> showAlertRemoveSchedule(
+    BuildContext context,
+    int position,
+    int currentDay,
+    ItemScheduleModel itemScheduleModel,
+    List<SignatureModel> list) async {
   return await showDialog(
     context: context,
     builder: (context) {
@@ -23,7 +29,8 @@ Future<void> showAlertRemoveSchedule(BuildContext context, int position,
                 text: '¿Desea eliminar la asignatura ',
                 style: AppFont.fontHeadline2(context)),
             TextSpan(
-                text: '${itemScheduleModel.idSignature}',
+                text:
+                    '${signatureByID(id: itemScheduleModel.idSignature, signatureList: list).name}',
                 style: AppFont.fontHeadline2Bold(context)),
             TextSpan(text: '?', style: AppFont.fontHeadline2(context))
           ]),

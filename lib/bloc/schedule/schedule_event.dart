@@ -41,3 +41,5 @@ class EditScheduleVisible extends ScheduleEvent {
 
   EditScheduleVisible(this.visible, this.position);
 }
+
+class RemoveScheduleList extends ScheduleEvent {}

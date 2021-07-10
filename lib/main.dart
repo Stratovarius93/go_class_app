@@ -14,7 +14,9 @@ import 'package:go_class_app/data/db.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/classroom/addClassroom.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/schedule/addSchedule/addSchedule.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/teacher/addTeacher.dart';
+import 'package:go_class_app/widgets/pages/homePage1.dart';
 import 'package:go_class_app/widgets/pages/homePage2.dart';
+import 'package:go_class_app/widgets/pages/homePage3.dart';
 import 'package:go_class_app/widgets/pages/mainIndex.dart';
 import 'package:go_class_app/widgets/pages/mainPage1/mainPage1.dart';
 import 'package:go_class_app/widgets/pages/mainPage2/mainPage2.dart';
@@ -106,7 +108,7 @@ class _ThemeControllerState extends State<ThemeController> {
               title: 'MyApp',
               initialRoute: (MainStateStore.instance.mainState)
                   ? 'mainIndex'
-                  : 'homePage2',
+                  : 'homePage1',
               routes: {
                 'mainIndex': (BuildContext context) => MainIndex(),
                 'mainPage1': (BuildContext context) => MainPage1(),
@@ -122,6 +124,8 @@ class _ThemeControllerState extends State<ThemeController> {
                 'mainPage4Appearance': (BuildContext context) =>
                     MainPage4Appearance(),
                 'homePage2': (BuildContext context) => HomePage2(),
+                'homePage1': (BuildContext context) => HomePage1(),
+                'homePage3': (BuildContext context) => HomePage3(),
               },
             ));
   }

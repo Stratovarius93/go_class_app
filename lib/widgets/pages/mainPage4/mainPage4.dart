@@ -12,6 +12,7 @@ import 'package:go_class_app/widgets/generics/cardTitle.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/grouped_buttons/src/checkbox_group.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/generics/title.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
@@ -40,17 +41,17 @@ class _MainPage4State extends State<MainPage4> {
     const double _paddingCardLR = 10.0;
     _categoriesWidget = [
       _appeareance(context, widget.contextRoute),
-      _notifications(context, (value) {
-        setState(() {
-          _switchListTileValue = value;
-        });
-      }),
+      //_notifications(context, (value) {
+      //setState(() {
+      //_switchListTileValue = value;
+      //});
+      //}),
       _NameHome(),
       _weekDays(context),
     ];
     _categories = [
       'Apariencia',
-      'Notificaciones',
+      //'Notificaciones',
       'Nombre de Inicio',
       'Días de la semana'
     ];
@@ -106,27 +107,83 @@ class _MainPage4State extends State<MainPage4> {
                             ]),
                       );
                     }),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Borrar horario',
-                            style: AppFont.font(TextStyle(
-                                fontSize: 17,
-                                color: Theme.of(context)
-                                    .bottomNavigationBarTheme
-                                    .selectedItemColor)),
-                          )),
-                      IconButton(
-                          icon: Icon(
-                            Ionicons.trash_sharp,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {})
-                    ],
+                BlocBuilder<ScheduleBloc, ScheduleState>(
+                  builder: (context, state) => Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              int _count = 0;
+                              for (var i = 0, len = state.scheduleList.length;
+                                  i < len;
+                                  ++i) {
+                                if (state
+                                    .scheduleList[i].scheduleList.isEmpty) {
+                                  _count++;
+                                }
+                              }
+                              if (_count == state.scheduleList.length) {
+                                SnackBar _snackBar = GenericSnackBar(
+                                        context: context,
+                                        content: 'El horario está vacío')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+                              } else {
+                                BlocProvider.of<ScheduleBloc>(context)
+                                    .add(RemoveScheduleList());
+                                SnackBar _snackBar = GenericSnackBar(
+                                        context: context,
+                                        content: 'Se eliminó el horario')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+                              }
+                            },
+                            child: Text(
+                              'Borrar horario',
+                              style: AppFont.font(TextStyle(
+                                  fontSize: 17,
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor)),
+                            )),
+                        IconButton(
+                            icon: Icon(
+                              Ionicons.trash_sharp,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            onPressed: () {
+                              int _count = 0;
+                              for (var i = 0, len = state.scheduleList.length;
+                                  i < len;
+                                  ++i) {
+                                if (state
+                                    .scheduleList[i].scheduleList.isEmpty) {
+                                  _count++;
+                                }
+                              }
+                              if (_count == state.scheduleList.length) {
+                                SnackBar _snackBar = GenericSnackBar(
+                                        context: context,
+                                        content: 'El horario está vacío')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+                              } else {
+                                BlocProvider.of<ScheduleBloc>(context)
+                                    .add(RemoveScheduleList());
+                                SnackBar _snackBar = GenericSnackBar(
+                                        context: context,
+                                        content: 'Se eliminó el horario')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+                              }
+                            })
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

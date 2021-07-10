@@ -231,8 +231,8 @@ class _ItemSchedule extends StatelessWidget {
                     ))
                 : Container(),
             GenericPopMenuItem(
-                popupMenuItemModelList:
-                    _listOptions(context, pos, index, itemScheduleModel)),
+                popupMenuItemModelList: _listOptions(
+                    context, pos, index, itemScheduleModel, signatureList)),
           ]),
         ),
       ),
@@ -240,8 +240,12 @@ class _ItemSchedule extends StatelessWidget {
   }
 }
 
-List<PopupMenuItemModel> _listOptions(BuildContext context, int currentDay,
-    int position, ItemScheduleModel itemScheduleModel) {
+List<PopupMenuItemModel> _listOptions(
+    BuildContext context,
+    int currentDay,
+    int position,
+    ItemScheduleModel itemScheduleModel,
+    List<SignatureModel> list) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
       title: 'Editar',
@@ -267,7 +271,7 @@ List<PopupMenuItemModel> _listOptions(BuildContext context, int currentDay,
       ),
       onTap: () async {
         await showAlertRemoveSchedule(
-            context, position, currentDay, itemScheduleModel);
+            context, position, currentDay, itemScheduleModel, list);
       },
       visible: true,
     ),

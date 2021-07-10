@@ -159,8 +159,6 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                                 try {
                                   BlocProvider.of<TeacherBloc>(context)
                                       .add(AddTeacher(_teacher));
-                                  //BlocProvider.of<TeacherBloc>(context)
-                                  //.add(LoadTeacherList());
                                   BlocProvider.of<CRUDsignatureBloc>(context)
                                       .add(CRUDAddTeacher(_teacher.id!));
                                   SnackBar _snackBar = GenericSnackBar(

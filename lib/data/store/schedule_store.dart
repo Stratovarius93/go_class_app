@@ -3,8 +3,6 @@ import 'package:sembast/sembast.dart';
 
 import '../db.dart';
 
-List<DayScheduleModel> scheduleListGeneral = [];
-
 class ScheduleStore {
   ScheduleStore._internal();
   static ScheduleStore _instance = ScheduleStore._internal();
