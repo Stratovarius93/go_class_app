@@ -24,6 +24,7 @@ import 'package:go_class_app/widgets/pages/mainPage3/mainPage3.dart';
 import 'package:go_class_app/widgets/pages/mainPage4/appearance.dart';
 import 'package:go_class_app/widgets/pages/mainPage4/mainPage4.dart';
 import 'package:go_class_app/widgets/theme/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'data/store/mainState_store.dart';
 
@@ -97,9 +98,15 @@ class _ThemeControllerState extends State<ThemeController> {
         //initial: AdaptiveThemeMode.system,
         initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp(
-              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                //GlobalCupertinoLocalizations.delegate
+                AppLocalizations.delegate
+              ],
               supportedLocales: [
                 const Locale('es', 'ES'), // American English
+                const Locale('en', 'US'), // American English
                 // ...
               ],
               debugShowCheckedModeBanner: false,

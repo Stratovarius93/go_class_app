@@ -9,6 +9,7 @@ import 'package:go_class_app/widgets/pages/mainPage4/mainPage4.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //PersistentTabController _controller;
 
@@ -40,10 +41,14 @@ class _MainIndexState extends State<MainIndex> {
       )
     ];
     _elementItemIconList = [
-      ElementItemIcon(Ionicons.calendar_outline, 'Horario'),
-      ElementItemIcon(Ionicons.list_outline, 'Materias'),
-      ElementItemIcon(Ionicons.person_outline, 'Docentes'),
-      ElementItemIcon(Ionicons.cog_outline, 'Ajustes'),
+      ElementItemIcon(Ionicons.calendar_outline,
+          AppLocalizations.of(context)!.bottomNavigation_1),
+      ElementItemIcon(Ionicons.list_outline,
+          AppLocalizations.of(context)!.bottomNavigation_2),
+      ElementItemIcon(Ionicons.person_outline,
+          AppLocalizations.of(context)!.bottomNavigation_3),
+      ElementItemIcon(Ionicons.cog_outline,
+          AppLocalizations.of(context)!.bottomNavigation_4),
     ];
     _iconSize = screenWidth(context) * 0.065;
     return AnnotatedRegion(

@@ -9,7 +9,7 @@ part of 'day_model.dart';
 DayModel _$DayModelFromJson(Map<String, dynamic> json) {
   return DayModel(
     id: json['id'] as String,
-    name: json['name'] as String,
+    name: json['name'] as int,
     enable: json['enable'] as bool,
     visible: json['visible'] as bool,
   );

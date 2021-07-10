@@ -5,7 +5,7 @@ part 'day_model.g.dart';
 @JsonSerializable()
 class DayModel {
   String id;
-  String name;
+  int name;
   bool enable;
   bool visible;
 

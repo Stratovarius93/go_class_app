@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_class_app/data/store/daysWeek_store.dart';
 import 'package:go_class_app/models/day/day_model.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'weekDays_event.dart';
 part 'weekDays_state.dart';
@@ -22,7 +24,7 @@ class WeekDaysBloc extends Bloc<WeekDaysEvent, WeekDaysState> {
     } else if (event is EditDayVisible) {
       yield* _editDayVisible(event.visible, event.position);
     } else if (event is CurrentDay) {
-      yield* _currentDay();
+      yield* _currentDay(event.context);
     } else if (event is LoadDays) {
       yield* _loadWeekDays(state);
     } else if (event is UpdateWeekDaysStore) {
@@ -33,13 +35,13 @@ class WeekDaysBloc extends Bloc<WeekDaysEvent, WeekDaysState> {
 
 Stream<WeekDaysState> _loadWeekDays(WeekDaysState state) async* {
   List<DayModel> _weekListWithData = [
-    DayModel(id: '0', name: 'Lunes', enable: false, visible: true),
-    DayModel(id: '1', name: 'Martes', enable: false, visible: true),
-    DayModel(id: '2', name: 'Miércoles', enable: false, visible: true),
-    DayModel(id: '3', name: 'Jueves', enable: false, visible: true),
-    DayModel(id: '4', name: 'Viernes', enable: false, visible: true),
-    DayModel(id: '5', name: 'Sábado', enable: false, visible: true),
-    DayModel(id: '6', name: 'Domingo', enable: false, visible: true),
+    DayModel(id: '0', name: 0, enable: false, visible: true),
+    DayModel(id: '1', name: 1, enable: false, visible: true),
+    DayModel(id: '2', name: 2, enable: false, visible: true),
+    DayModel(id: '3', name: 3, enable: false, visible: true),
+    DayModel(id: '4', name: 4, enable: false, visible: true),
+    DayModel(id: '5', name: 5, enable: false, visible: true),
+    DayModel(id: '6', name: 6, enable: false, visible: true),
   ];
 
   weekList = await WeekDaysStore.instance.find();
@@ -77,15 +79,30 @@ Stream<WeekDaysState> _editDayVisible(bool visible, int position) async* {
   yield WeekDaysState(daysList: _weekList, currentDay: null);
 }
 
-Stream<WeekDaysState> _currentDay() async* {
+Stream<WeekDaysState> _currentDay(BuildContext context) async* {
   String _currentDay;
   int? _positionDay;
   var _date = DateTime.now();
   initializeDateFormatting();
-  _currentDay = DateFormat.EEEE('es_ES').format(_date);
+  String languageCode = Localizations.localeOf(context).languageCode;
+  //_currentDay = DateFormat.EEEE('es_ES').format(_date);
+  _currentDay = DateFormat('EEEE', languageCode).format(_date);
+  print(_currentDay);
+
+  List<String> weekDaysName = [
+    AppLocalizations.of(context)!.mainPage1_day1,
+    AppLocalizations.of(context)!.mainPage1_day2,
+    AppLocalizations.of(context)!.mainPage1_day3,
+    AppLocalizations.of(context)!.mainPage1_day4,
+    AppLocalizations.of(context)!.mainPage1_day5,
+    AppLocalizations.of(context)!.mainPage1_day6,
+    AppLocalizations.of(context)!.mainPage1_day7,
+  ];
+
   List<DayModel> _weekList = _listVisible();
   for (var i = 0, len = weekList.length; i < len; ++i) {
-    if (weekList[i].name.toUpperCase() == _currentDay.toUpperCase()) {
+    if (weekDaysName[weekList[i].name].toUpperCase() ==
+        _currentDay.toUpperCase()) {
       if (weekList[i].visible) {
         weekList[i].enable = true;
         _positionDay = i;

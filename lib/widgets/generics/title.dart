@@ -14,7 +14,7 @@ class GenericTitle extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: AppFont.font(TextStyle(
           color: Theme.of(context).textTheme.headline1!.color,
-          fontSize: screenWidth(context) * 0.1,
+          fontSize: screenWidth(context) * 0.08,
           fontWeight: FontWeight.w300)),
     );
   }

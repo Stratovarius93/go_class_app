@@ -22,6 +22,7 @@ import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'signatures.dart';
 part 'roomClass.dart';
@@ -56,7 +57,7 @@ class _MainPage2State extends State<MainPage2> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: GenericTitle(
-                    title: 'Materias y aulas',
+                    title: AppLocalizations.of(context)!.mainPage2_title,
                   ),
                 ),
                 Padding(
@@ -66,7 +67,8 @@ class _MainPage2State extends State<MainPage2> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenericSubtitle(
-                          title: 'Lista de materias',
+                          title: AppLocalizations.of(context)!
+                              .mainPage2_listSignature,
                         ),
                         BlocBuilder<SignaturesBloc, SignaturesState>(
                           builder: (context, state) => Padding(
@@ -77,8 +79,8 @@ class _MainPage2State extends State<MainPage2> {
                                     context, _formKeyAdd);
                               },
                               child: GenericActionTextRight(
-                                title: 'Agregar',
-                              ),
+                                  title:
+                                      AppLocalizations.of(context)!.button_add),
                             ),
                           ),
                         ),
@@ -98,8 +100,8 @@ class _MainPage2State extends State<MainPage2> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenericSubtitle(
-                          title: 'Lista de aulas',
-                        ),
+                            title: AppLocalizations.of(context)!
+                                .mainPage2_listRoom),
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: GestureDetector(
@@ -110,8 +112,8 @@ class _MainPage2State extends State<MainPage2> {
                               );
                             },
                             child: GenericActionTextRight(
-                              title: 'Agregar',
-                            ),
+                                title:
+                                    AppLocalizations.of(context)!.button_add),
                           ),
                         ),
                       ]),

@@ -16,10 +16,11 @@ import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/generics/title.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'homeName.dart';
 
-bool? _switchListTileValue;
+//bool? _switchListTileValue;
 late List<String> _categories;
 late List<Widget> _categoriesWidget;
 
@@ -226,31 +227,40 @@ Widget _appeareance(BuildContext context, BuildContext? contextRoute) {
   );
 }
 
-Widget _notifications(BuildContext context, Function(bool) onChanged) {
-  return SwitchListTile(
-    activeColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-    value: _switchListTileValue ?? true,
-    onChanged: onChanged,
-    title: Text(
-      'Notificaciones',
-      style: AppFont.font(
-          TextStyle(color: Theme.of(context).textTheme.headline3!.color)),
-    ),
-    subtitle: Text(
-      'Activa/Desactiva las notificaciones',
-      style: AppFont.font(
-          TextStyle(color: Theme.of(context).textTheme.headline2!.color)),
-    ),
-  );
-}
+//Widget _notifications(BuildContext context, Function(bool) onChanged) {
+//return SwitchListTile(
+//activeColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+//value: _switchListTileValue ?? true,
+//onChanged: onChanged,
+//title: Text(
+//'Notificaciones',
+//style: AppFont.font(
+//TextStyle(color: Theme.of(context).textTheme.headline3!.color)),
+//),
+//subtitle: Text(
+//'Activa/Desactiva las notificaciones',
+//style: AppFont.font(
+//TextStyle(color: Theme.of(context).textTheme.headline2!.color)),
+//),
+//);
+//}
 
 Widget _weekDays(BuildContext context) {
+  List<String> weekDaysName = [
+    AppLocalizations.of(context)!.mainPage1_day1,
+    AppLocalizations.of(context)!.mainPage1_day2,
+    AppLocalizations.of(context)!.mainPage1_day3,
+    AppLocalizations.of(context)!.mainPage1_day4,
+    AppLocalizations.of(context)!.mainPage1_day5,
+    AppLocalizations.of(context)!.mainPage1_day6,
+    AppLocalizations.of(context)!.mainPage1_day7,
+  ];
   return BlocBuilder<WeekDaysBloc, WeekDaysState>(
     builder: (BuildContext context, state) {
       List<String>? _list;
       _list = state.daysList.map((e) {
         if (e.visible) {
-          return e.name;
+          return weekDaysName[e.name];
         }
         return '';
       }).toList();
@@ -268,7 +278,7 @@ Widget _weekDays(BuildContext context) {
         activeColor: Theme.of(context).primaryColor,
         labelStyle: AppFont.font(
             TextStyle(color: Theme.of(context).textTheme.headline3!.color)),
-        labels: weekList.map((e) => e.name).toList(),
+        labels: weekList.map((e) => weekDaysName[e.name]).toList(),
       );
     },
   );

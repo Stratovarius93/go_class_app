@@ -84,7 +84,7 @@ class _AddNewSignature extends StatelessWidget {
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
-              'Añadir asignatura',
+              '${AppLocalizations.of(context)!.mainPage1_addSignature}',
               style: AppFont.font(TextStyle(
                   color: Color(0xFF59656e),
                   fontSize: 20,

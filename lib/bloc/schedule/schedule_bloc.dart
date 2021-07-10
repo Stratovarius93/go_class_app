@@ -168,17 +168,11 @@ Future<List<DayScheduleModel>> _updateListStore(
 }
 
 List<ItemScheduleModel> scheduleList0 = [];
-
 List<ItemScheduleModel> scheduleList1 = [];
-
 List<ItemScheduleModel> scheduleList2 = [];
-
 List<ItemScheduleModel> scheduleList3 = [];
-
 List<ItemScheduleModel> scheduleList4 = [];
-
 List<ItemScheduleModel> scheduleList5 = [];
-
 List<ItemScheduleModel> scheduleList6 = [];
 
 List<DayScheduleModel> _scheduleListGeneralData = [

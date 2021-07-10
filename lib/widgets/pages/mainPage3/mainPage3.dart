@@ -16,6 +16,7 @@ import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/generics/subtitle.dart';
 import 'package:go_class_app/widgets/generics/title.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class MainPage3 extends StatefulWidget {
@@ -48,8 +49,7 @@ class _MainPage3State extends State<MainPage3> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: GenericTitle(
-                    title: 'Docentes',
-                  ),
+                      title: AppLocalizations.of(context)!.mainPage3_title),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -58,8 +58,8 @@ class _MainPage3State extends State<MainPage3> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenericSubtitle(
-                          title: 'Lista de profesores',
-                        ),
+                            title: AppLocalizations.of(context)!
+                                .mainPage3_listTeacher),
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: GestureDetector(
@@ -70,8 +70,8 @@ class _MainPage3State extends State<MainPage3> {
                               );
                             },
                             child: GenericActionTextRight(
-                              title: 'Agregar',
-                            ),
+                                title:
+                                    AppLocalizations.of(context)!.button_add),
                           ),
                         ),
                       ]),

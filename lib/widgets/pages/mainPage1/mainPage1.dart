@@ -10,6 +10,7 @@ import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
+import 'package:go_class_app/data/store/daysWeek_store.dart';
 import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
@@ -35,6 +36,7 @@ import 'package:go_class_app/widgets/utils/signatureUtils.dart';
 import 'package:go_class_app/widgets/utils/teacherUtils.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:math' as math;
 
 part 'listSignatures.dart';
@@ -60,7 +62,7 @@ class _MainPage1State extends State<MainPage1> {
     _context = widget.contextRoute;
     BlocProvider.of<NameBloc>(context).add(LoadName());
     BlocProvider.of<ScheduleBloc>(context).add(LoadSchedule());
-    BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay());
+    BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay(context));
   }
 
   @override
@@ -71,7 +73,7 @@ class _MainPage1State extends State<MainPage1> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay());
+    BlocProvider.of<WeekDaysBloc>(context).add(CurrentDay(context));
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -119,14 +121,15 @@ class _MainPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: GenericTitle(
-                  title: 'Hola, ${state.name}',
+                  title:
+                      '${AppLocalizations.of(context)!.mainPage1_hello}, ${state.name}',
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 0, bottom: 4),
                 child: GenericSubtitle(
-                  title: 'Tu clase de hoy',
+                  title: AppLocalizations.of(context)!.mainPage1_class,
                 ),
               ),
               _DaysWeekTop(),

@@ -16,7 +16,11 @@ class EditDayVisible extends WeekDaysEvent {
   EditDayVisible(this.visible, this.position);
 }
 
-class CurrentDay extends WeekDaysEvent {}
+class CurrentDay extends WeekDaysEvent {
+  final BuildContext context;
+
+  CurrentDay(this.context);
+}
 
 class LoadDays extends WeekDaysEvent {}
 
