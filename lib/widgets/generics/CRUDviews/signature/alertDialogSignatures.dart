@@ -7,6 +7,7 @@ import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:min_id/min_id.dart';
 
 Future<void> showAlertSignatureEdit(BuildContext context,
@@ -20,44 +21,51 @@ Future<void> showAlertSignatureEdit(BuildContext context,
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Editar asignatura',
+          '${AppLocalizations.of(context)!.editAlert_signatureTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Form(
           key: formKey,
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text(
-              'Ingresa el nuevo nombre de la asignatura:',
-              style: AppFont.fontHeadline2(context),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            GenericInput(
-              controller: TextEditingController(text: signature.name),
-              autofocus: true,
-              validator: (String? value) {
-                return value!.isNotEmpty ? null : 'Campo vacío';
-              },
-              onChanged: (value) {
-                _newValueAdd = value;
-              },
-              maxLength: 32,
-              hintText: 'Nombre de la asignatura',
-            ),
-          ]),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${AppLocalizations.of(context)!.editAlert_signaturePart1}',
+                  style: AppFont.fontHeadline2(context),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                GenericInput(
+                  controller: TextEditingController(text: signature.name),
+                  autofocus: true,
+                  validator: (String? value) {
+                    return value!.isNotEmpty
+                        ? null
+                        : '${AppLocalizations.of(context)!.inputValidator}';
+                  },
+                  onChanged: (value) {
+                    _newValueAdd = value;
+                  },
+                  maxLength: 32,
+                  hintText:
+                      '${AppLocalizations.of(context)!.addAlert_signature_hintText}',
+                ),
+              ]),
         ),
         actions: [
           TextButton(
             child: Text(
-              'Cancelar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_cancel}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           TextButton(
             child: Text(
-              'Actualizar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_update}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {
@@ -87,24 +95,26 @@ Future<void> showAlertSignatureRemove2(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Eliminar asignatura',
+          '${AppLocalizations.of(context)!.removeAlert_scheduleTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: 'Existen asignaturas en el horario con el nombre ',
+                  text:
+                      '${AppLocalizations.of(context)!.removeAlert_signature2Part1} ',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
                   text: '${signature.name}',
                   style: AppFont.fontHeadline2Bold(context)),
               TextSpan(
                   text:
-                      ', al eliminar borrarán las asignaturas del horario que contienen ese nombre.',
+                      '${AppLocalizations.of(context)!.removeAlert_signature2Part2}',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
-                  text: '¿Está seguro que desea eliminar la asignatura?',
+                  text:
+                      '${AppLocalizations.of(context)!.removeAlert_signature2Part3}',
                   style: AppFont.fontHeadline2(context)),
             ]),
           )
@@ -112,14 +122,14 @@ Future<void> showAlertSignatureRemove2(
         actions: [
           TextButton(
             child: Text(
-              'Cancelar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_cancel}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           TextButton(
             child: Text(
-              'Eliminar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_remove}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {
@@ -146,14 +156,15 @@ Future<void> showAlertSignatureRemove(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Eliminar asignatura',
+          '${AppLocalizations.of(context)!.removeAlert_scheduleTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: '¿Está seguro que desea eliminar la asignatura de ',
+                  text:
+                      '${AppLocalizations.of(context)!.removeAlert_schedulePart1} ',
                   style: AppFont.fontHeadline2(context)),
               TextSpan(
                   text: '${signature.name}',
@@ -165,14 +176,14 @@ Future<void> showAlertSignatureRemove(
         actions: [
           TextButton(
             child: Text(
-              'Cancelar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_cancel}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           TextButton(
             child: Text(
-              'Eliminar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_remove}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {
@@ -198,43 +209,51 @@ Future<void> showAlertSignatureAdd(
             borderRadius: BorderRadius.circular(16),
           ),
           title: Text(
-            'Crear asignatura',
+            '${AppLocalizations.of(context)!.addAlert_signatureTitle}',
             style: AppFont.fontTitleDialog(context),
           ),
           content: Form(
             key: formKey,
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text(
-                'Ingresa el nombre de la asignatura:',
-                style: AppFont.fontHeadline2(context),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              GenericInput(
-                validator: (String? value) {
-                  return value!.isNotEmpty ? null : 'Campo vacío';
-                },
-                onChanged: (value) {
-                  _valueAdd = value;
-                },
-                autofocus: true,
-                hintText: 'Nombre de la asignatura',
-                maxLength: 32,
-              ),
-            ]),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${AppLocalizations.of(context)!.addAlert_signaturePart1}',
+                    textAlign: TextAlign.start,
+                    style: AppFont.fontHeadline2(context),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  GenericInput(
+                    validator: (String? value) {
+                      return value!.isNotEmpty
+                          ? null
+                          : '${AppLocalizations.of(context)!.inputValidator}';
+                    },
+                    onChanged: (value) {
+                      _valueAdd = value;
+                    },
+                    autofocus: true,
+                    hintText:
+                        '${AppLocalizations.of(context)!.addAlert_signature_hintText}',
+                    maxLength: 32,
+                  ),
+                ]),
           ),
           actions: [
             TextButton(
               child: Text(
-                'Cancelar'.toUpperCase(),
+                '${AppLocalizations.of(context)!.buttonAlert_cancel}',
                 style: AppFont.fontTextButton(context),
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
                 child: Text(
-                  'Agregar'.toUpperCase(),
+                  '${AppLocalizations.of(context)!.buttonAlert_add}',
                   style: AppFont.fontTextButton(context),
                 ),
                 onPressed: () {
@@ -248,7 +267,8 @@ Future<void> showAlertSignatureAdd(
                         .add(CRUDAddSignature(_signature.id!));
                     SnackBar _snackBar = GenericSnackBar(
                             context: context,
-                            content: 'Se agregó la materia de $_valueAdd')
+                            content:
+                                '${AppLocalizations.of(context)!.snackBar_addTeacher} $_valueAdd')
                         .snackBar();
                     ScaffoldMessenger.of(context).showSnackBar(_snackBar);
 

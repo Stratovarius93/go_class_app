@@ -98,6 +98,7 @@ class __SignaturesState extends State<_Signatures> {
           );
         } else {
           return GenericAddNewItem(
+            title: '${AppLocalizations.of(context)!.addNew}',
             onTap: () async {
               await showAlertSignatureAdd(context, _formKeyEdit);
             },
@@ -117,7 +118,7 @@ List<PopupMenuItemModel> _listOptionsSignature(
 ) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -128,7 +129,7 @@ List<PopupMenuItemModel> _listOptionsSignature(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,

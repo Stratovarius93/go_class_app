@@ -6,6 +6,7 @@ import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 String _name = '';
@@ -63,7 +64,7 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
-              title: 'Editar profesor',
+              title: '${AppLocalizations.of(context)!.editTeacher_title}',
               color: Theme.of(context).appBarTheme.textTheme!.headline1!.color,
             ),
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -80,7 +81,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GenericCategory(
-                          title: 'Nombre',
+                          title:
+                              '${AppLocalizations.of(context)!.addTeacher_name}',
                         ),
                         SizedBox(
                           height: 16,
@@ -104,13 +106,16 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                             child: GenericInput(
                               controller: _controllerName,
                               validator: (String? value) {
-                                return value!.isNotEmpty ? null : 'Campo vacío';
+                                return value!.isNotEmpty
+                                    ? null
+                                    : '${AppLocalizations.of(context)!.inputValidator}';
                               },
                               onChanged: (value) {
                                 _name = value;
                               },
                               maxLength: 32,
-                              hintText: 'Nombre',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_name}',
                             ),
                           ),
                           SizedBox(
@@ -123,7 +128,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                                 _lastName = value;
                               },
                               maxLength: 32,
-                              hintText: 'Apellido',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_lastName}',
                             ),
                           ),
                         ]),
@@ -131,7 +137,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                           height: 16,
                         ),
                         GenericCategory(
-                          title: 'Teléfono',
+                          title:
+                              '${AppLocalizations.of(context)!.addTeacher_phone}',
                         ),
                         SizedBox(
                           height: 16,
@@ -159,7 +166,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                                 _phoneNumber = value;
                               },
                               maxLength: 10,
-                              hintText: 'Teléfono',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_hintText1}',
                             ),
                           ),
                         ]),
@@ -167,7 +175,8 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                          title: 'Guardar profesor',
+                          title:
+                              '${AppLocalizations.of(context)!.editTeacher_button}',
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               _teacher = TeacherModel(

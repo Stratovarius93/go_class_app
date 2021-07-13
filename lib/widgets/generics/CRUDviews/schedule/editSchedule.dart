@@ -7,6 +7,7 @@ import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'addSchedule/colorSignature.dart';
@@ -62,7 +63,8 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                         color: Theme.of(context).primaryColor,
                       )),
                   title: GenericBodyText(
-                    title: 'Editar asignatura',
+                    title:
+                        '${AppLocalizations.of(context)!.editSchedule_title}',
                     color: Theme.of(context)
                         .appBarTheme
                         .textTheme!
@@ -99,7 +101,8 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                            title: 'Guardar cambios',
+                            title:
+                                '${AppLocalizations.of(context)!.editSchedule_button}',
                             onTap: () async {
                               if (stateSignature.signatureId != null) {
                                 ItemScheduleModel _itemSchedule =

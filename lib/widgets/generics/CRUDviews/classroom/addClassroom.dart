@@ -10,12 +10,13 @@ import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:min_id/min_id.dart';
 
-String? _selectedRadioTile;
 TypeDescription _type = TypeDescription.text;
 String _url = '';
 String _name = '';
+String? _selectedRadioTile;
 
 class AddClassroomPage extends StatefulWidget {
   @override
@@ -26,8 +27,15 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
   @override
   void initState() {
     super.initState();
-    _selectedRadioTile = 'Ninguno';
+    _selectedRadioTile = 'ninguno';
   }
+
+  //@override
+  //void didChangeDependencies() {
+  //Locale myLocale = Localizations.localeOf(context);
+  //print('my locale ${myLocale}');
+  //super.didChangeDependencies();
+  //}
 
   setSelectedRadioTile(String? val) {
     setState(() {
@@ -54,7 +62,7 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
-              title: 'Crear aula',
+              title: '${AppLocalizations.of(context)!.addClassroom_title}',
               color: Theme.of(context).appBarTheme.textTheme!.headline1!.color,
             ),
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -71,7 +79,8 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GenericCategory(
-                          title: 'Nombre',
+                          title:
+                              '${AppLocalizations.of(context)!.addClassroom_name}',
                         ),
                         SizedBox(
                           height: 16,
@@ -94,13 +103,16 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                           Expanded(
                             child: GenericInput(
                               validator: (String? value) {
-                                return value!.isNotEmpty ? null : 'Campo vacío';
+                                return value!.isNotEmpty
+                                    ? null
+                                    : '${AppLocalizations.of(context)!.inputValidator}';
                               },
                               onChanged: (value) {
                                 _name = value;
                               },
                               maxLength: 32,
-                              hintText: 'Nombre del aula',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addClassroom_hintText1}',
                             ),
                           ),
                         ]),
@@ -108,16 +120,17 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                           height: 16,
                         ),
                         GenericCategory(
-                          title: 'Descripción',
+                          title:
+                              '${AppLocalizations.of(context)!.addClassroom_description}',
                         ),
                         SizedBox(
                           height: 16,
                         ),
                         RadioListTile(
-                          value: 'Ninguno',
+                          value: 'ninguno',
                           groupValue: _selectedRadioTile,
                           title: Text(
-                            'Ninguno',
+                            '${AppLocalizations.of(context)!.addClassroom_descriptionNone}',
                             style: AppFont.font(TextStyle(
                               color:
                                   Theme.of(context).textTheme.headline1!.color,
@@ -130,10 +143,10 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                           activeColor: Theme.of(context).primaryColor,
                         ),
                         RadioListTile(
-                          value: 'Presencial',
+                          value: 'presencial',
                           groupValue: _selectedRadioTile,
                           title: Text(
-                            'Presencial',
+                            '${AppLocalizations.of(context)!.addClassroom_descriptionOnSite}',
                             style: AppFont.font(TextStyle(
                               color:
                                   Theme.of(context).textTheme.headline1!.color,
@@ -146,10 +159,10 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                           activeColor: Theme.of(context).primaryColor,
                         ),
                         RadioListTile(
-                          value: 'Online',
+                          value: 'online',
                           groupValue: _selectedRadioTile,
                           title: Text(
-                            'Online',
+                            '${AppLocalizations.of(context)!.addClassroom_descriptionOnline}',
                             style: AppFont.font(TextStyle(
                               color:
                                   Theme.of(context).textTheme.headline1!.color,
@@ -164,7 +177,7 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                         SizedBox(
                           height: 16,
                         ),
-                        (_selectedRadioTile == 'Online')
+                        (_selectedRadioTile == 'online')
                             ? Row(children: [
                                 CircleAvatar(
                                   backgroundColor: Theme.of(context)
@@ -184,10 +197,10 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                                 Expanded(
                                   child: GenericInput(
                                     validator: (String? value) {
-                                      if (_selectedRadioTile == 'Online') {
+                                      if (_selectedRadioTile == 'online') {
                                         return value!.isNotEmpty
                                             ? null
-                                            : 'Campo vacío';
+                                            : '${AppLocalizations.of(context)!.inputValidator}';
                                       }
                                     },
                                     onChanged: (value) {
@@ -203,7 +216,8 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                            title: 'Guardar aula',
+                            title:
+                                '${AppLocalizations.of(context)!.addClassroom_button}',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 if (_type == TypeDescription.text) {

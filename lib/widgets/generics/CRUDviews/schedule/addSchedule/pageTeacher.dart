@@ -7,6 +7,7 @@ import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:go_class_app/widgets/utils/teacherUtils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddTeacherSignature extends StatefulWidget {
@@ -35,12 +36,14 @@ class _AddTeacherSignatureState extends State<AddTeacherSignature> {
                   Padding(
                     padding: _padding,
                     child: GenericCategory(
-                      title: 'Profesor',
+                      title:
+                          '${AppLocalizations.of(context)!.addSchedule_teacher}',
                     ),
                   ),
                   (stateTeacher.listTeachers.isNotEmpty)
                       ? GenericListTileCategory(
-                          title: 'Seleccionar profesor',
+                          title:
+                              '${AppLocalizations.of(context)!.addSchedule_teacher_part1}',
                           iconData: Ionicons.person_sharp,
                           onTap: () async {
                             await _showAlertTeacher(context);
@@ -48,11 +51,12 @@ class _AddTeacherSignatureState extends State<AddTeacherSignature> {
                           subtitle: (state.teacherId != null &&
                                   state.teacherId!.length != 0)
                               ? '${teacherByID(id: state.teacherId, teacherList: stateTeacher.listTeachers).name} ${teacherByID(id: state.teacherId, teacherList: stateTeacher.listTeachers).lastName}'
-                              : 'Ninguno',
+                              : '${AppLocalizations.of(context)!.addClassroom_descriptionNone}',
                         )
                       : Container(),
                   GenericListTileCategory(
-                      title: 'Crear nuevo profesor',
+                      title:
+                          '${AppLocalizations.of(context)!.addSchedule_teacher_part2}',
                       iconData: Ionicons.add,
                       onTap: () {
                         Navigator.pushNamed(
@@ -74,7 +78,7 @@ Future<void> _showAlertTeacher(BuildContext context) async {
               borderRadius: BorderRadius.circular(16),
             ),
             title: Text(
-              'Selecciona un profesor',
+              '${AppLocalizations.of(context)!.addSchedule_teacher_part1}',
               style: AppFont.fontTitleDialog(context),
             ),
             content: _ListView(),
@@ -84,7 +88,7 @@ Future<void> _showAlertTeacher(BuildContext context) async {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Aceptar'.toUpperCase(),
+                    '${AppLocalizations.of(context)!.buttonAlert_ok}',
                     style: AppFont.font(
                         TextStyle(color: Theme.of(context).primaryColor)),
                   )),

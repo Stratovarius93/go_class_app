@@ -7,6 +7,7 @@ import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/classroomUtils.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddclassroomSignature extends StatefulWidget {
@@ -35,12 +36,13 @@ class _AddclassroomSignatureState extends State<AddclassroomSignature> {
             Padding(
               padding: _padding,
               child: GenericCategory(
-                title: 'Sala',
+                title: '${AppLocalizations.of(context)!.addSchedule_classroom}',
               ),
             ),
             (stateclassroom.listclassroom.isNotEmpty)
                 ? GenericListTileCategory(
-                    title: 'Seleccionar sala',
+                    title:
+                        '${AppLocalizations.of(context)!.addSchedule_classroom_part1}',
                     iconData: Ionicons.location,
                     onTap: () async {
                       await _showAlertRoom(context);
@@ -51,11 +53,12 @@ class _AddclassroomSignatureState extends State<AddclassroomSignature> {
                                 id: state.classroomId,
                                 classroomList: stateclassroom.listclassroom)
                             .name
-                        : 'Ninguno',
+                        : '${AppLocalizations.of(context)!.addClassroom_descriptionNone}',
                   )
                 : Container(),
             GenericListTileCategory(
-                title: 'Crear nueva sala',
+                title:
+                    '${AppLocalizations.of(context)!.addSchedule_classroom_part2}',
                 iconData: Ionicons.add,
                 onTap: () {
                   Navigator.pushNamed(context, 'mainPage2CreateRoom');
@@ -74,7 +77,8 @@ Future<void> _showAlertRoom(BuildContext context) async {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            title: Text('Selecciona un Sala',
+            title: Text(
+                '${AppLocalizations.of(context)!.addSchedule_classroom_part1}',
                 style: AppFont.fontTitleDialog(context)),
             content: _ListView(),
             actions: [
@@ -83,7 +87,7 @@ Future<void> _showAlertRoom(BuildContext context) async {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Aceptar'.toUpperCase(),
+                    '${AppLocalizations.of(context)!.buttonAlert_ok}',
                     style: AppFont.font(
                         TextStyle(color: Theme.of(context).primaryColor)),
                   )),

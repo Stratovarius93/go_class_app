@@ -5,6 +5,7 @@ import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:go_class_app/widgets/utils/signatureUtils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> showAlertRemoveSchedule(
     BuildContext context,
@@ -20,13 +21,14 @@ Future<void> showAlertRemoveSchedule(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Eliminar asignatura',
+          '${AppLocalizations.of(context)!.removeAlert_scheduleTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: RichText(
           text: TextSpan(children: [
             TextSpan(
-                text: '¿Desea eliminar la asignatura ',
+                text:
+                    '${AppLocalizations.of(context)!.removeAlert_schedulePart1} ',
                 style: AppFont.fontHeadline2(context)),
             TextSpan(
                 text:
@@ -38,7 +40,7 @@ Future<void> showAlertRemoveSchedule(
         actions: [
           TextButton(
             child: Text(
-              'Cancelar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_cancel}',
               style: AppFont.font(TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,
@@ -50,7 +52,7 @@ Future<void> showAlertRemoveSchedule(
           ),
           TextButton(
             child: Text(
-              'Aceptar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_remove}',
               style: AppFont.font(TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,

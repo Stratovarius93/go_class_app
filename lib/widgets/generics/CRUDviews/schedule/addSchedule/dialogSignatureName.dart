@@ -8,6 +8,7 @@ import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:go_class_app/widgets/utils/signatureUtils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddSignatureName extends StatefulWidget {
@@ -41,12 +42,13 @@ class _AddSignatureNameState extends State<AddSignatureName> {
                 Padding(
                   padding: _padding,
                   child: GenericCategory(
-                    title: 'Nombre asignatura',
+                    title: '${AppLocalizations.of(context)!.addSchedule_name}',
                   ),
                 ),
                 (stateSignature.listSignatures.isNotEmpty)
                     ? GenericListTileCategory(
-                        title: 'Seleccionar nombre',
+                        title:
+                            '${AppLocalizations.of(context)!.addSchedule_name_part1}',
                         iconData: Ionicons.school,
                         onTap: () async {
                           await _showAlertSchedule(context);
@@ -57,11 +59,12 @@ class _AddSignatureNameState extends State<AddSignatureName> {
                                     signatureList:
                                         stateSignature.listSignatures)
                                 .name
-                            : 'Ninguno',
+                            : '${AppLocalizations.of(context)!.addClassroom_descriptionNone}',
                       )
                     : Container(),
                 GenericListTileCategory(
-                    title: 'Crear nuevo nombre',
+                    title:
+                        '${AppLocalizations.of(context)!.addSchedule_name_part2}',
                     iconData: Ionicons.add,
                     onTap: () {
                       showAlertSignatureAdd(
@@ -86,7 +89,7 @@ Future<void> _showAlertSchedule(BuildContext context) async {
               borderRadius: BorderRadius.circular(16),
             ),
             title: Text(
-              'Selecciona una materia',
+              '${AppLocalizations.of(context)!.addSchedule_name_part1}',
               style: AppFont.fontTitleDialog(context),
             ),
             content: _ListView(),
@@ -96,7 +99,7 @@ Future<void> _showAlertSchedule(BuildContext context) async {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Aceptar'.toUpperCase(),
+                    '${AppLocalizations.of(context)!.buttonAlert_ok}',
                     style: AppFont.font(
                         TextStyle(color: Theme.of(context).primaryColor)),
                   )),

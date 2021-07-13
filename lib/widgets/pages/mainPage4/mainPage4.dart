@@ -51,10 +51,10 @@ class _MainPage4State extends State<MainPage4> {
       _weekDays(context),
     ];
     _categories = [
-      'Apariencia',
+      '${AppLocalizations.of(context)!.mainPage4_appearance}',
       //'Notificaciones',
-      'Nombre de Inicio',
-      'Días de la semana'
+      '${AppLocalizations.of(context)!.mainPage4_homeName}',
+      '${AppLocalizations.of(context)!.mainPage4_weekDays}'
     ];
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
@@ -74,7 +74,7 @@ class _MainPage4State extends State<MainPage4> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: GenericTitle(
-                    title: 'Ajustes',
+                    title: '${AppLocalizations.of(context)!.mainPage4_title}',
                   ),
                 ),
                 ListView.builder(
@@ -143,7 +143,7 @@ class _MainPage4State extends State<MainPage4> {
                               }
                             },
                             child: Text(
-                              'Borrar horario',
+                              '${AppLocalizations.of(context)!.mainPage4_removeSchedule}',
                               style: AppFont.font(TextStyle(
                                   fontSize: 17,
                                   color: Theme.of(context)
@@ -168,7 +168,8 @@ class _MainPage4State extends State<MainPage4> {
                               if (_count == state.scheduleList.length) {
                                 SnackBar _snackBar = GenericSnackBar(
                                         context: context,
-                                        content: 'El horario está vacío')
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_cleanSchedule1}')
                                     .snackBar();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(_snackBar);
@@ -177,7 +178,8 @@ class _MainPage4State extends State<MainPage4> {
                                     .add(RemoveScheduleList());
                                 SnackBar _snackBar = GenericSnackBar(
                                         context: context,
-                                        content: 'Se eliminó el horario')
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_cleanSchedule2}')
                                     .snackBar();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(_snackBar);
@@ -220,7 +222,7 @@ Widget _appeareance(BuildContext context, BuildContext? contextRoute) {
     title: Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: GenericCardTitle(
-        title: 'Tema',
+        title: '${AppLocalizations.of(context)!.appearancePage_title}',
       ),
     ),
     subtitle: GenericCardSubtitle(title: AdaptiveTheme.of(context).mode.name),

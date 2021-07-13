@@ -9,6 +9,7 @@ import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:min_id/min_id.dart';
 
 String _name = '';
@@ -46,7 +47,7 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
-              title: 'Agregar profesor',
+              title: '${AppLocalizations.of(context)!.addTeacher_title}',
               color: Theme.of(context).appBarTheme.textTheme!.headline1!.color,
             ),
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -63,7 +64,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GenericCategory(
-                          title: 'Nombre',
+                          title:
+                              '${AppLocalizations.of(context)!.addTeacher_name}',
                         ),
                         SizedBox(
                           height: 16,
@@ -86,13 +88,16 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                           Expanded(
                             child: GenericInput(
                               validator: (String? value) {
-                                return value!.isNotEmpty ? null : 'Campo vacío';
+                                return value!.isNotEmpty
+                                    ? null
+                                    : '${AppLocalizations.of(context)!.inputValidator}';
                               },
                               onChanged: (value) {
                                 _name = value;
                               },
                               maxLength: 32,
-                              hintText: 'Nombre',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_name}',
                             ),
                           ),
                           SizedBox(
@@ -104,7 +109,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                                 _lastName = value;
                               },
                               maxLength: 32,
-                              hintText: 'Apellido',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_lastName}',
                             ),
                           ),
                         ]),
@@ -112,7 +118,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                           height: 16,
                         ),
                         GenericCategory(
-                          title: 'Teléfono (Opcional)',
+                          title:
+                              '${AppLocalizations.of(context)!.addTeacher_phone}',
                         ),
                         SizedBox(
                           height: 16,
@@ -139,7 +146,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                                 _phoneNumber = value;
                               },
                               maxLength: 10,
-                              hintText: 'Teléfono',
+                              hintText:
+                                  '${AppLocalizations.of(context)!.addTeacher_hintText1}',
                             ),
                           ),
                         ]),
@@ -147,7 +155,8 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                            title: 'Guardar profesor',
+                            title:
+                                '${AppLocalizations.of(context)!.addTeacher_button}',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 final String id = MinId.getId();

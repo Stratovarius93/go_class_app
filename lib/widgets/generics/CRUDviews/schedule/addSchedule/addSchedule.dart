@@ -8,6 +8,7 @@ import 'package:go_class_app/widgets/generics/CRUDviews/schedule/addSchedule/pag
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'colorSignature.dart';
 import 'dialogSignatureName.dart';
@@ -48,7 +49,7 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                   iconTheme:
                       IconThemeData(color: Theme.of(context).primaryColor),
                   title: GenericBodyText(
-                    title: 'Crear asignatura',
+                    title: '${AppLocalizations.of(context)!.addSchedule_title}',
                     color: Theme.of(context)
                         .appBarTheme
                         .textTheme!
@@ -85,7 +86,8 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
                           height: 32,
                         ),
                         GenericBottomButton(
-                            title: 'Guardar asignatura',
+                            title:
+                                '${AppLocalizations.of(context)!.addSchedule_button}',
                             onTap: () async {
                               if (stateSignature.signatureId != null) {
                                 ItemScheduleModel _itemSchedule =

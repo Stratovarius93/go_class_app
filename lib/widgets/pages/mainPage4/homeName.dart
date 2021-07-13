@@ -16,7 +16,7 @@ class __NameHomeState extends State<_NameHome> {
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: GenericCardTitle(
-            title: 'Nombre',
+            title: '${AppLocalizations.of(context)!.mainPage4_homeName_name}',
           ),
         ),
         subtitle: (state.name.length > 0)

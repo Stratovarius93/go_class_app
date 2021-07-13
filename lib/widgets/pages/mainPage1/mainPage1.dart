@@ -10,7 +10,6 @@ import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
-import 'package:go_class_app/data/store/daysWeek_store.dart';
 import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
@@ -129,7 +128,7 @@ class _MainPage extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 0, bottom: 4),
                 child: GenericSubtitle(
-                  title: AppLocalizations.of(context)!.mainPage1_class,
+                  title: '${AppLocalizations.of(context)!.mainPage1_class}',
                 ),
               ),
               _DaysWeekTop(),

@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage4Appearance extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _MainPage4AppearanceState extends State<MainPage4Appearance> {
               color: Theme.of(context).appBarTheme.textTheme!.headline1!.color),
           brightness: Theme.of(context).appBarTheme.brightness,
           title: GenericBodyText(
-            title: 'Tema',
+            title: '${AppLocalizations.of(context)!.appearancePage_title}',
             color: Theme.of(context).appBarTheme.textTheme!.headline1!.color,
           ),
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -30,13 +31,13 @@ class _MainPage4AppearanceState extends State<MainPage4Appearance> {
             ListTile(
               onTap: () => AdaptiveTheme.of(context).setLight(),
               title: GenericBodyText(
-                title: 'Light',
+                title: '${AppLocalizations.of(context)!.theme_light}',
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
               subtitle: GenericBodyText(
                 title: (AdaptiveTheme.of(context).mode.name.toUpperCase() ==
                         'LIGHT')
-                    ? 'Por defecto'
+                    ? '${AppLocalizations.of(context)!.appearance_default}'
                     : '',
                 fontWeight: FontWeight.w300,
                 color: Theme.of(context).textTheme.headline2!.color,
@@ -45,13 +46,13 @@ class _MainPage4AppearanceState extends State<MainPage4Appearance> {
             ListTile(
               onTap: () => AdaptiveTheme.of(context).setDark(),
               title: GenericBodyText(
-                title: 'Dark',
+                title: '${AppLocalizations.of(context)!.theme_dark}',
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
               subtitle: GenericBodyText(
                 title: (AdaptiveTheme.of(context).mode.name.toUpperCase() ==
                         'DARK')
-                    ? 'Por defecto'
+                    ? '${AppLocalizations.of(context)!.appearance_default}'
                     : '',
                 fontWeight: FontWeight.w300,
                 color: Theme.of(context).textTheme.headline2!.color,
@@ -60,13 +61,13 @@ class _MainPage4AppearanceState extends State<MainPage4Appearance> {
             ListTile(
               onTap: () => AdaptiveTheme.of(context).setSystem(),
               title: GenericBodyText(
-                title: 'Sistema',
+                title: '${AppLocalizations.of(context)!.theme_system}',
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
               subtitle: GenericBodyText(
                 title: (AdaptiveTheme.of(context).mode.name.toUpperCase() ==
                         'SYSTEM')
-                    ? 'Por defecto'
+                    ? '${AppLocalizations.of(context)!.appearance_default}'
                     : '',
                 fontWeight: FontWeight.w300,
                 color: Theme.of(context).textTheme.headline2!.color,

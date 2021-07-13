@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 //TimeOfDay selectedTimeIn = TimeOfDay(hour: 00, minute: 00);
@@ -66,11 +67,11 @@ class _AddTimeSignatureState extends State<AddTimeSignature> {
           Padding(
             padding: _padding,
             child: GenericCategory(
-              title: 'Horario',
+              title: '${AppLocalizations.of(context)!.addSchedule_time}',
             ),
           ),
           GenericListTileCategory(
-            title: 'Hora de entrada',
+            title: '${AppLocalizations.of(context)!.addSchedule_time_part1}',
             iconData: Ionicons.time,
             onTap: () async {
               await _selectTimeIn(context, state.timeIn);
@@ -78,7 +79,7 @@ class _AddTimeSignatureState extends State<AddTimeSignature> {
             subtitle: '${state.timeIn.format(context)}'.padLeft(5, '0'),
           ),
           GenericListTileCategory(
-            title: 'Hora de salida',
+            title: '${AppLocalizations.of(context)!.addSchedule_time_part2}',
             iconData: Ionicons.time,
             onTap: () async {
               await _selectTimeOut(context, state.timeOut);

@@ -57,7 +57,7 @@ class __ClassroomState extends State<_Classroom> {
                       fontWeight: FontWeight.w500)),
                 ),
                 subtitle: Text(
-                  '${state.listclassroom[index].description}',
+                  _subtitle(state.listclassroom[index], context),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: AppFont.font(TextStyle(
@@ -93,6 +93,7 @@ class __ClassroomState extends State<_Classroom> {
         );
       } else {
         return GenericAddNewItem(
+          title: '${AppLocalizations.of(context)!.addNew}',
           onTap: () {
             Navigator.pushNamed(
               widget.contextRoute!,
@@ -106,11 +107,23 @@ class __ClassroomState extends State<_Classroom> {
   }
 }
 
+String _subtitle(ClassroomModel listclassroom, BuildContext context) {
+  if (listclassroom.type == TypeDescription.text) {
+    if (listclassroom.description == 'presencial') {
+      return '${AppLocalizations.of(context)!.addClassroom_descriptionOnSite}';
+    } else {
+      return '${AppLocalizations.of(context)!.addClassroom_descriptionNone}';
+    }
+  } else {
+    return listclassroom.description!;
+  }
+}
+
 List<PopupMenuItemModel> _listOptions(
     BuildContext context, ClassroomModel classroom) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
-      title: 'Compartir URL',
+      title: '${AppLocalizations.of(context)!.popMenu_url}',
       icon: Icon(
         Ionicons.share_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -121,7 +134,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: (classroom.type == TypeDescription.text) ? false : true,
     ),
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -137,7 +150,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -150,7 +163,7 @@ List<PopupMenuItemModel> _listOptions(
   ];
   List<PopupMenuItemModel> _list2 = [
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -166,7 +179,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -189,8 +202,8 @@ void _launchURL(ClassroomModel classroom, BuildContext context) async {
   String _url = classroom.description!;
   SnackBar _snackBar = GenericSnackBar(
       context: context,
-      content: 'No se pudo abrir la URL',
-      action: 'EDITAR',
+      content: '${AppLocalizations.of(context)!.snackBar_URL}',
+      action: '${AppLocalizations.of(context)!.popMenu_edit}'.toUpperCase(),
       onTap: () {
         Navigator.push(
             context,

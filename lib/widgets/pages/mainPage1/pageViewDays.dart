@@ -99,10 +99,9 @@ class _NoClassWidget extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+          Center(
             child: Text(
-              'Selecciona un día para poder visualizar las clases.',
+              '${AppLocalizations.of(context)!.mainPage1_selectDay}',
               textAlign: TextAlign.center,
               style: AppFont.font(TextStyle(
                   color: Color(0xFF59656e),
@@ -149,14 +148,14 @@ class _NoDayWidget extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                   text:
-                      'No tienes días seleccionados. Habilita tus días de clase en la sección de ',
+                      '${AppLocalizations.of(context)!.mainPage1_selectDaySettings}',
                   style: AppFont.font(TextStyle(
                       color: Color(0xFF59656e),
                       fontSize: 20,
                       fontWeight: FontWeight.w300)),
                 ),
                 TextSpan(
-                  text: 'Ajustes',
+                  text: '${AppLocalizations.of(context)!.bottomNavigation_4}',
                   style: AppFont.font(TextStyle(
                       color: Color(0xFF59656e),
                       fontSize: 20,

@@ -57,7 +57,7 @@ class _MainPage2State extends State<MainPage2> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: GenericTitle(
-                    title: AppLocalizations.of(context)!.mainPage2_title,
+                    title: '${AppLocalizations.of(context)!.mainPage2_title}',
                   ),
                 ),
                 Padding(
@@ -67,8 +67,8 @@ class _MainPage2State extends State<MainPage2> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenericSubtitle(
-                          title: AppLocalizations.of(context)!
-                              .mainPage2_listSignature,
+                          title:
+                              '${AppLocalizations.of(context)!.mainPage2_listSignature}',
                         ),
                         BlocBuilder<SignaturesBloc, SignaturesState>(
                           builder: (context, state) => Padding(
@@ -79,8 +79,9 @@ class _MainPage2State extends State<MainPage2> {
                                     context, _formKeyAdd);
                               },
                               child: GenericActionTextRight(
-                                  title:
-                                      AppLocalizations.of(context)!.button_add),
+                                title:
+                                    '${AppLocalizations.of(context)!.button_add}',
+                              ),
                             ),
                           ),
                         ),
@@ -100,21 +101,21 @@ class _MainPage2State extends State<MainPage2> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenericSubtitle(
-                            title: AppLocalizations.of(context)!
-                                .mainPage2_listRoom),
+                            title:
+                                '${AppLocalizations.of(context)!.mainPage2_listRoom}'),
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                widget.contextRoute!,
-                                'mainPage2CreateRoom',
-                              );
-                            },
-                            child: GenericActionTextRight(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  widget.contextRoute!,
+                                  'mainPage2CreateRoom',
+                                );
+                              },
+                              child: GenericActionTextRight(
                                 title:
-                                    AppLocalizations.of(context)!.button_add),
-                          ),
+                                    '${AppLocalizations.of(context)!.button_add}',
+                              )),
                         ),
                       ]),
                 ),

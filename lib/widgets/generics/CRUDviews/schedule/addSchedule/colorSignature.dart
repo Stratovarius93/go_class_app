@@ -4,6 +4,7 @@ import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddColorSignature extends StatefulWidget {
@@ -25,7 +26,7 @@ class _AddColorSignatureState extends State<AddColorSignature> {
           Padding(
             padding: _padding,
             child: GenericCategory(
-              title: 'Color',
+              title: '${AppLocalizations.of(context)!.addSchedule_color}',
             ),
           ),
           Container(
@@ -33,7 +34,8 @@ class _AddColorSignatureState extends State<AddColorSignature> {
                   color: Theme.of(context).appBarTheme.backgroundColor),
               child: Column(children: [
                 GenericListTileCategory(
-                  title: 'Seleccione un color',
+                  title:
+                      '${AppLocalizations.of(context)!.addSchedule_color_part1}',
                   iconData: Ionicons.color_palette,
                   onTap: () {},
                   //subtitle: 'Verde (Por defecto)',

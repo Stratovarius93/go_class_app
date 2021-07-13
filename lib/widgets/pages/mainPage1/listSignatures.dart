@@ -54,6 +54,7 @@ class _ListSignaturesViewState extends State<ListSignaturesView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GenericAddNewItem(
+                title: '${AppLocalizations.of(context)!.addNew}',
                 onTap: () {
                   Navigator.pushNamed(_context!, 'mainPage1AddSchedule');
                 },
@@ -183,7 +184,7 @@ class _ItemSchedule extends StatelessWidget {
                       fontSize: 16)),
                 )
               : Text(
-                  'No name',
+                  '${AppLocalizations.of(context)!.noName}',
                   style: AppFont.font(TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontWeight: FontWeight.w400,
@@ -199,7 +200,7 @@ class _ItemSchedule extends StatelessWidget {
                   )),
                 )
               : Text(
-                  'Sin docente',
+                  '${AppLocalizations.of(context)!.noTeacher}',
                   style: AppFont.font(TextStyle(
                     color: Theme.of(context).textTheme.headline2!.color,
                     fontWeight: FontWeight.w400,
@@ -248,7 +249,7 @@ List<PopupMenuItemModel> _listOptions(
     List<SignatureModel> list) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -264,7 +265,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -285,8 +286,8 @@ void _launchURL(
 
   SnackBar _snackBar = GenericSnackBar(
       context: context,
-      content: 'No se pudo abrir la URL',
-      action: 'EDITAR',
+      content: '${AppLocalizations.of(context)!.snackBar_URL}',
+      action: '${AppLocalizations.of(context)!.popMenu_edit}'.toUpperCase(),
       onTap: () {
         Navigator.push(
             context,
@@ -362,7 +363,8 @@ Future<void> _showScheduleSignatureSelected(
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: GenericCategory(
-                          title: 'Profesor',
+                          title:
+                              '${AppLocalizations.of(context)!.addSchedule_teacher}',
                         ),
                       ),
                     )
@@ -420,7 +422,8 @@ Future<void> _showScheduleSignatureSelected(
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: GenericCategory(
-                          title: 'Sala',
+                          title:
+                              '${AppLocalizations.of(context)!.addSchedule_classroom}',
                         ),
                       ),
                     )
@@ -484,7 +487,7 @@ Future<void> _showScheduleSignatureSelected(
         actions: [
           TextButton(
             child: Text(
-              'Aceptar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_ok}',
               style: AppFont.font(TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,

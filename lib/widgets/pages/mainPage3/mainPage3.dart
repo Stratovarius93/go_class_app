@@ -177,6 +177,7 @@ class __TeachersState extends State<_Teachers> {
         );
       } else {
         return GenericAddNewItem(
+            title: '${AppLocalizations.of(context)!.addNew}',
             onTap: () {
               Navigator.pushNamed(
                 widget.buildContext,
@@ -193,7 +194,7 @@ List<PopupMenuItemModel> _listOptions(
     BuildContext context, TeacherModel teacher, int position) {
   List<PopupMenuItemModel> _list = [
     PopupMenuItemModel(
-        title: 'Copy Number',
+        title: '${AppLocalizations.of(context)!.popMenu_number}',
         icon: Icon(
           Ionicons.copy_outline,
           color: Theme.of(context).textTheme.headline1!.color,
@@ -204,7 +205,7 @@ List<PopupMenuItemModel> _listOptions(
 
             SnackBar _snackBar = GenericSnackBar(
               context: context,
-              content: 'Copiado al portapapeles',
+              content: '${AppLocalizations.of(context)!.snackBar_clipboard}',
             ).snackBar();
 
             ScaffoldMessenger.of(context).showSnackBar(_snackBar);
@@ -214,7 +215,7 @@ List<PopupMenuItemModel> _listOptions(
         },
         visible: (teacher.phoneNumber != null) ? true : false),
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -232,7 +233,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -246,7 +247,7 @@ List<PopupMenuItemModel> _listOptions(
   ];
   List<PopupMenuItemModel> _list2 = [
     PopupMenuItemModel(
-      title: 'Editar',
+      title: '${AppLocalizations.of(context)!.popMenu_edit}',
       icon: Icon(
         Ionicons.create_outline,
         color: Theme.of(context).textTheme.headline1!.color,
@@ -264,7 +265,7 @@ List<PopupMenuItemModel> _listOptions(
       visible: true,
     ),
     PopupMenuItemModel(
-      title: 'Eliminar',
+      title: '${AppLocalizations.of(context)!.popMenu_remove}',
       icon: Icon(
         Ionicons.trash_outline,
         color: Theme.of(context).textTheme.headline1!.color,
