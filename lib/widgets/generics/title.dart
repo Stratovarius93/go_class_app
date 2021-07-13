@@ -15,7 +15,7 @@ class GenericTitle extends StatelessWidget {
       style: AppFont.font(TextStyle(
           color: Theme.of(context).textTheme.headline1!.color,
           fontSize: screenWidth(context) * 0.08,
-          fontWeight: FontWeight.w300)),
+          fontWeight: FontWeight.w400)),
     );
   }
 }

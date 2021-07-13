@@ -18,6 +18,7 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     imageSize = MediaQuery.of(context).size.width * 0.35;
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: CustomPAnimated1(
         color1: colorTopRight1,
         color2: colorTopRight2,

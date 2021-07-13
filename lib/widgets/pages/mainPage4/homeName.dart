@@ -36,48 +36,56 @@ Future<void> showAlertNameEdit(BuildContext context, String name) async {
       String _newValueAdd = name;
       GlobalKey<FormState> _formKey = GlobalKey<FormState>();
       return AlertDialog(
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Editar nombre',
+          '${AppLocalizations.of(context)!.editAlert_homeNameTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Form(
           key: _formKey,
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text(
-              'Ingresa el nuevo nombre',
-              style: AppFont.fontHeadline2(context),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            GenericInput(
-              controller: TextEditingController(text: name),
-              autofocus: true,
-              validator: (String? value) {
-                return value!.isNotEmpty ? null : 'Campo vacío';
-              },
-              onChanged: (value) {
-                _newValueAdd = value;
-              },
-              maxLength: 32,
-              hintText: 'Nombre',
-            ),
-          ]),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${AppLocalizations.of(context)!.editAlert_homeNameEnter}',
+                  style: AppFont.fontHeadline2(context),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                GenericInput(
+                  controller: TextEditingController(text: name),
+                  autofocus: true,
+                  validator: (String? value) {
+                    return value!.isNotEmpty
+                        ? null
+                        : '${AppLocalizations.of(context)!.inputValidator}';
+                  },
+                  onChanged: (value) {
+                    _newValueAdd = value;
+                  },
+                  maxLength: 32,
+                  hintText: 'Nombre',
+                ),
+              ]),
         ),
         actions: [
           TextButton(
             child: Text(
-              'Cancelar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_cancel}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           TextButton(
             child: Text(
-              'Actualizar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_update}',
               style: AppFont.fontTextButton(context),
             ),
             onPressed: () {

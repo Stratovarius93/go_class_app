@@ -45,6 +45,8 @@ part 'pageViewDays.dart';
 
 PageController? _pageController;
 BuildContext? _context;
+//ScrollController _scrollController =
+//new ScrollController(initialScrollOffset: 1.0);
 
 class MainPage1 extends StatefulWidget {
   final BuildContext? contextRoute;
@@ -87,14 +89,25 @@ class _MainPage1State extends State<MainPage1> {
           (Theme.of(context).scaffoldBackgroundColor ==
                   AppColorLight.scaffoldBackground)
               ? Background(
-                  colorTopRight1: Color(0xFFC6D8D3).withOpacity(0.8),
-                  colorTopRight2: Color(0xFFC6D8D3),
-                  //colorBottomLeft1: Color(0xFFFBB5A4).withOpacity(0.8),
-                  //colorBottomLeft2: Color(0xFFFBB5A4),
-                  colorBottomLeft1: Colors.orangeAccent.withOpacity(0.4),
-                  colorBottomLeft2: Colors.orange.withOpacity(0.3),
+                  colorTopRight1:
+                      AppColorLight.listSchedule[2]!.withOpacity(0.2),
+                  colorTopRight2:
+                      AppColorLight.listSchedule[2]!.withOpacity(0.3),
+                  colorBottomLeft1:
+                      Theme.of(context).primaryColor.withOpacity(0.2),
+                  colorBottomLeft2:
+                      Theme.of(context).primaryColor.withOpacity(0.3),
                 )
-              : Container(),
+              : Background(
+                  colorTopRight1:
+                      AppColorLight.listSchedule[3]!.withOpacity(0.2),
+                  colorTopRight2:
+                      AppColorLight.listSchedule[3]!.withOpacity(0.2),
+                  colorBottomLeft1:
+                      AppColorLight.listSchedule[3]!.withOpacity(0.2),
+                  colorBottomLeft2:
+                      AppColorLight.listSchedule[3]!.withOpacity(0.2),
+                ),
           _MainPage()
         ]),
       ),

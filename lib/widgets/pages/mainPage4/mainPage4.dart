@@ -6,6 +6,7 @@ import 'package:go_class_app/bloc/name/name_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
 import 'package:go_class_app/data/store/daysWeek_store.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/generics/card.dart';
 import 'package:go_class_app/widgets/generics/cardSubtitle.dart';
 import 'package:go_class_app/widgets/generics/cardTitle.dart';
@@ -127,7 +128,8 @@ class _MainPage4State extends State<MainPage4> {
                               if (_count == state.scheduleList.length) {
                                 SnackBar _snackBar = GenericSnackBar(
                                         context: context,
-                                        content: 'El horario está vacío')
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_cleanSchedule1}')
                                     .snackBar();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(_snackBar);
@@ -136,7 +138,8 @@ class _MainPage4State extends State<MainPage4> {
                                     .add(RemoveScheduleList());
                                 SnackBar _snackBar = GenericSnackBar(
                                         context: context,
-                                        content: 'Se eliminó el horario')
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_cleanSchedule2}')
                                     .snackBar();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(_snackBar);
@@ -145,15 +148,14 @@ class _MainPage4State extends State<MainPage4> {
                             child: Text(
                               '${AppLocalizations.of(context)!.mainPage4_removeSchedule}',
                               style: AppFont.font(TextStyle(
-                                  fontSize: 17,
-                                  color: Theme.of(context)
-                                      .bottomNavigationBarTheme
-                                      .selectedItemColor)),
+                                fontSize: 17,
+                                color: AppColorLight.listSchedule[5],
+                              )),
                             )),
                         IconButton(
                             icon: Icon(
                               Ionicons.trash_sharp,
-                              color: Theme.of(context).primaryColor,
+                              color: AppColorLight.listSchedule[5],
                             ),
                             onPressed: () {
                               int _count = 0;

@@ -60,7 +60,7 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
           }
         },
         child: Scaffold(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(

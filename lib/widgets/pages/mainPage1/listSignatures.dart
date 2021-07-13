@@ -80,14 +80,16 @@ class _AddNewSignature extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 4),
           decoration: BoxDecoration(
-            color: Color(0xFFc5dce8),
+            //color: Color(0xFFc5dce8),
+            color: Color(0xFFc5dce8).withOpacity(0.4),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               '${AppLocalizations.of(context)!.mainPage1_addSignature}',
               style: AppFont.font(TextStyle(
-                  color: Color(0xFF59656e),
+                  //color: Color(0xFF59656e),
+                  color: Theme.of(context).textTheme.headline5!.color,
                   fontSize: 20,
                   fontWeight: FontWeight.w300)),
             ),
@@ -100,7 +102,8 @@ class _AddNewSignature extends StatelessWidget {
                 },
                 icon: Icon(
                   Ionicons.add_circle,
-                  color: Color(0xFF59656e),
+                  //color: Color(0xFF59656e),
+                  color: Theme.of(context).textTheme.headline5!.color,
                 ))
           ]),
         ),
@@ -350,7 +353,7 @@ Future<void> _showScheduleSignatureSelected(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: AppFont.font(TextStyle(
-                    color: Color(0xFF59656e),
+                    color: Theme.of(context).textTheme.headline1!.color,
                     fontSize: 26,
                     fontWeight: FontWeight.w300)),
               ),

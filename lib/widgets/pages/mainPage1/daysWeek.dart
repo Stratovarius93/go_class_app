@@ -1,6 +1,11 @@
 part of 'mainPage1.dart';
 
-class _DaysWeekTop extends StatelessWidget {
+class _DaysWeekTop extends StatefulWidget {
+  @override
+  __DaysWeekTopState createState() => __DaysWeekTopState();
+}
+
+class __DaysWeekTopState extends State<_DaysWeekTop> {
   @override
   Widget build(BuildContext context) {
     List<String> weekDaysName = [
@@ -18,6 +23,7 @@ class _DaysWeekTop extends StatelessWidget {
         return Container(
           height: 60,
           child: ListView(
+            //controller: _scrollController,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -31,7 +37,7 @@ class _DaysWeekTop extends StatelessWidget {
                       .add(EditDayState(index));
                   if (state.currentDay != null) {
                     _pageController!.animateToPage(index,
-                        duration: Duration(milliseconds: 1000),
+                        duration: Duration(milliseconds: 500),
                         curve: Curves.easeOut);
                   }
                 },

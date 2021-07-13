@@ -24,6 +24,7 @@ class GenericCard2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0,
       color: Theme.of(context).cardTheme.color,
       child: child,
       shape: RoundedRectangleBorder(

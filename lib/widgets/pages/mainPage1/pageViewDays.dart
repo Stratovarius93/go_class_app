@@ -45,6 +45,11 @@ class __PageViewDaysState extends State<_PageViewDays> {
                               onPageChanged: (int value) {
                                 BlocProvider.of<WeekDaysBloc>(context)
                                     .add(EditDayState(value));
+                                //_scrollController.animateTo(
+                                //1.0,
+                                //curve: Curves.easeOut,
+                                //duration: const Duration(milliseconds: 300),
+                                //);
                               },
                               itemCount: state.daysList.length,
                               itemBuilder: (context, index) {
@@ -99,14 +104,17 @@ class _NoClassWidget extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Center(
-            child: Text(
-              '${AppLocalizations.of(context)!.mainPage1_selectDay}',
-              textAlign: TextAlign.center,
-              style: AppFont.font(TextStyle(
-                  color: Color(0xFF59656e),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Center(
+              child: Text(
+                '${AppLocalizations.of(context)!.mainPage1_selectDay}',
+                textAlign: TextAlign.center,
+                style: AppFont.font(TextStyle(
+                    color: Color(0xFF59656e),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300)),
+              ),
             ),
           ),
         ]),

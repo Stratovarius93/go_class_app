@@ -17,6 +17,8 @@ Future<void> showAlertSignatureEdit(BuildContext context,
     builder: (context) {
       String _newValueAdd = signature.name;
       return AlertDialog(
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -91,6 +93,8 @@ Future<void> showAlertSignatureRemove2(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -98,27 +102,31 @@ Future<void> showAlertSignatureRemove2(
           '${AppLocalizations.of(context)!.removeAlert_scheduleTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
-        content: Column(mainAxisSize: MainAxisSize.min, children: [
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.removeAlert_signature2Part1} ',
-                  style: AppFont.fontHeadline2(context)),
-              TextSpan(
-                  text: '${signature.name}',
-                  style: AppFont.fontHeadline2Bold(context)),
-              TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.removeAlert_signature2Part2}',
-                  style: AppFont.fontHeadline2(context)),
-              TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.removeAlert_signature2Part3}',
-                  style: AppFont.fontHeadline2(context)),
+        content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.removeAlert_signature2Part1} ',
+                      style: AppFont.fontHeadline2(context)),
+                  TextSpan(
+                      text: '${signature.name}',
+                      style: AppFont.fontHeadline2Bold(context)),
+                  TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.removeAlert_signature2Part2}',
+                      style: AppFont.fontHeadline2(context)),
+                  TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.removeAlert_signature2Part3}',
+                      style: AppFont.fontHeadline2(context)),
+                ]),
+              )
             ]),
-          )
-        ]),
         actions: [
           TextButton(
             child: Text(
@@ -152,6 +160,8 @@ Future<void> showAlertSignatureRemove(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -159,20 +169,24 @@ Future<void> showAlertSignatureRemove(
           '${AppLocalizations.of(context)!.removeAlert_scheduleTitle}',
           style: AppFont.fontTitleDialog(context),
         ),
-        content: Column(mainAxisSize: MainAxisSize.min, children: [
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.removeAlert_schedulePart1} ',
-                  style: AppFont.fontHeadline2(context)),
-              TextSpan(
-                  text: '${signature.name}',
-                  style: AppFont.fontHeadline2Bold(context)),
-              TextSpan(text: '?', style: AppFont.fontHeadline2(context)),
+        content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.removeAlert_schedulePart1} ',
+                      style: AppFont.fontHeadline2(context)),
+                  TextSpan(
+                      text: '${signature.name}',
+                      style: AppFont.fontHeadline2Bold(context)),
+                  TextSpan(text: '?', style: AppFont.fontHeadline2(context)),
+                ]),
+              )
             ]),
-          )
-        ]),
         actions: [
           TextButton(
             child: Text(
@@ -205,6 +219,8 @@ Future<void> showAlertSignatureAdd(
       builder: (context) {
         String _valueAdd = '';
         return AlertDialog(
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),

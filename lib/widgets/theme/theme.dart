@@ -10,6 +10,7 @@ ThemeData lightThemeData(BuildContext context) {
         secondaryVariant: Color(0xFF394e54),
       ),
       accentColor: Colors.orange,
+      dialogBackgroundColor: AppColorLight.bottomNavigationBarBackground,
       textSelectionTheme:
           TextSelectionThemeData(selectionHandleColor: AppColorLight.primary),
       primaryColor: AppColorLight.primary,
@@ -28,7 +29,11 @@ ThemeData lightThemeData(BuildContext context) {
       textTheme: TextTheme(
           headline1: TextStyle(color: AppColorLight.headline1),
           headline2: TextStyle(color: AppColorLight.headline2.withOpacity(0.5)),
-          headline3: TextStyle(color: AppColorLight.headline3)),
+          headline3: TextStyle(color: AppColorLight.headline3),
+          headline4: TextStyle(color: AppColorLight.headline4),
+          headline5: TextStyle(color: AppColorLight.headline5)),
+      inputDecorationTheme:
+          InputDecorationTheme(focusColor: AppColorLight.inputFocusColor),
       cardTheme: CardTheme(
           color: AppColorLight.card,
           shadowColor: AppColorLight.cardShadow.withOpacity(0.3)),
@@ -50,6 +55,7 @@ ThemeData darkThemeData(BuildContext context) {
         secondaryVariant: Color(0xFF394e54),
       ),
       accentColor: Colors.orange,
+      dialogBackgroundColor: AppColorDark.bottomNavigationBarBackground,
       textSelectionTheme:
           TextSelectionThemeData(selectionHandleColor: AppColorDark.primary),
       primaryColor: AppColorDark.primary,
@@ -68,7 +74,11 @@ ThemeData darkThemeData(BuildContext context) {
       textTheme: TextTheme(
           headline1: TextStyle(color: AppColorDark.headline1),
           headline2: TextStyle(color: AppColorDark.headline2),
-          headline3: TextStyle(color: AppColorDark.headline3)),
+          headline3: TextStyle(color: AppColorDark.headline3),
+          headline4: TextStyle(color: AppColorDark.headline4),
+          headline5: TextStyle(color: AppColorDark.headline5)),
+      inputDecorationTheme:
+          InputDecorationTheme(focusColor: AppColorDark.inputFocusColor),
       cardTheme: CardTheme(
           color: AppColorDark.card, shadowColor: AppColorDark.cardShadow),
       snackBarTheme: SnackBarThemeData(

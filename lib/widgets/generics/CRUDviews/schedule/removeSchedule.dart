@@ -17,6 +17,8 @@ Future<void> showAlertRemoveSchedule(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),

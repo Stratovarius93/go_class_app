@@ -11,6 +11,7 @@ class GenericPopMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
+      color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       icon: Icon(
         Ionicons.ellipsis_vertical_sharp,
         color: Theme.of(context).textTheme.headline2!.color!.withOpacity(0.3),

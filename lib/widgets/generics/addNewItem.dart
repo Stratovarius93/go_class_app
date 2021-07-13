@@ -21,14 +21,14 @@ class GenericAddNewItem extends StatelessWidget {
           GestureDetector(
             onTap: onTap,
             child: CircleAvatar(
-              backgroundColor: Color(0xFFc5dce8).withOpacity(0.5),
+              backgroundColor: Color(0xFFc5dce8).withOpacity(0.3),
               radius: 66,
               child: CircleAvatar(
-                backgroundColor: Color(0xFFc5dce8),
+                backgroundColor: Color(0xFFc5dce8).withOpacity(0.5),
                 radius: 33,
                 child: Icon(
                   iconData,
-                  color: Color(0xFF59656e),
+                  color: Theme.of(context).textTheme.headline5!.color,
                   size: 44,
                 ),
               ),
@@ -52,7 +52,7 @@ class GenericAddNewItem extends StatelessWidget {
                     Text(
                       title!,
                       style: AppFont.font(TextStyle(
-                          color: Color(0xFF59656e),
+                          color: Theme.of(context).textTheme.headline5!.color,
                           fontSize: 20,
                           fontWeight: FontWeight.w300)),
                     ),
@@ -63,7 +63,7 @@ class GenericAddNewItem extends StatelessWidget {
                         onPressed: onTap,
                         icon: Icon(
                           Ionicons.add_circle,
-                          color: Color(0xFF59656e),
+                          color: Theme.of(context).textTheme.headline5!.color,
                         ))
                   ]),
             ),

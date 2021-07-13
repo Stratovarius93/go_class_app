@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/listTileCategory.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 
 //TimeOfDay selectedTimeIn = TimeOfDay(hour: 00, minute: 00);
@@ -25,6 +27,21 @@ class _AddTimeSignatureState extends State<AddTimeSignature> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: timeIn,
+      builder: (context, child) {
+        return TimePickerTheme(
+            data: TimePickerThemeData(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                dialHandColor: AppColorLight.listSchedule[1],
+                dialBackgroundColor: Color(0xFFc5dce8).withOpacity(0.3),
+                hourMinuteTextStyle: AppFont.font(TextStyle(
+                    color: Theme.of(context).textTheme.headline1!.color,
+                    fontSize: 56)),
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor),
+            child: child!);
+      },
     );
     if (picked != null)
       setState(() {
@@ -47,6 +64,21 @@ class _AddTimeSignatureState extends State<AddTimeSignature> {
     final TimeOfDay? _picked = await showTimePicker(
       context: context,
       initialTime: timeOut,
+      builder: (context, child) {
+        return TimePickerTheme(
+            data: TimePickerThemeData(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                dialHandColor: AppColorLight.listSchedule[1],
+                dialBackgroundColor: Color(0xFFc5dce8).withOpacity(0.3),
+                hourMinuteTextStyle: AppFont.font(TextStyle(
+                    color: Theme.of(context).textTheme.headline1!.color,
+                    fontSize: 56)),
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor),
+            child: child!);
+      },
     );
     if (_picked != null)
       setState(() {

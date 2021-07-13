@@ -7,12 +7,15 @@ class GenericActionTextRight extends StatelessWidget {
   const GenericActionTextRight({Key? key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title!,
-      style: AppFont.font(TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w400,
-          fontSize: 17)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        title!.toUpperCase(),
+        style: AppFont.font(TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.w500,
+            fontSize: 16)),
+      ),
     );
   }
 }

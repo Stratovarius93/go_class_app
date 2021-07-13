@@ -33,7 +33,7 @@ class _GenericInputState extends State<GenericInput> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.3),
+          color: Theme.of(context).inputDecorationTheme.focusColor,
           borderRadius: BorderRadius.circular(16)),
       child: TextFormField(
         textAlign: widget.textAlign ?? TextAlign.start,
