@@ -1,4 +1,6 @@
 {
+  "addAlert_schedule_part1": "You must select at least one subject and a start and end time.",
+  "addAlert_schedule_title": "Can't create signature",
   "addAlert_signaturePart1": "Input subject name",
   "addAlert_signatureTitle": "Create subject",
   "addAlert_signature_hintText": "Subject name",
@@ -114,6 +116,14 @@
   "snackBar_cleanSchedule1": "Schedule is empty",
   "snackBar_cleanSchedule2": "Schedule cleaned",
   "snackBar_clipboard": "Copied to clipboard",
+  "snackBar_edit_classroom": "Classroom edited",
+  "snackBar_edit_schedule": "Item edited",
+  "snackBar_edit_signature": "Signature edited",
+  "snackBar_edit_teacher": "Teacher edited",
+  "snackBar_remove_classroom": "Classroom removed",
+  "snackBar_remove_schedule": "Item removed",
+  "snackBar_remove_signature": "Signature removed",
+  "snackBar_remove_teacher": "Teacher removed",
   "theme_dark": "Dark",
   "theme_light": "Light",
   "theme_system": "System"

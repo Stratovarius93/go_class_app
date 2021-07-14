@@ -19,7 +19,7 @@ class __DayButtonState extends State<_DayButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 2),
+      padding: const EdgeInsets.only(left: 7, right: 7),
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(

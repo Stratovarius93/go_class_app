@@ -1,4 +1,6 @@
 {
+  "addAlert_schedule_part1": "Asegúrese de seleccionar al menos una materia y una hora de entrada y salida",
+  "addAlert_schedule_title": "No se puede crear la asignatura",
   "addAlert_signaturePart1": "Ingresa el nombre de la asignatura",
   "addAlert_signatureTitle": "Crear asignatura",
   "addAlert_signature_hintText": "Nombre de la asignatura",
@@ -114,6 +116,14 @@
   "snackBar_cleanSchedule1": "El horario está vacío",
   "snackBar_cleanSchedule2": "Se eliminó el horario",
   "snackBar_clipboard": "Copiado al portapapeles",
+  "snackBar_edit_classroom": "Aula modificada",
+  "snackBar_edit_schedule": "Ítem modificado",
+  "snackBar_edit_signature": "Asignatura modificada",
+  "snackBar_edit_teacher": "Profesor(a) modificado(a)",
+  "snackBar_remove_classroom": "Aula eliminada",
+  "snackBar_remove_schedule": "Ítem eliminado",
+  "snackBar_remove_signature": "Asignatura eliminada",
+  "snackBar_remove_teacher": "Profesor(a) eliminado(a)",
   "theme_dark": "Oscuro",
   "theme_light": "Claro",
   "theme_system": "Sistema"

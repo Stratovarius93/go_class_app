@@ -46,6 +46,7 @@ class _AddSchedulePageState extends State<AddSchedulePage> {
               child: Scaffold(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 appBar: AppBar(
+                  brightness: Theme.of(context).brightness,
                   iconTheme:
                       IconThemeData(color: Theme.of(context).primaryColor),
                   title: GenericBodyText(
@@ -140,16 +141,16 @@ Future<void> _showAlert(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'No se puede crear la asignatura',
+          '${AppLocalizations.of(context)!.addAlert_schedule_title}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Text(
-            'Asegúrese de seleccional al menos una materia y una hora de entrada y salida',
+            '${AppLocalizations.of(context)!.addAlert_schedule_part1}',
             style: AppFont.fontHeadline2(context)),
         actions: [
           TextButton(
             child: Text(
-              'Aceptar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_ok}',
               style: AppFont.font(TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,

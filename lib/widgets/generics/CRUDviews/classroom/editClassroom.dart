@@ -6,6 +6,7 @@ import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
@@ -68,6 +69,7 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
+            brightness: Theme.of(context).brightness,
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
               title: '${AppLocalizations.of(context)!.editClassroom_title}',
@@ -258,6 +260,17 @@ class _EditclassroomPageState extends State<EditclassroomPage> {
                                   _type = TypeDescription.text;
                                   _url = '';
                                   _name = '';
+                                  SnackBar _snackBar = GenericSnackBar(
+                                          duration:
+                                              Duration(milliseconds: 1500),
+                                          color: Color(0xFF5a8896),
+                                          context: context,
+                                          content:
+                                              '${AppLocalizations.of(context)!.snackBar_edit_classroom}')
+                                      .snackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(_snackBar);
+
                                   Navigator.pop(context);
                                 }
                               }

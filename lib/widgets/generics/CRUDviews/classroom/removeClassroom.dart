@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/roomClass/classroom_bloc.dart';
 import 'package:go_class_app/models/classroom/room_model.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -50,6 +52,15 @@ Future<void> showAlertclassroomRemove(
             onPressed: () {
               BlocProvider.of<ClassroomBloc>(context)
                   .add(Removeclassroom(classroom.id!));
+              SnackBar _snackBar = GenericSnackBar(
+                      duration: Duration(milliseconds: 1500),
+                      color: AppColorLight.listSchedule[5],
+                      context: context,
+                      content:
+                          '${AppLocalizations.of(context)!.snackBar_remove_classroom}')
+                  .snackBar();
+              ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
               Navigator.of(context).pop();
             },
           ),

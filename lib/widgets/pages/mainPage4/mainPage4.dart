@@ -60,8 +60,8 @@ class _MainPage4State extends State<MainPage4> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: AnimatedTheme(
         duration: Duration(milliseconds: 500),
         data: Theme.of(context),
@@ -169,6 +169,7 @@ class _MainPage4State extends State<MainPage4> {
                               }
                               if (_count == state.scheduleList.length) {
                                 SnackBar _snackBar = GenericSnackBar(
+                                        color: Color(0xFF5a8896),
                                         context: context,
                                         content:
                                             '${AppLocalizations.of(context)!.snackBar_cleanSchedule1}')

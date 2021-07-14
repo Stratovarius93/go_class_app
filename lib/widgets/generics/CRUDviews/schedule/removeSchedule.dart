@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:go_class_app/widgets/utils/signatureUtils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -63,6 +65,15 @@ Future<void> showAlertRemoveSchedule(
             onPressed: () {
               BlocProvider.of<ScheduleBloc>(context)
                   .add(RemoveSchedule(position, currentDay));
+              SnackBar _snackBar = GenericSnackBar(
+                      duration: Duration(milliseconds: 1500),
+                      color: AppColorLight.listSchedule[5],
+                      context: context,
+                      content:
+                          '${AppLocalizations.of(context)!.snackBar_remove_schedule}')
+                  .snackBar();
+              ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
               Navigator.pop(context);
             },
           )

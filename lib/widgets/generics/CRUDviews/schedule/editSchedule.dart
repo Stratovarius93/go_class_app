@@ -6,6 +6,7 @@ import 'package:go_class_app/bloc/weekDays/weekDays_bloc.dart';
 import 'package:go_class_app/models/itemSchedule/itemSchedule_model.dart';
 import 'package:go_class_app/widgets/generics/bodyText.dart';
 import 'package:go_class_app/widgets/generics/bottomButton.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
@@ -50,6 +51,7 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
               child: Scaffold(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 appBar: AppBar(
+                  brightness: Theme.of(context).brightness,
                   iconTheme:
                       IconThemeData(color: Theme.of(context).primaryColor),
                   leading: IconButton(
@@ -121,6 +123,16 @@ class _EditSchedulePageState extends State<EditSchedulePage> {
                                     .add(SortScheduleList());
                                 BlocProvider.of<CRUDsignatureBloc>(context)
                                     .add(CRUDclean());
+                                SnackBar _snackBar = GenericSnackBar(
+                                        duration: Duration(milliseconds: 1500),
+                                        color: Color(0xFF5a8896),
+                                        context: context,
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_edit_schedule}')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+
                                 Navigator.pop(context);
                               } else {
                                 await _showAlert(
@@ -155,16 +167,16 @@ Future<void> _showAlert(
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'No se puede crear la asignatura',
+          '${AppLocalizations.of(context)!.addAlert_schedule_title}',
           style: AppFont.fontTitleDialog(context),
         ),
         content: Text(
-            'Asegúrese de seleccional al menos una materia y una hora de entrada y salida',
+            '${AppLocalizations.of(context)!.addAlert_schedule_part1}',
             style: AppFont.fontHeadline2(context)),
         actions: [
           TextButton(
             child: Text(
-              'Aceptar'.toUpperCase(),
+              '${AppLocalizations.of(context)!.buttonAlert_ok}',
               style: AppFont.font(TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,

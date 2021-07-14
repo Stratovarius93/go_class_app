@@ -54,12 +54,13 @@ class _MainIndexState extends State<MainIndex> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          systemNavigationBarIconBrightness: Theme.of(context).brightness,
+          systemNavigationBarIconBrightness:
+              Theme.of(context).appBarTheme.brightness,
           systemNavigationBarColor:
               Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           systemNavigationBarDividerColor: Colors.transparent,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: Scaffold(
         body: PersistentTabView(
           context,

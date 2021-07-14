@@ -34,8 +34,8 @@ class _MainPage3State extends State<MainPage3> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: AnimatedTheme(
         duration: Duration(milliseconds: 500),
         data: Theme.of(context),
@@ -137,6 +137,8 @@ class __TeachersState extends State<_Teachers> {
               ),
               title: Text(
                 '${state.listTeachers[index].name} ${state.listTeachers[index].lastName}',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: AppFont.font(TextStyle(
                     color: Theme.of(context).textTheme.headline3!.color)),
               ),
@@ -144,6 +146,8 @@ class __TeachersState extends State<_Teachers> {
                       state.listTeachers[index].phoneNumber!.length != 0)
                   ? Text(
                       '${state.listTeachers[index].phoneNumber}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: AppFont.font(TextStyle(
                           color: Theme.of(context).textTheme.headline2!.color)),
                     )

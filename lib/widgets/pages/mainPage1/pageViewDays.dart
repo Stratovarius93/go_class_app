@@ -45,6 +45,7 @@ class __PageViewDaysState extends State<_PageViewDays> {
                               onPageChanged: (int value) {
                                 BlocProvider.of<WeekDaysBloc>(context)
                                     .add(EditDayState(value));
+                                print('Moviendo: $value');
                                 //_scrollController.animateTo(
                                 //1.0,
                                 //curve: Curves.easeOut,

@@ -15,13 +15,13 @@ ThemeData lightThemeData(BuildContext context) {
           TextSelectionThemeData(selectionHandleColor: AppColorLight.primary),
       primaryColor: AppColorLight.primary,
       secondaryHeaderColor: AppColorLight.second,
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       scaffoldBackgroundColor: AppColorLight.scaffoldBackground,
       appBarTheme: AppBarTheme(
           textTheme:
               TextTheme(headline1: TextStyle(color: AppColorLight.headline1)),
           backgroundColor: AppColorLight.appBarBackground,
-          brightness: Brightness.light),
+          brightness: Brightness.dark),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: AppColorLight.bottomNavigationBarBackground,
           selectedItemColor: AppColorLight.bottomNavigationBarSelectedIcon,
@@ -60,13 +60,13 @@ ThemeData darkThemeData(BuildContext context) {
           TextSelectionThemeData(selectionHandleColor: AppColorDark.primary),
       primaryColor: AppColorDark.primary,
       secondaryHeaderColor: AppColorDark.second,
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColorDark.scaffoldBackground,
       appBarTheme: AppBarTheme(
           textTheme:
               TextTheme(headline1: TextStyle(color: AppColorDark.headline1)),
           backgroundColor: AppColorDark.appBarBackground,
-          brightness: Brightness.dark),
+          brightness: Brightness.light),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: AppColorDark.bottomNavigationBarBackground,
           selectedItemColor: AppColorDark.bottomNavigationBarSelectedIcon,

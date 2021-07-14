@@ -49,6 +49,8 @@ class __ClassroomState extends State<_Classroom> {
                 ),
                 title: Text(
                   '${state.listclassroom[index].name}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppFont.font(TextStyle(
                       color: (state.listclassroom[index].type ==
                               TypeDescription.url)
@@ -57,7 +59,7 @@ class __ClassroomState extends State<_Classroom> {
                       fontWeight: FontWeight.w500)),
                 ),
                 subtitle: Text(
-                  _subtitle(state.listclassroom[index], context),
+                  subtitleClassroom(state.listclassroom[index], context),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: AppFont.font(TextStyle(
@@ -104,18 +106,6 @@ class __ClassroomState extends State<_Classroom> {
         );
       }
     });
-  }
-}
-
-String _subtitle(ClassroomModel listclassroom, BuildContext context) {
-  if (listclassroom.type == TypeDescription.text) {
-    if (listclassroom.description == 'presencial') {
-      return '${AppLocalizations.of(context)!.addClassroom_descriptionOnSite}';
-    } else {
-      return '${AppLocalizations.of(context)!.addClassroom_descriptionNone}';
-    }
-  } else {
-    return listclassroom.description!;
   }
 }
 
@@ -201,6 +191,7 @@ List<PopupMenuItemModel> _listOptions(
 void _launchURL(ClassroomModel classroom, BuildContext context) async {
   String _url = classroom.description!;
   SnackBar _snackBar = GenericSnackBar(
+      color: AppColorLight.listSchedule[5],
       context: context,
       content: '${AppLocalizations.of(context)!.snackBar_URL}',
       action: '${AppLocalizations.of(context)!.popMenu_edit}'.toUpperCase(),

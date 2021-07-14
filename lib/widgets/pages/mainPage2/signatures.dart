@@ -51,6 +51,8 @@ class __SignaturesState extends State<_Signatures> {
                   ),
                   title: Text(
                     '${state.listSignatures[index].name}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: AppFont.font(TextStyle(
                         color: Theme.of(context).textTheme.headline3!.color)),
                   ),

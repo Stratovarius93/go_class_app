@@ -60,6 +60,7 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
+            brightness: Theme.of(context).brightness,
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
               title: '${AppLocalizations.of(context)!.addClassroom_title}',

@@ -140,7 +140,8 @@ class __ListViewState extends State<_ListView> {
                       subtitle:
                           (state.listclassroom[index].description!.isNotEmpty)
                               ? Text(
-                                  state.listclassroom[index].description!,
+                                  subtitleClassroom(
+                                      state.listclassroom[index], context),
                                   style: AppFont.font(TextStyle(
                                       color: Theme.of(context)
                                           .textTheme

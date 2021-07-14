@@ -4,6 +4,7 @@ import 'package:go_class_app/bloc/CRUDsignature/CRUDsignature_bloc.dart';
 import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
@@ -77,6 +78,15 @@ Future<void> showAlertSignatureEdit(BuildContext context,
                 BlocProvider.of<SignaturesBloc>(context)
                     .add(EditSignature(signature, _newSignature));
                 _newValueAdd = '';
+                SnackBar _snackBar = GenericSnackBar(
+                        duration: Duration(milliseconds: 1500),
+                        color: Color(0xFF5a8896),
+                        context: context,
+                        content:
+                            '${AppLocalizations.of(context)!.snackBar_edit_signature}')
+                    .snackBar();
+                ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
                 Navigator.of(context).pop();
               }
             },
@@ -145,6 +155,15 @@ Future<void> showAlertSignatureRemove2(
                   .add(RemoveScheduleSignature(signature));
               BlocProvider.of<SignaturesBloc>(context)
                   .add(RemoveSignature(signature));
+              SnackBar _snackBar = GenericSnackBar(
+                      duration: Duration(milliseconds: 1500),
+                      color: AppColorLight.listSchedule[5],
+                      context: context,
+                      content:
+                          '${AppLocalizations.of(context)!.snackBar_remove_signature}')
+                  .snackBar();
+              ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
               Navigator.of(context).pop();
             },
           ),
@@ -203,6 +222,15 @@ Future<void> showAlertSignatureRemove(
             onPressed: () {
               BlocProvider.of<SignaturesBloc>(context)
                   .add(RemoveSignature(signature));
+              SnackBar _snackBar = GenericSnackBar(
+                      duration: Duration(milliseconds: 1500),
+                      color: AppColorLight.listSchedule[5],
+                      context: context,
+                      content:
+                          '${AppLocalizations.of(context)!.snackBar_remove_signature}')
+                  .snackBar();
+              ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
               Navigator.of(context).pop();
             },
           ),
@@ -281,14 +309,13 @@ Future<void> showAlertSignatureAdd(
                         .add(AddSignature(_signature));
                     BlocProvider.of<CRUDsignatureBloc>(context)
                         .add(CRUDAddSignature(_signature.id!));
+                    _valueAdd = '';
                     SnackBar _snackBar = GenericSnackBar(
                             context: context,
                             content:
-                                '${AppLocalizations.of(context)!.snackBar_addTeacher} $_valueAdd')
+                                '${AppLocalizations.of(context)!.snackBar_addSignature} $_valueAdd')
                         .snackBar();
                     ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-
-                    _valueAdd = '';
                     Navigator.of(context).pop();
                   }
                 })

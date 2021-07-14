@@ -19,11 +19,43 @@ class __DaysWeekTopState extends State<_DaysWeekTop> {
     ];
     return BlocBuilder<WeekDaysBloc, WeekDaysState>(
         builder: (BuildContext context, state) {
+      _scrollController = ScrollController();
       if (state.daysList.length > 0) {
+        if (state.currentDay != null && state.daysList.length >= 4) {
+          print('Days: ${state.currentDay}');
+          WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+            if (_scrollController!.hasClients) {
+              double _scrollLength =
+                  _scrollController!.position.maxScrollExtent;
+              double _partScrollLength =
+                  _scrollLength / (state.daysList.length - 1);
+
+              if (state.currentDay == 0) {
+                _scrollController!.animateTo(
+                  _scrollController!.position.minScrollExtent,
+                  curve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 300),
+                );
+              } else if (state.currentDay == (state.daysList.length - 1)) {
+                _scrollController!.animateTo(
+                  _scrollController!.position.maxScrollExtent,
+                  curve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 300),
+                );
+              } else {
+                _scrollController!.animateTo(
+                  (_partScrollLength * state.currentDay!),
+                  curve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 300),
+                );
+              }
+            }
+          });
+        }
         return Container(
           height: 60,
           child: ListView(
-            //controller: _scrollController,
+            controller: _scrollController,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,

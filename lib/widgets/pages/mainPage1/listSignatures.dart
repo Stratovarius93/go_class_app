@@ -53,7 +53,7 @@ class _ListSignaturesViewState extends State<ListSignaturesView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GenericAddNewItem(
+            GenericAddNewItemRive(
                 title: '${AppLocalizations.of(context)!.addNew}',
                 onTap: () {
                   Navigator.pushNamed(_context!, 'mainPage1AddSchedule');
@@ -181,6 +181,8 @@ class _ItemSchedule extends StatelessWidget {
                   signatureList: signatureList))
               ? Text(
                   '${signatureByID(id: itemScheduleModel.idSignature, signatureList: signatureList).name}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppFont.font(TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontWeight: FontWeight.w400,
@@ -197,6 +199,8 @@ class _ItemSchedule extends StatelessWidget {
                   id: itemScheduleModel.idTeacher, teacherList: teacherList))
               ? Text(
                   '${teacherByID(id: itemScheduleModel.idTeacher, teacherList: teacherList).name} ${teacherByID(id: itemScheduleModel.idTeacher, teacherList: teacherList).lastName}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppFont.font(TextStyle(
                     color: Theme.of(context).textTheme.headline2!.color,
                     fontWeight: FontWeight.w400,
@@ -288,6 +292,7 @@ void _launchURL(
   String _url = classroom.description!;
 
   SnackBar _snackBar = GenericSnackBar(
+      color: AppColorLight.listSchedule[5],
       context: context,
       content: '${AppLocalizations.of(context)!.snackBar_URL}',
       action: '${AppLocalizations.of(context)!.popMenu_edit}'.toUpperCase(),

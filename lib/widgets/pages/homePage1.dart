@@ -41,8 +41,8 @@ class _HomePage1State extends State<HomePage1> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: AnimatedTheme(
         duration: Duration(milliseconds: 500),
         data: Theme.of(context),

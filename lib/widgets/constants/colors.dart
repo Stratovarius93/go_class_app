@@ -9,7 +9,7 @@ class AppColorLight {
   //static const Color primary = Color(0xFFF0964F);
   //static const Color second = Color(0xFF609696);
   static const Color primary = Color(0xFFffb93e);
-  static const Color second = Color(0xFF74acbe);
+  static const Color second = Color(0xFF74acbe); //skyblue
 //AppBarTheme
   static const Color appBarBackground = Colors.white;
 //bottomNavigationBarTheme
@@ -34,11 +34,11 @@ class AppColorLight {
   //Color list Schedule
   static const List<Color?> listSchedule = [
     primary,
-    second,
-    Color(0xFF82b378),
-    Color(0xFF163560),
+    second, //skyblue
+    Color(0xFF82b378), //green
+    Color(0xFF163560), //blue
     Color(0xFFFCB5A3),
-    Color(0xFFbc3f3f)
+    Color(0xFFbc3f3f) //red
   ];
 }
 

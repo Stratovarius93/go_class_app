@@ -45,7 +45,7 @@ part 'pageViewDays.dart';
 
 PageController? _pageController;
 BuildContext? _context;
-//ScrollController _scrollController =
+ScrollController? _scrollController;
 //new ScrollController(initialScrollOffset: 1.0);
 
 class MainPage1 extends StatefulWidget {
@@ -78,9 +78,10 @@ class _MainPage1State extends State<MainPage1> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          systemNavigationBarIconBrightness: Theme.of(context).brightness,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          systemNavigationBarIconBrightness:
+              Theme.of(context).appBarTheme.brightness,
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: AnimatedTheme(
         duration: Duration(milliseconds: 500),
         data: Theme.of(context),

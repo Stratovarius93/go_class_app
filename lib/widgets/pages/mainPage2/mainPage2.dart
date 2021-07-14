@@ -7,6 +7,7 @@ import 'package:go_class_app/bloc/schedule/schedule_bloc.dart';
 import 'package:go_class_app/bloc/signatures/signatures_bloc.dart';
 import 'package:go_class_app/models/classroom/room_model.dart';
 import 'package:go_class_app/models/signature/signature_model.dart';
+import 'package:go_class_app/widgets/constants/colors.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/classroom/editClassroom.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/classroom/removeClassroom.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/signature/alertDialogSignatures.dart';
@@ -18,6 +19,7 @@ import 'package:go_class_app/widgets/generics/popMenuItem/popMenuItemModel.dart'
 import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:go_class_app/widgets/generics/subtitle.dart';
 import 'package:go_class_app/widgets/generics/title.dart';
+import 'package:go_class_app/widgets/utils/classroomUtils.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:share/share.dart';
@@ -42,8 +44,8 @@ class _MainPage2State extends State<MainPage2> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarBrightness: Theme.of(context).brightness,
-          statusBarIconBrightness: Theme.of(context).brightness),
+          statusBarBrightness: Theme.of(context).appBarTheme.brightness,
+          statusBarIconBrightness: Theme.of(context).appBarTheme.brightness),
       child: AnimatedTheme(
         duration: Duration(milliseconds: 500),
         data: Theme.of(context),
@@ -76,7 +78,7 @@ class _MainPage2State extends State<MainPage2> {
                             child: GestureDetector(
                               onTap: () async {
                                 await showAlertSignatureAdd(
-                                    context, _formKeyAdd);
+                                    widget.contextRoute!, _formKeyAdd);
                               },
                               child: GenericActionTextRight(
                                 title:
@@ -89,7 +91,7 @@ class _MainPage2State extends State<MainPage2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: const _Signatures(),
+                  child: _Signatures(),
                 ),
                 SizedBox(
                   height: 30,

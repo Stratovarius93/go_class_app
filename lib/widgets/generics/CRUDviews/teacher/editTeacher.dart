@@ -7,6 +7,7 @@ import 'package:go_class_app/widgets/generics/bottomButton.dart';
 import 'package:go_class_app/widgets/generics/category.dart';
 import 'package:go_class_app/widgets/generics/input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_class_app/widgets/generics/snackBar.dart';
 import 'package:ionicons/ionicons.dart';
 
 String _name = '';
@@ -62,6 +63,7 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
+            brightness: Theme.of(context).brightness,
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             title: GenericBodyText(
               title: '${AppLocalizations.of(context)!.editTeacher_title}',
@@ -189,6 +191,16 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
                                 _name = '';
                                 _lastName = '';
                                 _phoneNumber = '';
+                                SnackBar _snackBar = GenericSnackBar(
+                                        duration: Duration(milliseconds: 1500),
+                                        color: Color(0xFF5a8896),
+                                        context: context,
+                                        content:
+                                            '${AppLocalizations.of(context)!.snackBar_edit_teacher}')
+                                    .snackBar();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(_snackBar);
+
                                 Navigator.of(context).pop();
                               } catch (e) {
                                 print('======== ERROR =======');
