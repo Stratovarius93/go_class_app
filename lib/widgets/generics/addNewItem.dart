@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_class_app/widgets/constants/screenSize.dart';
 import 'package:go_class_app/widgets/generics/rive/resting.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:ionicons/ionicons.dart';
@@ -101,7 +102,8 @@ class _GenericAddNewItemRiveState extends State<GenericAddNewItemRive> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
-                height: 200,
+                //height: 200,
+                height: screenWidth(context) * 0.45,
                 child: RiveResting(),
               ),
             ),

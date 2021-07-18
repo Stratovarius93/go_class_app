@@ -309,13 +309,13 @@ Future<void> showAlertSignatureAdd(
                         .add(AddSignature(_signature));
                     BlocProvider.of<CRUDsignatureBloc>(context)
                         .add(CRUDAddSignature(_signature.id!));
-                    _valueAdd = '';
                     SnackBar _snackBar = GenericSnackBar(
                             context: context,
                             content:
                                 '${AppLocalizations.of(context)!.snackBar_addSignature} $_valueAdd')
                         .snackBar();
                     ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+                    _valueAdd = '';
                     Navigator.of(context).pop();
                   }
                 })

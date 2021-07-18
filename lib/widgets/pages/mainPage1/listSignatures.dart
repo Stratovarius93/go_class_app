@@ -377,51 +377,60 @@ Future<void> _showScheduleSignatureSelected(
                       ),
                     )
                   : Container(),
-              (teacher.id != null && teacher.id!.length != 0)
-                  ? ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Theme.of(context)
-                            .secondaryHeaderColor
-                            .withOpacity(0.2),
-                        child: Center(
-                          child: Transform.rotate(
-                            angle: _degrees * -math.pi / 180,
-                            child: Text(
-                              '${teacher.name[0]}',
-                              style: AppFont.font(TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w400)),
+              (teacher.name.isNotEmpty && teacher.name.length != 0)
+                  ? Container(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Theme.of(context)
+                              .secondaryHeaderColor
+                              .withOpacity(0.2),
+                          child: Center(
+                            child: Transform.rotate(
+                              angle: _degrees * -math.pi / 180,
+                              child: Text(
+                                '${teacher.name[0]}',
+                                style: AppFont.font(TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w400)),
+                              ),
                             ),
                           ),
                         ),
+                        title: Text(
+                          '${teacher.name} ${teacher.lastName}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppFont.font(TextStyle(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .color)),
+                        ),
+                        subtitle: (teacher.phoneNumber!.isNotEmpty)
+                            ? Text(
+                                '${teacher.phoneNumber}',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppFont.font(TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .color)),
+                              )
+                            : null,
+                        trailing: (teacher.phoneNumber!.isNotEmpty)
+                            ? IconButton(
+                                onPressed: () {
+                                  teacherDial(teacher.phoneNumber!);
+                                },
+                                icon: Icon(
+                                  Ionicons.call_outline,
+                                  color: Theme.of(context).primaryColor,
+                                ))
+                            : null,
                       ),
-                      title: Text(
-                        '${teacher.name} ${teacher.lastName}',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppFont.font(TextStyle(
-                            color:
-                                Theme.of(context).textTheme.headline3!.color)),
-                      ),
-                      subtitle: Text(
-                        '${teacher.phoneNumber}',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppFont.font(TextStyle(
-                            color:
-                                Theme.of(context).textTheme.headline2!.color)),
-                      ),
-                      trailing: (teacher.phoneNumber!.isNotEmpty)
-                          ? IconButton(
-                              onPressed: () {
-                                _callNumber(teacher.phoneNumber!);
-                              },
-                              icon: Icon(
-                                Ionicons.call_outline,
-                                color: Theme.of(context).primaryColor,
-                              ))
-                          : Container(),
                     )
                   : Container(),
               (classroom.id != null)
@@ -467,7 +476,7 @@ Future<void> _showScheduleSignatureSelected(
                             fontWeight: FontWeight.w500)),
                       ),
                       subtitle: Text(
-                        '${classroom.description}',
+                        '${subtitleClassroom(classroom, context)}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: AppFont.font(TextStyle(
@@ -509,8 +518,4 @@ Future<void> _showScheduleSignatureSelected(
       );
     },
   );
-}
-
-_callNumber(String number) async {
-  await FlutterPhoneDirectCaller.callNumber(number);
 }

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.go_class_app">
+    package="com.aristoss.goclass">
    <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -14,11 +14,12 @@
             <data android:mimeType="*/*" />
         </intent>
     </queries>
+    <!--<uses-permission android:name="android.permission.CALL_PHONE"/>-->
     <!--<uses-permission android:name="android.permission.VIBRATE"/>-->
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
    <application
-        android:label="go_class_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Go Class"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

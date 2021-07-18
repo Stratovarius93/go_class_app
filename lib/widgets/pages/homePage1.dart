@@ -117,11 +117,12 @@ class _Page1 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Ionicons.calendar_outline,
-            size: screenWidth(context) * 0.3,
-            color: Theme.of(context).secondaryHeaderColor,
-          ),
+          Container(
+              width: screenWidth(context) * 0.4,
+              height: screenWidth(context) * 0.4,
+              child: Image(
+                image: AssetImage('images/icon/icon.png'),
+              )),
           SizedBox(
             height: 32,
           ),

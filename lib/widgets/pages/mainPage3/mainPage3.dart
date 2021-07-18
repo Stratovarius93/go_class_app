@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:go_class_app/bloc/teachers/teachers_bloc.dart';
 import 'package:go_class_app/models/teacher/teacher_model.dart';
 import 'package:go_class_app/widgets/generics/CRUDviews/teacher/editTeacher.dart';
@@ -17,6 +16,7 @@ import 'package:go_class_app/widgets/generics/subtitle.dart';
 import 'package:go_class_app/widgets/generics/title.dart';
 import 'package:go_class_app/widgets/utils/fontTextStyle.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_class_app/widgets/utils/teacherUtils.dart';
 import 'package:ionicons/ionicons.dart';
 
 class MainPage3 extends StatefulWidget {
@@ -157,7 +157,7 @@ class __TeachersState extends State<_Teachers> {
                         state.listTeachers[index].phoneNumber!.length != 0)
                     ? IconButton(
                         onPressed: () {
-                          _callNumber(state.listTeachers[index].phoneNumber!);
+                          teacherDial(state.listTeachers[index].phoneNumber!);
                         },
                         icon: Icon(
                           Ionicons.call_outline,
@@ -287,8 +287,4 @@ List<PopupMenuItemModel> _listOptions(
   } else {
     return _list2;
   }
-}
-
-_callNumber(String number) async {
-  await FlutterPhoneDirectCaller.callNumber(number);
 }

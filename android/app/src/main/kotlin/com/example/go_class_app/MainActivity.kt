@@ -1,4 +1,4 @@
-package com.example.go_class_app
+package com.aristoss.goclass
 
 import io.flutter.embedding.android.FlutterActivity
 
